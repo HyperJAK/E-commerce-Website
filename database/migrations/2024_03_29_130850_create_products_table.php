@@ -13,8 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            // $table->bigInteger('product_id'); //no need to rename it
-            $table->id();
+            $table->id('product_id');
             $table->string('name');
             $table->longtext('description');
             $table->double('price');
@@ -25,7 +24,7 @@ return new class extends Migration
             $table->string('path3');
             $table->string('path4');
             // ma tnsa to un-comment the next line after creating
-            // $table->foreign('store_id')->references('id')->on('stores');
+            $table->foreign('store_id')->references('store_id')->on('stores');
             $table->timestamps();
         });
     }
