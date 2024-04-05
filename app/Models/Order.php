@@ -10,6 +10,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'order_id';
+
     protected $fillable = [
         'status',
         'description',
@@ -17,6 +19,8 @@ class Order extends Model
         'shipping_method',
         'order_placement_date',
         'total_price',
+        'buyer_id',
+        'seller_id'
     ];
 
 
@@ -26,6 +30,10 @@ class Order extends Model
     public function seller(){
         return $this->belongsTo(User::class,'seller_id','user_id');
     }
+
+    //Make sure to add the correct primary and foreign keys (as reference):
+    //hasMany and hasOne first id is the one in the table that we are referencing and second one is what its called in this table
+    //BelongsTo is the opposite, first id is the current table foreign id name and second is the other table
     public function items(){
         return $this->hasMany(Cart::class);
     }
