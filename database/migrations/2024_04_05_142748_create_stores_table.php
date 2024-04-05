@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->boolean('status')->default('false');
+            $table->foreign('user_id')->references('user_id')->on('user');
         });
     }
 

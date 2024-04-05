@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('store_id');
             $table->foreign('participant_id')->references('user_id')->on('user');
             $table->foreign('store_id')->references('store_id')->on('store');
+            $table->foreign('product_id')->references('product_id')->on('product');
             $table->timestamps();
         });
     }
