@@ -20,7 +20,6 @@ Image
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
             $table->string('status'); //pending, confirmed, shipped, delivered, cancelled
             $table->longtext('description');
             $table->longtext('address');
@@ -28,9 +27,8 @@ Image
             $table->dateTime('order_placement_date');
             $table->double('total_price');
             // ma tnsa to un-comment the next 2 lines after creating
-            // $table->foreign('buyer_id')->references('id')->on('user');
-            // $table->foreign('seller_id')->references('id')->on('user');
-            $table->timestamps();
+             $table->foreign('buyer_id')->references('user_id')->on('user');
+             $table->foreign('seller_id')->references('user_id')->on('user');
         });
     }
 
