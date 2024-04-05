@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('cart_id');
             // ma tnsa to un-comment the next 2 lines after creating
              $table->foreign('buyer_id')->references('user_id')->on('user');
             // $table->foreign('cartItem_id')->references('id')->on('cartItem');
