@@ -11,7 +11,7 @@ class Cart extends Model
 
     protected $primaryKey = 'cart_id';
 
-    protected $fillable = ['name','description','status'];
+    protected $fillable = ['name','description','status', 'buyer_id'];
 
 
     public function buyer(){

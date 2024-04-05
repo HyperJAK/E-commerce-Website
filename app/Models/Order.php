@@ -19,6 +19,8 @@ class Order extends Model
         'shipping_method',
         'order_placement_date',
         'total_price',
+        'buyer_id',
+        'seller_id'
     ];
 
 

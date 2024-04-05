@@ -11,11 +11,11 @@ class Review extends Model
 
     protected $primaryKey = 'review_id';
 
-    protected $fillable = ['content','rating', 'buyer_id', 'product_id', 'store_id'];
+    protected $fillable = ['content','rating', 'reviewer_id', 'product_id', 'store_id'];
 
     //changed to hasOne for less complications that way we know that this product belongs to only this store
     public function getReviewer(){
-        return $this->belongsTo(User::class, 'buyer_id', 'user_id');
+        return $this->belongsTo(User::class, 'reviewer_id', 'user_id');
     }
 
     public function getReviewedProduct(){

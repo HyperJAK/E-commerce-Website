@@ -11,11 +11,11 @@ class Store extends Model
     use HasFactory;
 
     protected $primaryKey = 'store_id';
-    protected $fillable = ['name','description','status'];
+    protected $fillable = ['name','description','status', 'user_id'];
 
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id');//changed this to user_id, because both buyers and
+        return $this->belongsTo(User::class,'user_id', 'user_id');//changed this to user_id, because both buyers and
         //seller are users however the seller has the is_seller == true value
     }
 
