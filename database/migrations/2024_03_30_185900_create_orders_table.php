@@ -20,6 +20,7 @@ Image
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
+            $table->bigIncrements('order_id');
             $table->string('status'); //pending, confirmed, shipped, delivered, cancelled
             $table->longtext('description');
             $table->longtext('address');
