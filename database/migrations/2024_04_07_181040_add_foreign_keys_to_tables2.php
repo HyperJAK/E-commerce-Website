@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-/*            $table->foreign('store_id')->references('store_id')->on('stores');*/
+            /*            $table->foreign('store_id')->references('store_id')->on('stores');*/
             /*$table->foreign('cart_id')->references('cart_id')->on('carts');*/
         });
 
@@ -68,7 +68,9 @@ return new class extends Migration
             $table->foreign('cart_id')->references('cart_id')->on('carts');
         });
 
-
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('order_status_id')->references('order_status_id')->on('order_statuses');
+        });
     }
 
     /**
@@ -76,7 +78,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        /*Schema::table('tables', function (Blueprint $table) {
+        /*Schema::table('tables2', function (Blueprint $table) {
             //
         });*/
     }

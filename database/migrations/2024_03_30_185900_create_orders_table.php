@@ -21,7 +21,7 @@ Image
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('order_id');
-            $table->string('status'); //pending, confirmed, shipped, delivered, cancelled
+            $table->unsignedBigInteger('order_status_id');
             $table->longtext('description');
             $table->longtext('address');
             $table->string('shipping_method'); //by air, by sea w hek 5bar
