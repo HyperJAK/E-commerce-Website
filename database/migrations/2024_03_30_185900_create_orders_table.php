@@ -30,9 +30,10 @@ Image
             $table->unsignedBigInteger('buyer_id');
             $table->unsignedBigInteger('seller_id');
             // ma tnsa to un-comment the next 2 lines after creating
-             $table->foreign('buyer_id')->references('user_id')->on('user');
-             $table->foreign('seller_id')->references('user_id')->on('user');
+
         });
+
+
     }
 
     /**

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('cart_id');
-            $table->foreign('store_id')->references('store_id')->on('store');
-            $table->foreign('cart_id')->references('cart_id')->on('cart');
+
         });
 
         /*Schema::create('password_reset_tokens', function (Blueprint $table) {

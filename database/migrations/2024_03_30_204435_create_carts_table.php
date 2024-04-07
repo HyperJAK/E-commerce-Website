@@ -15,9 +15,11 @@ return new class extends Migration
             $table->bigIncrements('cart_id');
             $table->unsignedBigInteger('buyer_id');
             // ma tnsa to un-comment the next 2 lines after creating
-             $table->foreign('buyer_id')->references('user_id')->on('user');
+
             $table->timestamps();
         });
+
+
     }
 
     /**

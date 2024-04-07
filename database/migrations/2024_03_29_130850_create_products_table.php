@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('path4');
             $table->unsignedBigInteger('store_id');
             // ma tnsa to un-comment the next line after creating
-            $table->foreign('store_id')->references('store_id')->on('stores');
+
             $table->timestamps();
         });
+
+
     }
 
     /**
