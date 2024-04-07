@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('store_id')->references('store_id')->on('stores');
-            $table->foreign('cart_id')->references('cart_id')->on('carts');
+/*            $table->foreign('store_id')->references('store_id')->on('stores');*/
+            /*$table->foreign('cart_id')->references('cart_id')->on('carts');*/
         });
 
         Schema::table('products', function (Blueprint $table) {
