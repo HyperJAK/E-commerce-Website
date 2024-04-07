@@ -11,14 +11,10 @@ class Cart extends Model
 
     protected $primaryKey = 'cart_id';
 
-    protected $fillable = ['buyer_id','cartItem_id'];
+    protected $fillable = ['buyer_id'];
 
 
-    public function buyer(){
+    public function getBuyer(){
         return $this->belongsTo(User::class,'buyer_id','user_id');
-    }
-
-    public function items(){
-        return $this->hasMany(CartItem::class);
     }
 }
