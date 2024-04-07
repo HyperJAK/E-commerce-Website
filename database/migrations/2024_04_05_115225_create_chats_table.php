@@ -12,17 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('chat_id');
+            $table->unsignedBigInteger('initiator_id');
+            $table->unsignedBigInteger('target_id');
             $table->foreignId('initiator_id')->constrained('users');
-            $table->foreignId('store_id')->constrained('store');
+            $table->foreignId('target_id')->constrained('users');
             $table->timestamps();
         });
 
+        /* commented for testing
         Schema::table('chat_messages', function (Blueprint $table) {
-            $table->foreignId('chat_id')->constrained(); 
-        });
+            $table->foreignId('chat_id')->constrained();
+        });*/
     }
-    
+
 
     /**
      * Reverse the migrations.

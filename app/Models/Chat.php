@@ -9,19 +9,27 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'chat_id';
+
     protected $fillable = [
-        'chat_id', 
+        'initiator_id',
+        'target_id'
     ];
 
-   
-    public function messages()
+
+    public function getMessages()
     {
         return $this->hasMany(ChatMessage::class);
     }
 
-    
-    public function initiator()
+    public function getTarget()
     {
-        return $this->belongsTo(User::class, 'initiator_id');
+        return $this->belongsTo(User::class, 'target_id', 'user_id');
+    }
+
+
+    public function getInitiator()
+    {
+        return $this->belongsTo(User::class, 'initiator_id', 'user_id');
     }
 }
