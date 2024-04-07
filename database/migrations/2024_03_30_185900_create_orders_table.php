@@ -21,7 +21,7 @@ Image
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('order_id');
-            $table->string('status'); //pending, confirmed, shipped, delivered, cancelled
+            $table->unsignedBigInteger('order_status_id');
             $table->longtext('description');
             $table->longtext('address');
             $table->string('shipping_method'); //by air, by sea w hek 5bar
@@ -30,9 +30,10 @@ Image
             $table->unsignedBigInteger('buyer_id');
             $table->unsignedBigInteger('seller_id');
             // ma tnsa to un-comment the next 2 lines after creating
-             $table->foreign('buyer_id')->references('user_id')->on('user');
-             $table->foreign('seller_id')->references('user_id')->on('user');
+
         });
+
+
     }
 
     /**

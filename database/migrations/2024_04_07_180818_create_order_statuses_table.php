@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
-            $table->bigIncrements('cart_id');
-            $table->unsignedBigInteger('buyer_id');
-            // ma tnsa to un-comment the next 2 lines after creating
-
-            $table->timestamps();
+        Schema::create('order_statuses', function (Blueprint $table) {
+            $table->bigIncrements('order_status_id');
+            $table->string('name');
         });
-
-
     }
 
     /**
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('order_statuses');
     }
 };

@@ -18,11 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_method_id');
             $table->unsignedBigInteger('payment_status_id');
             $table->unsignedBigInteger('order_id');
-            $table->foreign('payment_method_id')->references('payment_method_id')->on('PaymentMethod');
-            $table->foreign('payment_status_id')->references('payment_status_id')->on('PaymentStatus');
-            $table->foreign('order_id')->references('order_id')->on('Order');
+
 
         });
+
+
     }
 
     /**

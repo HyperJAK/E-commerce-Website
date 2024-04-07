@@ -12,8 +12,8 @@ class Chat extends Model
     protected $primaryKey = 'chat_id';
 
     protected $fillable = [
-        'initiator_id',
-        'target_id'
+        'user_initiator_id',
+        'user_target_id'
     ];
 
 
@@ -24,12 +24,12 @@ class Chat extends Model
 
     public function getTarget()
     {
-        return $this->belongsTo(User::class, 'target_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_target_id', 'user_id');
     }
 
 
     public function getInitiator()
     {
-        return $this->belongsTo(User::class, 'initiator_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_initiator_id', 'user_id');
     }
 }

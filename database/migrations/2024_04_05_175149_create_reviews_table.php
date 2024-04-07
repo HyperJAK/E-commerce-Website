@@ -16,14 +16,12 @@ return new class extends Migration
             $table->string('content');
             $table->integer('rating');
             $table->unsignedBigInteger('reviewer_id');
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('store_id')->nullable();
-            $table->foreign('reviewer_id')->references('user_id')->on('user');
-            //here we are using this syntax because we won't always need to fill both these foreign keys so this way they can be null
-            $table->foreignId('product_id')->nullable()->constrained('product', 'product_id');
-            $table->foreignId('store_id')->nullable()->constrained('store', 'store_id');
+            /*$table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('store_id')->nullable();*/
             $table->timestamps();
         });
+
+
     }
 
     /**

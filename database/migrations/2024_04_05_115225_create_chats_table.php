@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->bigIncrements('chat_id');
-            $table->unsignedBigInteger('initiator_id');
-            $table->unsignedBigInteger('target_id');
-            $table->foreignId('initiator_id')->constrained('users');
-            $table->foreignId('target_id')->constrained('users');
+            $table->unsignedBigInteger('user_initiator_id');
+            $table->unsignedBigInteger('user_target_id');
+
             $table->timestamps();
         });
+
+
 
         /* commented for testing
         Schema::table('chat_messages', function (Blueprint $table) {
