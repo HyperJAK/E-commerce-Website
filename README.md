@@ -55,6 +55,7 @@ $cart = $user->cart;
 
 ### To run laravel  
 ```bash
+(This doesnt work now because of an unknown bug :( ))
 php artisan serve
 ```
 #
