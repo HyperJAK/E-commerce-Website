@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             OrdersTableSeeder::class,
             PaymentsTableSeeder::class,
             EventsTableSeeder::class,
-            // Add other seeders in the required order
+            WishlistsTableSeeder::class,
         ]);
     }
 }
