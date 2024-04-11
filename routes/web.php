@@ -12,5 +12,4 @@ Route::get('getProdName/{name}',[ProductController::class,'getProdName']);
 Route::get('getProdCategory/{category}',[ProductController::class,'getProdCategory']);
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
-Route::post('AddProd',[ProductController::class,'AddProd']);
 

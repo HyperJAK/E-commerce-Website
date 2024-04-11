@@ -32,7 +32,13 @@ class ProductController extends Controller
     }
     public function getAllProd(){
         $obj= Product::all();
-        if ($obj) { return $obj;
+       
+        if ($obj) {$fullAnswers = [];
+            foreach ($obj as $key) {
+              $key->category_id = $key->getCategories()->pluck('name')->toArray();
+                $fullAnswers[] = $key;
+            }
+            return $fullAnswers;
         } else {
            return response()->json(['message'=>'Products not found']);
         }
@@ -67,9 +73,9 @@ class ProductController extends Controller
     public function AddProd(Request $request){
         Product::create([
             'name'=> $request->name,
-            'Description'=>$request->description,
+            'description'=>$request->description,
             'price'=>$request->price,
-            'category'=>$request->category,
+            'category_id'=>$request->category_id,
             'quantity'=>$request->quantity,
             'path1'=>$request->path1,
             'path2'=>$request->path2,
