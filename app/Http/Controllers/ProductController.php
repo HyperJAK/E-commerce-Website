@@ -64,4 +64,19 @@ class ProductController extends Controller
            return response()->json(['message'=>'Store does not exist or not verified yet']);
         }
     }
+    public function AddProd(Request $request){
+        Product::create([
+            'name'=> $request->name,
+            'Description'=>$request->description,
+            'price'=>$request->price,
+            'category'=>$request->category,
+            'quantity'=>$request->quantity,
+            'path1'=>$request->path1,
+            'path2'=>$request->path2,
+            'path3'=>$request->path3,
+            'path4'=>$request->path4,
+            'store_id'=>$request->store_id,
+        ]);
+        return response()->json(["message"=>"Product added successfully"]);
+    }
 }
