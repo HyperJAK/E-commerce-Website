@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             StoresTableSeeder::class,
+            CategoriesTableSeeder::class,
             ProductsTableSeeder::class,
             CartsTableSeeder::class,
             CartItemsTableSeeder::class,
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             PaymentsTableSeeder::class,
             EventsTableSeeder::class,
             WishlistsTableSeeder::class,
+            
         ]);
     }
 }

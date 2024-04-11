@@ -18,6 +18,9 @@ class Store extends Model
         return $this->belongsTo(User::class,'user_id', 'user_id');//changed this to user_id, because both buyers and
         //seller are users however the seller has the is_seller == true value
     }
+    public function getCategories(){
+        return $this->hasMany(Category::class, 'category_id', 'category_id');
+    }
 
     protected function casts(): array
     {
