@@ -16,4 +16,7 @@ class Product extends Model
     public function getStores(){
      return $this->belongsTo(Store::class, 'store_id', 'store_id');
     }
+    public function getCategories(){
+     return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
 }
