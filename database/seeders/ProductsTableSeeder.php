@@ -28,6 +28,8 @@ class ProductsTableSeeder extends Seeder
                 'path2' => 'path/to/image2.jpg',
                 'path3' => 'path/to/image3.jpg',
                 'path4' => 'path/to/image4.jpg',
+                'created_at'=> now(),
+                'updated_at'=> now(),
             ],
             [
                 'name' => 'Product 2',
@@ -39,6 +41,8 @@ class ProductsTableSeeder extends Seeder
                 'path2' => 'path/to/image2.jpg',
                 'path3' => 'path/to/image3.jpg',
                 'path4' => 'path/to/image4.jpg',
+                'created_at'=> now(),
+                'updated_at'=> now(),
             ],
             // Add more products as needed
         ];
