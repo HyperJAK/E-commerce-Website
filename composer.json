@@ -27,7 +27,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "LaravelFrontendPresets\\MaterialPreset\\": "app/"
         }
     },
     "scripts": {
@@ -49,7 +50,10 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [],
+            "providers": [
+                "LaravelFrontendPresets\\MaterialPreset\\MaterialPresetServiceProvider"
+            ]
         }
     },
     "config": {
