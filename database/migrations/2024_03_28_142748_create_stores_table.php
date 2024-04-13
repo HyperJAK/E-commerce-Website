@@ -18,6 +18,8 @@ return new class extends Migration
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('user_id');
 
+            $table->timestamps();
+
         });
 
 
