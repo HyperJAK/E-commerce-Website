@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -23,7 +24,14 @@ class StoreController extends Controller
     // Store a newly created store in the database
     public function store(Request $request)
     {
-        $store = Store::create($request->all());
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'status' => 'required|boolean',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        $store = Store::create($validated);
         return redirect()->route('stores.index');
     }
 
@@ -44,8 +52,15 @@ class StoreController extends Controller
     // Update the specified store in the database
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'status' => 'boolean',
+            'user_id' => 'exists:users,id'
+        ]);
+
         $store = Store::find($id);
-        $store->update($request->all());
+        $store->update($validated);
         return redirect()->route('stores.index');
     }
 
