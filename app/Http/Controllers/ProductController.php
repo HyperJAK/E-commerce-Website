@@ -121,7 +121,7 @@ class ProductController extends Controller
     public function AddProd(Request $request){
         $str= Store::find($request->store_id);
         $cat= Category::find($request->category_id);
-        if($str->isNotEmpty() && $cat->isNotEmpty()){
+        if($str && $cat){
         Product::create([
             'name'=> $request->name,
             'description'=>$request->description,
@@ -138,76 +138,13 @@ class ProductController extends Controller
     }else{
         return response()->json(['message'=>'Store or category does not exist!']);
     }
-    public function getProd($id){
-        $obj= Product::find($id);
-        if ($obj) { return $obj;
-        } else {
-           return response()->json(['message'=>'Product not found']);
-        }
-    }
 
-    public function getAllProd(){
-        $obj= Product::all();
-
-        if ($obj) {$fullAnswers = [];
-            foreach ($obj as $key) {
-              $key->category_id = $key->getCategories()->pluck('name')->toArray();
-                $fullAnswers[] = $key;
-            }
-            return $fullAnswers;
-        } else {
-           return response()->json(['message'=>'Products not found']);
-        }
-    }
-    public function getProdName($name){
-        $obj= Product::where('name','like',"%$name%")->get();
-        if ($obj->isNotEmpty()) { return $obj;
-        } else {
-           return response()->json(['message'=>'Products not found']);
-        }
-    }
-    public function getProdCategory($category){
-        $obj= Product::where('category',$category)->get();
-        if ($obj->isNotEmpty()) { return $obj;
-        } else {
-           return response()->json(['message'=>'No product found']);
-        }
-    }
-    public function getProdStore($store){
-        $storeCheck=Store::where('store_id',$store)->where('status','1')->get(); //not only exist but also verified by admin and active
-    if ($storeCheck->isNotEmpty()) {
-        $obj= Product::where('store_id',$store)->get();
-        if ($obj->isNotEmpty()) {
-            return $obj;
-        } else {
-           return response()->json(['message'=>'No product found']);
-        }
-    }else {
-           return response()->json(['message'=>'Store does not exist or not verified yet']);
-        }
-    }
-    public function AddProd(Request $request){
-        Product::create([
-            'name'=> $request->name,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'category_id'=>$request->category_id,
-            'quantity'=>$request->quantity,
-            'path1'=>$request->path1,
-            'path2'=>$request->path2,
-            'path3'=>$request->path3,
-            'path4'=>$request->path4,
-            'store_id'=>$request->store_id,
-        ]);
-        return response()->json(["message"=>"Product added successfully"]);
-    }
 }
     public function EditProd(Request $request){
         $obj= Product::find($request->id);
         $str= Store::find($request->store_id);
         $cat= Category::find($request->category_id);
-        if ($obj->isNotEmpty() && $str->isNotEmpty() && $cat->isNotEmpty()) {
-            $obj->name= $request->name;
+        if ($obj && $str && $cat) {
             $obj->name = $request->name;
             $obj->description = $request->description;
             $obj->price = $request->price;
@@ -224,11 +161,12 @@ class ProductController extends Controller
             return response()->json(['message'=>'Product, store or category does not exist!']);
     }
         }
-    public function DeleteProd(Request $request){
-        $obj= Product::find($request->id);
-        if ($obj->isNotEmpty()) {
-            $obj->delete();
-        return response()->json(["message"=>"Product edited successfully"]);
+
+    public function DeleteProd($prod_id){
+        $obj= Product::find($prod_id);
+        if ($obj) {
+            $obj->delete();        
+        return response()->json(["message"=>"Product deleted successfully"]);
         } else {
         return response()->json(['message'=>'Product does not exist or delete product failed']);
     }
