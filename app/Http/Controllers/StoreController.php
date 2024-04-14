@@ -7,41 +7,52 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+    // Display a list of all stores
     public function index()
     {
-        $stores = Store::with(['owner', 'getCategories'])->get();
+        $stores = Store::all();
         return view('stores.index', compact('stores'));
     }
 
+    // Show the form for creating a new store
     public function create()
     {
         return view('stores.create');
     }
 
+    // Store a newly created store in the database
     public function store(Request $request)
     {
-        Store::create($request->all());
+        $store = Store::create($request->all());
         return redirect()->route('stores.index');
     }
 
-    public function show(Store $store)
+    // Display the specified store
+    public function show($id)
     {
+        $store = Store::find($id);
         return view('stores.show', compact('store'));
     }
 
-    public function edit(Store $store)
+    // Show the form for editing the specified store
+    public function edit($id)
     {
+        $store = Store::find($id);
         return view('stores.edit', compact('store'));
     }
 
-    public function update(Request $request, Store $store)
+    // Update the specified store in the database
+    public function update(Request $request, $id)
     {
+        $store = Store::find($id);
         $store->update($request->all());
         return redirect()->route('stores.index');
     }
 
-    public function destroy(Store $store)
+    // Remove the specified store from the database
+    public function destroy($id)
     {
+        $store = Store::find($id);
         $store->delete();
         return redirect()->route('stores.index');
     }
