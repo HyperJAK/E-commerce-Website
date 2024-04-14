@@ -4,7 +4,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WishlistController;
 
 Route::post('AddProd',[ProductController::class,'AddProd']);
 Route::post('EditProd',[ProductController::class,'EditProd']);
