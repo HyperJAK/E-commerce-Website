@@ -38,6 +38,15 @@ public function getWishlist($user_id) {
     return response()->json(['message' => 'Wishlist not found or this user has no wishlist'], 404);
     }
 }
+//to know that product how many people wished for it
+public function getNumberWishlist($product_id) {
+    $wishlist = Wishlist::where('product_id',$product_id)->count();
+    if ($wishlist>0) {
+      return $wishlist;  
+    }else{
+    return response()->json(['message' => 'Wishlist not found or this product has no wishlist'], 404);
+    }
+}
 //edit wishlist doesn't make sense we can just add a new product or delete it there's nothing to edit
 
 public function DeleteWishlist($wishlist_id){
