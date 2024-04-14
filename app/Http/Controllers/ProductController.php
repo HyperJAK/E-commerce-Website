@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Store;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 // As a buyer i want to be able to add a product to my cart, to my Wishlist or normally browse it 
@@ -10,18 +11,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function getProdImages($id){
-        $obj= Product::find($id);
-        $p1=$obj->path1;
-        $p2=$obj->path2;
-        $p3=$obj->path3;
-        $p4=$obj->path4;
-        $full=[
-            'p1'=>$p1,
-            'p2'=>$p2,
-            'p3'=>$p3,
-            'p4'=>$p4
-        ];
-        return $full;
+        $obj= Product::select('path1','path2','path3','path4')->where('product_id',$id)->get();
+        return $obj;
     }
     public function getProd($id){
         $obj= Product::find($id);
@@ -128,6 +119,9 @@ class ProductController extends Controller
         }
     }
     public function AddProd(Request $request){
+        $str= Store::find($request->store_id);
+        $cat= Category::find($request->category_id);
+        if($str->isNotEmpty() && $cat->isNotEmpty()){
         Product::create([
             'name'=> $request->name,
             'description'=>$request->description,
@@ -141,10 +135,15 @@ class ProductController extends Controller
             'store_id'=>$request->store_id,
         ]);
         return response()->json(["message"=>"Product added successfully"]);
+    }else{
+        return response()->json(['message'=>'Store or category does not exist!']);
     }
+}
     public function EditProd(Request $request){
         $obj= Product::find($request->id);
-        if ($obj->isNotEmpty()) {
+        $str= Store::find($request->store_id);
+        $cat= Category::find($request->category_id);
+        if ($obj->isNotEmpty() && $str->isNotEmpty() && $cat->isNotEmpty()) {
             $obj->name= $request->name;
             $obj->name = $request->name;
             $obj->description = $request->description;
@@ -159,7 +158,7 @@ class ProductController extends Controller
             $obj->save();        
         return response()->json(["message"=>"Product edited successfully"]);
         } else {
-            return response()->json(['message'=>'Product does not exist or update product failed']);
+            return response()->json(['message'=>'Product, store or category does not exist!']);
     }
         }
     public function DeleteProd(Request $request){
@@ -168,7 +167,7 @@ class ProductController extends Controller
             $obj->delete();        
         return response()->json(["message"=>"Product edited successfully"]);
         } else {
-        return response()->json(['message'=>'Product does not exist or update product failed']);
+        return response()->json(['message'=>'Product does not exist or delete product failed']);
     }
         }
 }
