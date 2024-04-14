@@ -128,6 +128,9 @@ class ProductController extends Controller
         }
     }
     public function AddProd(Request $request){
+        $str= Store::find($request->store_id);
+        $cat= Store::find($request->category_id);
+        if($str->isNotEmpty() && $cat->isNotEmpty()){
         Product::create([
             'name'=> $request->name,
             'description'=>$request->description,
@@ -141,10 +144,15 @@ class ProductController extends Controller
             'store_id'=>$request->store_id,
         ]);
         return response()->json(["message"=>"Product added successfully"]);
+    }else{
+        return response()->json(['message'=>'Store or category does not exist!']);
     }
+}
     public function EditProd(Request $request){
         $obj= Product::find($request->id);
-        if ($obj->isNotEmpty()) {
+        $str= Store::find($request->store_id);
+        $cat= Store::find($request->category_id);
+        if ($obj->isNotEmpty() && $str->isNotEmpty() && $cat->isNotEmpty()) {
             $obj->name= $request->name;
             $obj->name = $request->name;
             $obj->description = $request->description;
@@ -159,7 +167,7 @@ class ProductController extends Controller
             $obj->save();        
         return response()->json(["message"=>"Product edited successfully"]);
         } else {
-            return response()->json(['message'=>'Product does not exist or update product failed']);
+            return response()->json(['message'=>'Product, store or category does not exist!']);
     }
         }
     public function DeleteProd(Request $request){
@@ -168,7 +176,7 @@ class ProductController extends Controller
             $obj->delete();        
         return response()->json(["message"=>"Product edited successfully"]);
         } else {
-        return response()->json(['message'=>'Product does not exist or update product failed']);
+        return response()->json(['message'=>'Product does not exist or delete product failed']);
     }
         }
 }
