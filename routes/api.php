@@ -5,10 +5,14 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
+// Routes for Products
 Route::post('AddProd',[ProductController::class,'AddProd']);
 Route::post('EditProd',[ProductController::class,'EditProd']);
 Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd']);
+
+// Routes for Wishlists
 Route::post('AddWishlist',[WishlistController::class,'AddWishlist']);
+Route::delete('DeleteWishlist/{wishlist_id}',[WishlistController::class,'DeleteWishlist']);
 
 // Routes for Store
 Route::post('/stores', [StoreController::class, 'addStore']); // Create a new store
