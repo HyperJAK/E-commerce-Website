@@ -23,10 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
-        'postal_code',
         'country',
         'city',
-        'email_verified_at',
         'is_seller'
     ];
 
@@ -48,7 +46,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'postal_code' => 'integer',
             'is_seller' => 'boolean'
         ];
     }
