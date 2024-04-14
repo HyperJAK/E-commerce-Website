@@ -35,13 +35,70 @@ class ProductController extends Controller
        
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
-              $key->category_id = $key->getCategories()->pluck('name')->toArray();
+            //   $key->category_id = $key->getCategories()->pluck('name')->toArray(); 
+            $key->category_id = $key->getCatName();
                 $fullAnswers[] = $key;
             }
             return $fullAnswers;
         } else {
            return response()->json(['message'=>'Products not found']);
         }
+    }
+    public function getAllProdSmall(){
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->get();
+       
+        if ($obj) {$fullAnswers = [];
+            foreach ($obj as $key) {
+            $key->category_id = $key->getCatName();
+                $fullAnswers[] = $key;
+            }
+            return $fullAnswers;
+        } else {
+           return response()->json(['message'=>'Products not found']);
+        }
+    }
+    public function getProdSmallCat($category_id){
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->get();
+       
+        if ($obj) {$fullAnswers = [];
+            foreach ($obj as $key) {
+            $key->category_id = $key->getCatName();
+                $fullAnswers[] = $key;
+            }
+            return $fullAnswers;
+        } else {
+           return response()->json(['message'=>'Products not found']);
+        }
+    }
+    public function getProdSmallSearch($search){
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$search%")->orWhere('description','like',"%$search%")->get();
+       
+        if ($obj) {$fullAnswers = [];
+            foreach ($obj as $key) {
+            $key->category_id = $key->getCatName();
+                $fullAnswers[] = $key;
+            }
+            return $fullAnswers;
+        } else {
+           return response()->json(['message'=>'Products not found']);
+        }
+    }
+    public function getProdSmallStore($store_id){
+        $storeCheck=Store::where('store_id',$store_id)->where('status','1')->get();
+        if ($storeCheck->isNotEmpty()) {
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $store_id)->get();
+       
+        if ($obj) {$fullAnswers = [];
+            foreach ($obj as $key) {
+            $key->category_id = $key->getCatName();
+                $fullAnswers[] = $key;
+            }
+            return $fullAnswers;
+        } else {
+           return response()->json(['message'=>'Products not found']);
+        } }else {
+            return response()->json(['message'=>'Store does not exist or not verified yet']);
+         }
     }
     public function getProdName($name){
         $obj= Product::where('name','like',"%$name%")->get();
@@ -50,15 +107,15 @@ class ProductController extends Controller
            return response()->json(['message'=>'Products not found']);
         }
     }
-    public function getProdCategory($category){
-        $obj= Product::where('category',$category)->get();
+    public function getProdCategory($category_id){
+        $obj= Product::where('category_id',$category_id)->get();
         if ($obj->isNotEmpty()) { return $obj;
         } else {
            return response()->json(['message'=>'No product found']);
         }
     }
     public function getProdStore($store){
-        $storeCheck=Store::where('store_id',$store)->where('status','1')->get(); //not only exist but also verified by admin and active
+        $storeCheck=Store::where('store_id',$store)->where('status','1')->get();
     if ($storeCheck->isNotEmpty()) {
         $obj= Product::where('store_id',$store)->get();
         if ($obj->isNotEmpty()) { 
@@ -85,4 +142,33 @@ class ProductController extends Controller
         ]);
         return response()->json(["message"=>"Product added successfully"]);
     }
+    public function EditProd(Request $request){
+        $obj= Product::find($request->id);
+        if ($obj->isNotEmpty()) {
+            $obj->name= $request->name;
+            $obj->name = $request->name;
+            $obj->description = $request->description;
+            $obj->price = $request->price;
+            $obj->category_id = $request->category_id;
+            $obj->quantity = $request->quantity;
+            $obj->path1 = $request->path1;
+            $obj->path2 = $request->path2;
+            $obj->path3 = $request->path3;
+            $obj->path4 = $request->path4;
+            $obj->store_id = $request->store_id;
+            $obj->save();        
+        return response()->json(["message"=>"Product edited successfully"]);
+        } else {
+            return response()->json(['message'=>'Product does not exist or update product failed']);
+    }
+        }
+    public function DeleteProd(Request $request){
+        $obj= Product::find($request->id);
+        if ($obj->isNotEmpty()) {
+            $obj->delete();        
+        return response()->json(["message"=>"Product edited successfully"]);
+        } else {
+        return response()->json(['message'=>'Product does not exist or update product failed']);
+    }
+        }
 }
