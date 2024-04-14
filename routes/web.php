@@ -23,10 +23,6 @@ Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmal
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 
-
-
-
-
 //Stores routes
 // Read Routes
 Route::get('stores/{id}', [StoreController::class, 'getStore']); // Show a specific store
