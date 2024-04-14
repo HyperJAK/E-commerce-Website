@@ -21,5 +21,6 @@ class Product extends Model
     }
     public function getCatName(){
      return $this->getCategories()->pluck('name');
+
     }
 }
