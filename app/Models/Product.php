@@ -20,6 +20,7 @@ class Product extends Model
      return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
     public function getCatName(){
-     return $this->category_id->name;
+     return $this->getCategories()->pluck('name');
+
     }
 }

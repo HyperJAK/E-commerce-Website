@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WishlistController;
 
 Route::post('AddProd',[ProductController::class,'AddProd']);
+Route::post('EditProd',[ProductController::class,'EditProd']);
+Route::post('DeleteProd',[ProductController::class,'DeleteProd']);
+Route::post('AddWishlist',[WishlistController::class,'AddWishlist']);
 
 
 // Routes for Store
