@@ -6,7 +6,7 @@ use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-// As a buyer i want to be able to add a product to my cart, to my Wishlist or normally browse it 
+// As a buyer i want to be able to add a product to my cart, to my Wishlist or normally browse it
 // (Buyers can browse products, add to cart, and add to Wishlist.)
 class ProductController extends Controller
 {
@@ -23,10 +23,10 @@ class ProductController extends Controller
     }
     public function getAllProd(){
         $obj= Product::all();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
-            //   $key->category_id = $key->getCategories()->pluck('name')->toArray(); 
+            //   $key->category_id = $key->getCategories()->pluck('name')->toArray();
             $key->category_id = $key->getCatName();
                 $fullAnswers[] = $key;
             }
@@ -37,7 +37,7 @@ class ProductController extends Controller
     }
     public function getAllProdSmall(){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->get();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -50,7 +50,7 @@ class ProductController extends Controller
     }
     public function getProdSmallCat($category_id){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->get();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -63,7 +63,7 @@ class ProductController extends Controller
     }
     public function getProdSmallSearch($search){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$search%")->orWhere('description','like',"%$search%")->get();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -78,7 +78,7 @@ class ProductController extends Controller
         $storeCheck=Store::where('store_id',$store_id)->where('status','1')->get();
         if ($storeCheck->isNotEmpty()) {
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $store_id)->get();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -109,7 +109,7 @@ class ProductController extends Controller
         $storeCheck=Store::where('store_id',$store)->where('status','1')->get();
     if ($storeCheck->isNotEmpty()) {
         $obj= Product::where('store_id',$store)->get();
-        if ($obj->isNotEmpty()) { 
+        if ($obj->isNotEmpty()) {
             return $obj;
         } else {
            return response()->json(['message'=>'No product found']);
@@ -138,6 +138,7 @@ class ProductController extends Controller
     }else{
         return response()->json(['message'=>'Store or category does not exist!']);
     }
+
 }
     public function EditProd(Request $request){
         $obj= Product::find($request->id);
@@ -154,12 +155,13 @@ class ProductController extends Controller
             $obj->path3 = $request->path3;
             $obj->path4 = $request->path4;
             $obj->store_id = $request->store_id;
-            $obj->save();        
+            $obj->save();
         return response()->json(["message"=>"Product edited successfully"]);
         } else {
             return response()->json(['message'=>'Product, store or category does not exist!']);
     }
         }
+
     public function DeleteProd($prod_id){
         $obj= Product::find($prod_id);
         if ($obj) {

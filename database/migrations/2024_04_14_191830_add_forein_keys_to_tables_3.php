@@ -20,13 +20,14 @@ return new class extends Migration
             $table->foreign('store_id')->references('store_id')->on('stores')->onDelete('cascade');
         });
 
+        Schema::table('carts', function (Blueprint $table) {
+            $table->foreign('buyer_id')->references('user_id')->on('users')->onDelete('cascade');
+        });
+
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('buyer_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('seller_id')->references('user_id')->on('users')->onDelete('cascade');
-        });
-
-        Schema::table('carts', function (Blueprint $table) {
-            $table->foreign('buyer_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
         });
 
         Schema::table('chats', function (Blueprint $table) {
@@ -71,6 +72,14 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('order_status_id')->references('order_status_id')->on('order_statuses')->onDelete('cascade');
         });
+
+        Schema::table('wishlists', function (Blueprint $table) {
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('store_id')->references('store_id')->on('stores')->onDelete('cascade');
+            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+        });
+
+
     }
 
     /**
