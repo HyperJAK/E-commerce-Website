@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
@@ -23,6 +24,8 @@ Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmal
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
+
+Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
 
 //Stores routes
 // Read Routes

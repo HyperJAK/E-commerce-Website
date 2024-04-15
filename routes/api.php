@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
@@ -13,6 +14,11 @@ Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd']);
 // Routes for Wishlists
 Route::post('AddWishlist',[WishlistController::class,'AddWishlist']);
 Route::delete('DeleteWishlist/{wishlist_id}',[WishlistController::class,'DeleteWishlist']);
+
+//Routes for CartItems
+Route::post('AddCartItem',[CartItemController::class,'AddCartItem']);
+Route::post('EditCartItemQtt',[CartItemController::class,'EditCartItemQtt']);
+Route::delete('DeleteCartItem/{cartItem_id}',[CartItemController::class,'DeleteCartItem']);
 
 // Routes for Store
 Route::post('/stores', [StoreController::class, 'addStore']); // Create a new store
