@@ -11,7 +11,19 @@ class Cart extends Model
 
     protected $primaryKey = 'cart_id';
 
-    protected $fillable = ['buyer_id'];
+    protected $fillable = ['buyer_id','status'];
+
+     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => 'boolean'
+        ];
+    }
 
 
     public function getBuyer(){

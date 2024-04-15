@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -26,6 +27,7 @@ Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
 Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
+Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
 
 //Stores routes
 // Read Routes

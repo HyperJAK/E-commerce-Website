@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -19,6 +20,12 @@ Route::delete('DeleteWishlist/{wishlist_id}',[WishlistController::class,'DeleteW
 Route::post('AddCartItem',[CartItemController::class,'AddCartItem']);
 Route::post('EditCartItemQtt',[CartItemController::class,'EditCartItemQtt']);
 Route::delete('DeleteCartItem/{cartItem_id}',[CartItemController::class,'DeleteCartItem']);
+
+//Routes for Cart
+Route::post('AddCart',[CartController::class,'AddCart']);
+Route::post('EditCartStatus',[CartController::class,'EditCartStatus']);
+Route::post('ActivateCartStatus',[CartController::class,'ActivateCartStatus']);
+Route::delete('DeleteCart/{cart_id}',[CartController::class,'DeleteCart']);
 
 // Routes for Store
 Route::post('/stores', [StoreController::class, 'addStore']); // Create a new store
