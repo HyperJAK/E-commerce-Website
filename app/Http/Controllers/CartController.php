@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -58,6 +59,20 @@ public function getCarts($buyer_id) {
       return $cart;  
     }else{
     return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
+    }
+}
+public function getCartItemsBuyerId($buyer_id) {
+    $cart = Cart::select('cart_id')->where('buyer_id',$buyer_id)->get();
+    if ($cart->isNotEmpty()) {
+    //   return $cart;  
+    $fullAnswers=[];
+    foreach ($cart as $key) {
+        $obj2= CartItem::find($key);
+        $fullAnswers[] = $obj2;
+    } 
+    return $fullAnswers;
+    }else{
+    return response()->json(['message' => 'cartItems not found or this user has no items in his cart'], 404);
     }
 }
 public function DeleteCart($cart_id){

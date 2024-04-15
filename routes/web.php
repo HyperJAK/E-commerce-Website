@@ -28,6 +28,7 @@ Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumbe
 
 Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
 Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
+Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
 
 //Stores routes
 // Read Routes
