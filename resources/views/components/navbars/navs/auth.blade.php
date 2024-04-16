@@ -17,7 +17,7 @@
                     <input type="text" class="form-control">
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
+            <form method="POST" {{--action="{{ route('logout') }}"--}} class="d-none" id="logout-form">
                 @csrf
             </form>
             <ul class="navbar-nav  justify-content-end">
