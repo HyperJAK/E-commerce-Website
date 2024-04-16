@@ -13,7 +13,7 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="../../material/assets/img/bruce-mars.jpg" alt="profile_image"
+                            <img src="{{ asset('material/assets') }}/img/bruce-mars.jpg" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
                                             <div class="avatar me-3">
-                                                <img src="../../material/assets/img/kal-visuals-square.jpg" alt="kal"
+                                                <img src="{{ asset('material/assets') }}/img/kal-visuals-square.jpg" alt="kal"
                                                     class="border-radius-lg shadow">
                                             </div>
                                             <div class="d-flex align-items-start flex-column justify-content-center">
@@ -196,7 +196,7 @@
                                         </li>
                                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                                             <div class="avatar me-3">
-                                                <img src="../../material/assets/img/marie.jpg" alt="kal"
+                                                <img src="{{ asset('material/assets') }}/img/marie.jpg" alt="kal"
                                                     class="border-radius-lg shadow">
                                             </div>
                                             <div class="d-flex align-items-start flex-column justify-content-center">
@@ -208,7 +208,7 @@
                                         </li>
                                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                                             <div class="avatar me-3">
-                                                <img src="../../material/assets/img/ivana-square.jpg" alt="kal"
+                                                <img src="{{ asset('material/assets') }}/img/ivana-square.jpg" alt="kal"
                                                     class="border-radius-lg shadow">
                                             </div>
                                             <div class="d-flex align-items-start flex-column justify-content-center">
@@ -220,7 +220,7 @@
                                         </li>
                                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                                             <div class="avatar me-3">
-                                                <img src="../../material/assets/img/team-4.jpg" alt="kal"
+                                                <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="kal"
                                                     class="border-radius-lg shadow">
                                             </div>
                                             <div class="d-flex align-items-start flex-column justify-content-center">
@@ -232,7 +232,7 @@
                                         </li>
                                         <li class="list-group-item border-0 d-flex align-items-center px-0">
                                             <div class="avatar me-3">
-                                                <img src="../../material/assets/img/team-3.jpg" alt="kal"
+                                                <img src="{{ asset('material/assets') }}/img/team-3.jpg" alt="kal"
                                                     class="border-radius-lg shadow">
                                             </div>
                                             <div class="d-flex align-items-start flex-column justify-content-center">
@@ -256,7 +256,7 @@
                                     <div class="card card-blog card-plain">
                                         <div class="card-header p-0 mt-n4 mx-3">
                                             <a class="d-block shadow-xl border-radius-xl">
-                                                <img src="../../material/assets/img/home-decor-1.jpg"
+                                                <img src="{{ asset('material/assets') }}/img/home-decor-1.jpg"
                                                     alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
                                             </a>
                                         </div>
@@ -278,25 +278,25 @@
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Elena Morison">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-1.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-1.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Milly">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-2.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-2.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Nick Daniel">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-3.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-3.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Peterson">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-4.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-4.jpg">
                                                     </a>
                                                 </div>
                                             </div>
@@ -307,7 +307,7 @@
                                     <div class="card card-blog card-plain">
                                         <div class="card-header p-0 mt-n4 mx-3">
                                             <a class="d-block shadow-xl border-radius-xl">
-                                                <img src="../../material/assets/img/home-decor-2.jpg"
+                                                <img src="{{ asset('material/assets') }}/img/home-decor-2.jpg"
                                                     alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
                                             </a>
                                         </div>
@@ -330,25 +330,25 @@
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Nick Daniel">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-3.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-3.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Peterson">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-4.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-4.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Elena Morison">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-1.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-1.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Milly">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-2.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-2.jpg">
                                                     </a>
                                                 </div>
                                             </div>
@@ -359,7 +359,7 @@
                                     <div class="card card-blog card-plain">
                                         <div class="card-header p-0 mt-n4 mx-3">
                                             <a class="d-block shadow-xl border-radius-xl">
-                                                <img src="../../material/assets/img/home-decor-3.jpg"
+                                                <img src="{{ asset('material/assets') }}/img/home-decor-3.jpg"
                                                     alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
                                             </a>
                                         </div>
@@ -381,25 +381,25 @@
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Peterson">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-4.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-4.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Nick Daniel">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-3.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-3.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Milly">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-2.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-2.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Elena Morison">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-1.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-1.jpg">
                                                     </a>
                                                 </div>
                                             </div>
@@ -433,25 +433,25 @@
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Peterson">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-4.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-4.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Nick Daniel">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-3.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-3.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Milly">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-2.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-2.jpg">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Elena Morison">
                                                         <img alt="Image placeholder"
-                                                            src="../../material/assets/img/team-1.jpg">
+                                                            src="{{ asset('material/assets') }}/img/team-1.jpg">
                                                     </a>
                                                 </div>
                                             </div>
