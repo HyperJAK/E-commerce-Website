@@ -12,7 +12,7 @@
                         <div class="col-xl-6 mb-xl-0 mb-4">
                             <div class="card bg-transparent shadow-xl">
                                 <div class="overflow-hidden position-relative border-radius-xl">
-                                    <img src="{{ asset('assets') }}/img/illustrations/pattern-tree.svg"
+                                    <img src="{{ asset('material/assets') }}/img/illustrations/pattern-tree.svg"
                                         class="position-absolute opacity-2 start-0 top-0 w-100 z-index-1 h-100"
                                         alt="pattern-tree">
                                     <span class="mask bg-gradient-dark opacity-10"></span>
@@ -34,7 +34,7 @@
                                             </div>
                                             <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
                                                 <img class="w-60 mt-2"
-                                                    src="{{ asset('assets') }}/img/logos/mastercard.png" alt="logo">
+                                                    src="{{ asset('material/assets') }}/img/logos/mastercard.png" alt="logo">
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                             <div
                                                 class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
                                                 <img class="w-10 me-3 mb-0"
-                                                    src="{{ asset('assets') }}/img/logos/mastercard.png" alt="logo">
+                                                    src="{{ asset('material/assets') }}/img/logos/mastercard.png" alt="logo">
                                                 <h6 class="mb-0">
                                                     ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852
                                                 </h6>
@@ -110,7 +110,7 @@
                                             <div
                                                 class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
                                                 <img class="w-10 me-3 mb-0"
-                                                    src="{{ asset('assets') }}/img/logos/visa.png" alt="logo">
+                                                    src="{{ asset('material/assets') }}/img/logos/visa.png" alt="logo">
                                                 <h6 class="mb-0">
                                                     ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248
                                                 </h6>

@@ -86,7 +86,7 @@
     </div>
 
     @push('js')
-    <script src="{{ asset('assets') }}/js/jquery.min.js"></script>
+    <script src="{{ asset('material/assets') }}/js/jquery.min.js"></script>
     <script>
         $(function() {
 

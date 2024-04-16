@@ -6,7 +6,7 @@
         <!-- End Navbar -->
     </div>
     <div class="border-radius-xl mx-2 mx-md-3 position-relative"
-        style="background-image: url('{{ asset('assets') }}/img/vr-bg.jpg'); background-size: cover;">
+        style="background-image: url('{{ asset('material/assets') }}/img/vr-bg.jpg'); background-size: cover;">
         <x-navbars.sidebar activePage="virtual-reality"></x-navbars.sidebar>
         <main class="main-content border-radius-lg h-100">
             <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-7">
@@ -16,7 +16,7 @@
                             <a href="javascript:;" class="avatar avatar-lg border-0 p-1" data-bs-toggle="tooltip"
                                 data-bs-placement="right" title="My Profile">
                                 <img class="border-radius-lg" alt="Image placeholder"
-                                    src="{{ asset('assets') }}/img/team-1.jpg">
+                                    src="{{ asset('material/assets') }}/img/team-1.jpg">
                             </a>
                             <button class="btn btn-white border-radius-lg p-2 mt-n4 mt-md-2" type="button"
                                 data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="ms-auto">
                                     <img class="w-50 float-end mt-n6 mt-lg-n4"
-                                        src="{{ asset('assets') }}/img/small-logos/icon-sun-cloud.png" alt="image sun">
+                                        src="{{ asset('material/assets') }}/img/small-logos/icon-sun-cloud.png" alt="image sun">
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -145,28 +145,28 @@
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="2 New Messages">
                                                             <img alt="Image placeholder"
-                                                                src="{{ asset('assets') }}/img/team-1.jpg">
+                                                                src="{{ asset('material/assets') }}/img/team-1.jpg">
                                                         </a>
                                                         <a href="javascript:;"
                                                             class="avatar avatar-sm border-0 rounded-circle"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="1 New Message">
                                                             <img alt="Image placeholder"
-                                                                src="{{ asset('assets') }}/img/team-2.jpg">
+                                                                src="{{ asset('material/assets') }}/img/team-2.jpg">
                                                         </a>
                                                         <a href="javascript:;"
                                                             class="avatar avatar-sm border-0 rounded-circle"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="13 New Messages">
                                                             <img alt="Image placeholder"
-                                                                src="{{ asset('assets') }}/img/team-3.jpg">
+                                                                src="{{ asset('material/assets') }}/img/team-3.jpg">
                                                         </a>
                                                         <a href="javascript:;"
                                                             class="avatar avatar-sm border-0 rounded-circle"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="7 New Messages">
                                                             <img alt="Image placeholder"
-                                                                src="{{ asset('assets') }}/img/team-4.jpg">
+                                                                src="{{ asset('material/assets') }}/img/team-4.jpg">
                                                         </a>
                                                     </div>
                                                 </div>

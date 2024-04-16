@@ -64,7 +64,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-2.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-2.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                                     </div>
 
@@ -112,7 +112,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-3.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
                                                     </div>
 
@@ -159,7 +159,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user3">
                                                     </div>
 
@@ -206,7 +206,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-3.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user4">
                                                     </div>
 
@@ -252,7 +252,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-2.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-2.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user5">
                                                     </div>
 
@@ -298,7 +298,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg"
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg"
                                                             class="avatar avatar-sm me-3 border-radius-lg" alt="user6">
                                                     </div>
                                                 </div>

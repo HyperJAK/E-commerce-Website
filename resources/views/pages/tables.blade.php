@@ -38,7 +38,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-2.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-2.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user1">
                                                         </div>
@@ -72,7 +72,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-3.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-3.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user2">
                                                         </div>
@@ -106,7 +106,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-4.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-4.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user3">
                                                         </div>
@@ -140,7 +140,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-3.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-3.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user4">
                                                         </div>
@@ -174,7 +174,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-2.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-2.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user5">
                                                         </div>
@@ -208,7 +208,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/team-4.jpg"
+                                                            <img src="{{ asset('material/assets') }}/img/team-4.jpg"
                                                                 class="avatar avatar-sm me-3 border-radius-lg"
                                                                 alt="user6">
                                                         </div>
@@ -278,7 +278,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/logo-asana.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/logo-asana.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2"
                                                                 alt="spotify">
                                                         </div>
@@ -316,7 +316,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/github.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/github.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2"
                                                                 alt="invision">
                                                         </div>
@@ -355,7 +355,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/logo-atlassian.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/logo-atlassian.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2" alt="jira">
                                                         </div>
                                                         <div class="my-auto">
@@ -393,7 +393,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/bootstrap.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/bootstrap.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2"
                                                                 alt="webdev">
                                                         </div>
@@ -432,7 +432,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/logo-slack.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/logo-slack.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2"
                                                                 alt="slack">
                                                         </div>
@@ -471,7 +471,7 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="{{ asset('assets') }}/img/small-logos/devto.svg"
+                                                            <img src="{{ asset('material/assets') }}/img/small-logos/devto.svg"
                                                                 class="avatar avatar-sm rounded-circle me-2" alt="xd">
                                                         </div>
                                                         <div class="my-auto">

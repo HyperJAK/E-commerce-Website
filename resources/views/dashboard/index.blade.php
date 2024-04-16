@@ -201,7 +201,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-xd.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-xd.svg"
                                                             class="avatar avatar-sm me-3" alt="xd">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -214,22 +214,22 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="team1">
+                                                        <img src="{{ asset('material/assets') }}/img/team-1.jpg" alt="team1">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-2.jpg" alt="team2">
+                                                        <img src="{{ asset('material/assets') }}/img/team-2.jpg" alt="team2">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Alexander Smith">
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg" alt="team3">
+                                                        <img src="{{ asset('material/assets') }}/img/team-3.jpg" alt="team3">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="team4">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="team4">
                                                     </a>
                                                 </div>
                                             </td>
@@ -255,7 +255,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-atlassian.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-atlassian.svg"
                                                             class="avatar avatar-sm me-3" alt="atlassian">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -268,12 +268,12 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-2.jpg" alt="team5">
+                                                        <img src="{{ asset('material/assets') }}/img/team-2.jpg" alt="team5">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="team6">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="team6">
                                                     </a>
                                                 </div>
                                             </td>
@@ -299,7 +299,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-slack.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-slack.svg"
                                                             class="avatar avatar-sm me-3" alt="team7">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -312,12 +312,12 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg" alt="team8">
+                                                        <img src="{{ asset('material/assets') }}/img/team-3.jpg" alt="team8">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="team9">
+                                                        <img src="{{ asset('material/assets') }}/img/team-1.jpg" alt="team9">
                                                     </a>
                                                 </div>
                                             </td>
@@ -343,7 +343,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-spotify.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-spotify.svg"
                                                             class="avatar avatar-sm me-3" alt="spotify">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -356,22 +356,22 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user1">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="user1">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg" alt="user2">
+                                                        <img src="{{ asset('material/assets') }}/img/team-3.jpg" alt="user2">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Alexander Smith">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user3">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="user3">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="user4">
+                                                        <img src="{{ asset('material/assets') }}/img/team-1.jpg" alt="user4">
                                                     </a>
                                                 </div>
                                             </td>
@@ -397,7 +397,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-jira.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-jira.svg"
                                                             class="avatar avatar-sm me-3" alt="jira">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -410,7 +410,7 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user5">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="user5">
                                                     </a>
                                                 </div>
                                             </td>
@@ -436,7 +436,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-invision.svg"
+                                                        <img src="{{ asset('material/assets') }}/img/small-logos/logo-invision.svg"
                                                             class="avatar avatar-sm me-3" alt="invision">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
@@ -449,12 +449,12 @@
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="user6">
+                                                        <img src="{{ asset('material/assets') }}/img/team-1.jpg" alt="user6">
                                                     </a>
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user7">
+                                                        <img src="{{ asset('material/assets') }}/img/team-4.jpg" alt="user7">
                                                     </a>
                                                 </div>
                                             </td>
@@ -567,7 +567,7 @@
     <x-plugins></x-plugins>
     </div>
     @push('js')
-    <script src="{{ asset('assets') }}/js/plugins/chartjs.min.js"></script>
+    <script src="{{ asset('material/assets') }}/js/plugins/chartjs.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
