@@ -45,15 +45,15 @@ class OrderController extends Controller
     // Display the specified order
     public function show($id)
     {
-        $order = Order::with(['buyer', 'seller', 'cart_id'])->find($id);
-        return view('orders.show', compact('order'));
+        $order = Order::with(['buyer', 'seller', 'items'])->find($id);
+        return $order;
     }
 
     // Show the form for editing the specified order
     public function edit($id)
     {
         $order = Order::find($id);
-        return view('orders.edit', compact('order'));
+        return view('orders.edit');
     }
 
     // Update the specified order in the database
@@ -70,7 +70,7 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validated);
-        return redirect()->route('orders.index');
+        return $order /*redirect()->route('orders.index')*/;
     }
 
     // Remove the specified order from the database
@@ -78,7 +78,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         $order->delete();
-        return redirect()->route('orders.index');
+        return $order /*redirect()->route('orders.index')*/;
     }
 
     // Additional methods to modify products within an order
@@ -91,7 +91,7 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    public function updateProductInOrder(Request $request, $orderId, $productId)
+    /*public function updateProductInOrder(Request $request, $orderId, $productId)
     {
         $order = Order::find($orderId);
         $quantity = $request->quantity;
@@ -104,5 +104,5 @@ class OrderController extends Controller
         $order = Order::find($orderId);
         $order->products()->detach($productId);
         return redirect()->back();
-    }
+    }*/
 }
