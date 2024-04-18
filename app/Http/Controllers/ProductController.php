@@ -44,7 +44,7 @@ class ProductController extends Controller
         if ($page >= 0) {
                             
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->offset($offset)->limit($pageSize)->get();
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -165,7 +165,6 @@ class ProductController extends Controller
     // }else{
     //     return response()->json(['message'=>'Store or category does not exist!']);
     // }
-
 }
     public function EditProd(Request $request){
         $request->validate([
