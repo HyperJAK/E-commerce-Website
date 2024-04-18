@@ -36,8 +36,8 @@ class ProductController extends Controller
         }
     }
 
-    public function getAllProdSmall($page){
-        $page = intval($page) ?: 1;
+    public function getAllProdSmall(Request $request){
+        $page = intval($request->page) ?: 1;
         $pageSize = 6;
         $offset = ($page - 1) * $pageSize;
         
@@ -50,7 +50,7 @@ class ProductController extends Controller
             $key->category_id = $key->getCatName();
                 $fullAnswers[] = $key;
             }
-            return $fullAnswers;
+            return view('products')->with('obj',$fullAnswers);
         } else {
            return response()->json(['message'=>'Products not found']);
         }

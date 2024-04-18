@@ -226,10 +226,11 @@ button {
 .banner_bg_main2 {
     width: 100%;
     float: left;
-background: linear-gradient(180deg, rgba(164, 153, 208, 0.896) 0%, rgba(249, 235, 255, 0.02) 15%);
+background: linear-gradient(180deg, rgba(164, 153, 208, 0.896) 0%, rgba(249, 235, 255, 0.02) 20%);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
+    padding-bottom: 70%;
 }
 
 
