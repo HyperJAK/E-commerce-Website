@@ -20,7 +20,8 @@ class Order extends Model
         'order_placement_date',
         'total_price',
         'buyer_id',
-        'seller_id'
+        'seller_id',
+        'cart_id'
     ];
 
 
@@ -35,7 +36,7 @@ class Order extends Model
     //hasMany and hasOne first id is the one in the table that we are referencing and second one is what its called in this table
     //BelongsTo is the opposite, first id is the current table foreign id name and second is the other table
     public function items(){
-        return $this->hasMany(Cart::class);
+        return $this->hasOne(Cart::class, 'cart_id', 'cart_id');
     }
 
     public function getOrderDate(){
