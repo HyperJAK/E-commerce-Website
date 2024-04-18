@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -53,3 +54,17 @@ Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.u
 
 //Delete doesnt work here, put in api.php
 Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+
+Route::get('/'); // Show a specific store
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Show a specific store
+Route::get('/user-profile', [DashboardController::class, 'userProfile'])->name('user-profile');
+Route::get('/user-management', [DashboardController::class, 'userManagement'])->name('user-management');
+Route::get('/tables', [DashboardController::class, 'tables'])->name('tables');
+Route::get('/billing', [DashboardController::class, 'billing'])->name('billing');
+Route::get('/rtl', [DashboardController::class, 'rtl'])->name('rtl');
+Route::get('/notifications', [DashboardController::class, 'notifications'])->name('notifications');
+Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+Route::get('/static-sign-up', [DashboardController::class, 'staticSignUp'])->name('static-sign-up');
+Route::get('/static-sign-in', [DashboardController::class, 'staticSignIn'])->name('static-sign-in');
