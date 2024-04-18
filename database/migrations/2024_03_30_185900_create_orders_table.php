@@ -29,6 +29,7 @@ Image
             $table->double('total_price');
             $table->unsignedBigInteger('buyer_id');
             $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('cart_id');
             // ma tnsa to un-comment the next 2 lines after creating
 
         });

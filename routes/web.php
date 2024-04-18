@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('/');
 
 
 //Products routes
@@ -44,3 +45,18 @@ Route::get('stores/{id}/getStatus', [StoreController::class, 'getStoreStatus']);
 Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']);
 
 
+
+//Orders routes
+// Routes for Order management
+Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
+
+//Post doesnt work here, put in api.php
+Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+
+Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+Route::get('orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+//Delete doesnt work here, put in api.php
+Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
