@@ -16,5 +16,7 @@ class CartItem extends Model
     public function getCart(){
         return $this->belongsTo(Cart::class,'cart_id','cart_id');
     }
-
+    public function getCartItems(){
+        return $this->getCart()->pluck('product_id');
+    }
 }
