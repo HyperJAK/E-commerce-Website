@@ -75,6 +75,7 @@ class StoreController extends Controller
     {
         $categories = CategoryForStores::all();
         $groupedData = [];
+        $cats=Category::all();
 
         foreach ($categories as $category) {
             $categoryId = $category->category_id;
@@ -93,7 +94,7 @@ class StoreController extends Controller
             $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
         }
 
-        return view('index')->with('categories', $groupedData);/*$groupedData*/
+        return view('index')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
     }
 
 

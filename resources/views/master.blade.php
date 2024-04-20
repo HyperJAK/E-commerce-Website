@@ -47,7 +47,7 @@
                 <div class="col-sm-12">
                     <div class="custom_menu">
                         <ul>
-                            <li><a href="{{route('products')}}">Best Sellers</a></li>
+                            <li><a href="{{--{{route('products')}}--}}">Best Sellers</a></li>
                             <li><a href="#">Gift Ideas</a></li>
                             <li><a href="#">New Releases</a></li>
                             <li><a href="#">Today's Deals</a></li>
@@ -86,7 +86,7 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{route('products')}}">All</a>
+                        <a class="dropdown-item" href="{{route('index')}}">All</a>
                         @isset($cats)
                             @foreach($cats as $obj)
                                 <a class="dropdown-item" href="{{route('SortStoresByCategory',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
