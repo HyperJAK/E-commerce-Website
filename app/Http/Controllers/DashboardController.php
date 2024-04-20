@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,9 +12,18 @@ class DashboardController extends Controller
         return view('/dashboard/index');
     }
 
-    public function userProfile()
+    public function userProfile(Request $request)
     {
-        return view('/pages/laravel-examples/user-profile');
+
+        $user = User::where('email', 'jak@gmail.com')->first();
+
+
+        return view('/pages/laravel-examples/user-profile')->with('user', $user);
+    }
+
+    public function profile()
+    {
+        return view('/pages/profile');
     }
 
     public function userManagement()
@@ -31,10 +41,6 @@ class DashboardController extends Controller
         return view('/pages/billing');
     }
 
-    public function rtl()
-    {
-        return view('/pages/rtl');
-    }
 
     public function notifications()
     {
