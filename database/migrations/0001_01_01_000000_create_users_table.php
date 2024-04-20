@@ -20,6 +20,8 @@ return new class extends Migration
             $table->longText('address')->nullable();
             $table->string('country');
             $table->string('city');
+            $table->string('phone')->nullable();
+            $table->string('about')->nullable();
             $table->boolean('is_seller')->default(false);
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_verified')->default(false);

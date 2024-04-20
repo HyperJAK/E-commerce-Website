@@ -88,7 +88,7 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Phone</label>
-                                    <input type="number" name="phone" class="form-control border border-2 p-2" value='{{ $user?$user->phone: 70982563 }}'>
+                                    <input type="number" name="phone" class="form-control border border-2 p-2" value='{{ $user?$user->phone: '70982563' }}'>
                                     @error('phone')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror

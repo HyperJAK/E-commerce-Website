@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
@@ -64,12 +64,12 @@ Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.u
 Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 
 
-Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Show a specific store
-Route::get('admin/user-profile', [DashboardController::class, 'userProfile'])->name('user-profile');
-Route::get('admin/user-management', [DashboardController::class, 'userManagement'])->name('user-management');
-Route::get('admin/tables', [DashboardController::class, 'tables'])->name('tables');
-Route::get('admin/billing', [DashboardController::class, 'billing'])->name('billing');
-Route::get('admin/notifications', [DashboardController::class, 'notifications'])->name('notifications');
-Route::get('admin/profile', [DashboardController::class, 'profile'])->name('profile');
-Route::get('admin/static-sign-up', [DashboardController::class, 'staticSignUp'])->name('static-sign-up');
-Route::get('admin/static-sign-in', [DashboardController::class, 'staticSignIn'])->name('static-sign-in');
+Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
+Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
+Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
+Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
+Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
+Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
+Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
+Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
+Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');

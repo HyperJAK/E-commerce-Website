@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function userProfile(Request $request)
     {
 
-        $user = User::where('email', 'jak@gmail.com')->first();
+        $user = User::where('email', 'admin@example.com')->first();
 
 
         return view('/pages/laravel-examples/user-profile')->with('user', $user);
