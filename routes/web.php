@@ -11,7 +11,7 @@ use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StoreController::class, 'getStoresByCategory'])->name('/');
-
+Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd']);

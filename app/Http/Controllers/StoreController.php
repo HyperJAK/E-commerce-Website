@@ -10,6 +10,15 @@ use \Illuminate\Http\JsonResponse;
 
 class StoreController extends Controller
 {
+
+
+
+    public function getIndex(){
+
+
+        return view('index');
+    }
+
     public function getStore($id){
         $store = Store::find($id);
         if ($store) {
