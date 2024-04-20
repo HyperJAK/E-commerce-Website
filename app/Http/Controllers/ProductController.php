@@ -35,8 +35,15 @@ class ProductController extends Controller
            return response()->json(['message'=>'Products not found']);
         }
     }
-    public function getAllProdSmall(){
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->get();
+
+    public function getAllProdSmall($page){
+        $page = intval($page) ?: 1;
+        $pageSize = 6;
+        $offset = ($page - 1) * $pageSize;
+        
+        if ($page >= 0) {
+                            
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->offset($offset)->limit($pageSize)->get();
 
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
@@ -48,9 +55,16 @@ class ProductController extends Controller
            return response()->json(['message'=>'Products not found']);
         }
     }
-    public function getProdSmallCat($category_id){
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->get();
 
+    }
+    public function getProdSmallCat($category_id,$page){
+        $page = intval($page) ?: 1;
+        $pageSize = 6;
+        $offset = ($page - 1) * $pageSize;
+        
+        if ($page >= 0) {
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->offset($offset)->limit($pageSize)->get();
+       
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -60,6 +74,7 @@ class ProductController extends Controller
         } else {
            return response()->json(['message'=>'Products not found']);
         }
+    }
     }
     public function getProdSmallSearch($search){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$search%")->orWhere('description','like',"%$search%")->get();
@@ -119,9 +134,21 @@ class ProductController extends Controller
         }
     }
     public function AddProd(Request $request){
-        $str= Store::find($request->store_id);
-        $cat= Category::find($request->category_id);
-        if($str && $cat){
+        $request->validate([
+            'name'=>'required|min:3',
+            'description'=>'required|min:3',
+            'price'=>'required|numeric',
+           'category_id' => 'required|exists:categories,category_id|numeric',
+           'quantity'=>'required|numeric',
+           'path1'=>'required',
+           'path2'=>'required',
+           'path3'=>'required',
+           'path4'=>'required',
+           'store_id'=>'required|exists:stores,store_id|numeric',
+            ]);
+        // $str= Store::find($request->store_id);
+        // $cat= Category::find($request->category_id);
+        // if($str && $cat){
         Product::create([
             'name'=> $request->name,
             'description'=>$request->description,
@@ -135,16 +162,28 @@ class ProductController extends Controller
             'store_id'=>$request->store_id,
         ]);
         return response()->json(["message"=>"Product added successfully"]);
-    }else{
-        return response()->json(['message'=>'Store or category does not exist!']);
-    }
-
+    // }else{
+    //     return response()->json(['message'=>'Store or category does not exist!']);
+    // }
 }
     public function EditProd(Request $request){
+        $request->validate([
+            'id'=>'required|exists:products,product_id|numeric',
+            'name'=>'required|min:3',
+            'description'=>'required|min:3',
+            'price'=>'required|numeric',
+           'category_id' => 'required|exists:categories,category_id|numeric',
+           'quantity'=>'required|numeric',
+           'path1'=>'required',
+           'path2'=>'required',
+           'path3'=>'required',
+           'path4'=>'required',
+           'store_id'=>'required|exists:stores,store_id|numeric',
+            ]);
         $obj= Product::find($request->id);
-        $str= Store::find($request->store_id);
-        $cat= Category::find($request->category_id);
-        if ($obj && $str && $cat) {
+        // $str= Store::find($request->store_id);
+        // $cat= Category::find($request->category_id);
+        // if ($obj && $str && $cat) {
             $obj->name = $request->name;
             $obj->description = $request->description;
             $obj->price = $request->price;
@@ -157,9 +196,9 @@ class ProductController extends Controller
             $obj->store_id = $request->store_id;
             $obj->save();
         return response()->json(["message"=>"Product edited successfully"]);
-        } else {
-            return response()->json(['message'=>'Product, store or category does not exist!']);
-    }
+    //     } else {
+    //         return response()->json(['message'=>'Product, store or category does not exist!']);
+    // }
         }
 
     public function DeleteProd($prod_id){
