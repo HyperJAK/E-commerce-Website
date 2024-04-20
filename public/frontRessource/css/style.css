@@ -22,7 +22,7 @@
 
 :root{
     /* --maincolor:#f26522; */
-    --maincolor:rgb(164, 144, 238);
+    --maincolor:rgb(127, 105, 206);
 }
 html {
     scroll-behavior: smooth;
@@ -226,11 +226,11 @@ button {
 .banner_bg_main2 {
     width: 100%;
     float: left;
-background: linear-gradient(180deg, rgba(164, 153, 208, 0.896) 0%, rgba(249, 235, 255, 0.02) 20%);
+background: linear-gradient(180deg, rgb(127, 105, 206) 0%, rgba(249, 235, 255, 0.02) 30%);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
-    padding-bottom: 70%;
+    padding-bottom: 10%;
 }
 
 
@@ -570,7 +570,7 @@ a:hover {
 .fashion_section {
     width: 100%;
     float: left;
-    padding-bottom: 150px;
+    padding-bottom: 10px;
 }
 
 .fashion_taital {
@@ -580,10 +580,17 @@ a:hover {
     text-align: center;
     font-weight: bold;
 }
+.fashion_taital_Small {
+    width: 100%;
+    font-size: 16px;
+    color: rgb(114, 100, 166);
+    text-align: center;
+    font-weight:400;
+}
 
 .fashion_section_2 {
     width: 100%;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .box_main {
@@ -591,7 +598,7 @@ a:hover {
     background-color: #ffffff;
     height: auto;
     padding: 20px;
-    box-shadow: 0px 0 30px 10px #f0f0f0;
+    box-shadow: 0px 0 20px 10px #f0f0f0;
     margin-bottom: 20px;
 }
 
@@ -603,7 +610,9 @@ a:hover {
     font-weight: bold;
     padding-bottom: 5px;
 }
-
+.prod_desc{
+    text-align: center;
+}
 .price_text {
     width: 100%;
     font-size: 16px;
@@ -613,10 +622,11 @@ a:hover {
 }
 
 .tshirt_img {
-    width: 100%;
-    text-align: center;
-    margin: 50px 0px;
-    min-height: 370px;
+    width: 65%;
+    align-items: center;
+    margin: auto;
+    margin-top:20px;
+    min-height: 270px;
 }
 
 .btn_main {
@@ -969,6 +979,13 @@ input.mail_bt::placeholder {
 .margin_top90 {
     margin-top: 90px;
 }
+.pages{
+margin-left:4%;
+margin-bottom:4%;
 
+}
+.pages svg{
+width:22px;
+}
 
 /* copyright section end */

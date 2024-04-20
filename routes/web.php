@@ -8,9 +8,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-})->name('/');
+Route::get('/',[ProductController::class,'index'])->name('/');
 
 
 //Products routes
@@ -21,7 +19,7 @@ Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCat
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
 Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
-Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
+Route::get('getByCat/{category_id}',[ProductController::class,'getProdSmallCat'])->name('getByCat');
 Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);

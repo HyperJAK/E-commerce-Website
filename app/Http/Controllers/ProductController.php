@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ use Illuminate\Http\Request;
 // (Buyers can browse products, add to cart, and add to Wishlist.)
 class ProductController extends Controller
 {
+    public function index(){
+        $cats=Category::all();                 
+            return view('index')->with('cats',$cats);
+    }
     public function getProdImages($id){
         $obj= Product::select('path1','path2','path3','path4')->where('product_id',$id)->get();
         return $obj;
@@ -37,44 +42,39 @@ class ProductController extends Controller
     }
 
     public function getAllProdSmall(Request $request){
-        $page = intval($request->page) ?: 1;
-        $pageSize = 6;
-        $offset = ($page - 1) * $pageSize;
-        
-        if ($page >= 0) {
-                            
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->offset($offset)->limit($pageSize)->get();
+        $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
+        $cats=Category::all();                 
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
 
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
+            $key->description=Str::limit($key->description, 69);
                 $fullAnswers[] = $key;
             }
-            return view('products')->with('obj',$fullAnswers);
+            return view('products')->with('objs',$obj)->with('cats',$cats);
+            // return $obj;
         } else {
            return response()->json(['message'=>'Products not found']);
         }
-    }
 
     }
-    public function getProdSmallCat($category_id,$page){
-        $page = intval($page) ?: 1;
-        $pageSize = 6;
-        $offset = ($page - 1) * $pageSize;
-        
-        if ($page >= 0) {
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->offset($offset)->limit($pageSize)->get();
+    public function getProdSmallCat($category_id){
+        $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
+        $cats=Category::all();  
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->whereIn('store_id', $storeCheck)->paginate(9);
        
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
+            $key->description=Str::limit($key->description, 69);
                 $fullAnswers[] = $key;
             }
-            return $fullAnswers;
+            return view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
         } else {
            return response()->json(['message'=>'Products not found']);
         }
-    }
+    
     }
     public function getProdSmallSearch($search){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$search%")->orWhere('description','like',"%$search%")->get();

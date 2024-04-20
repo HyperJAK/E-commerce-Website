@@ -86,10 +86,22 @@
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                     <a class="dropdown-item" href="{{route('products')}}">All</a>
+                     @isset($cats)
+                       @foreach($cats as $obj)
+                        <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
+                        @endforeach
+                        @endisset
+                        <!-- <a class="dropdown-item" href="#">Another action</a> -->
                      </div>
+                     <!-- <select name="cat">
+                        <option value="">All Categories</option>
+                  @isset($cats)      
+                @foreach($cats as $obj)
+                    <option value="{{$obj->category_id}}">{{$obj->name}}</option>
+                @endforeach
+                @endisset
+            </select> -->
                   </div>
                   
                   <div class="header_box">
