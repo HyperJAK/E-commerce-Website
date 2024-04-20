@@ -43,7 +43,7 @@ Route::get('stores/getPendingByUserId/{userId}', [StoreController::class, 'getPe
 Route::get('stores/{id}/getStatus', [StoreController::class, 'getStoreStatus']);
 // Get Route for Store Creator
 Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']);
-Route::get('SortByCategory', [StoreController::class, 'SortByCategory'])->name('SortByCategory');
+Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortStoresByCategory'])->name('SortStoresByCategory');
 
 
 

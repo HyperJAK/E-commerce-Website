@@ -1,4 +1,4 @@
-@extends('master2')
+@extends('master')
 @section('content')
 
       <!-- electronic section start -->

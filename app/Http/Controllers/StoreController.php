@@ -46,7 +46,7 @@ class StoreController extends Controller
         }
     }
 
-    public function SortByCategory($categoryId)
+    public function SortStoresByCategory($categoryId)
     {
         $categories = CategoryForStores::where('category_id', $categoryId);
         $groupedData = [];
