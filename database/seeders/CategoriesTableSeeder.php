@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Electronics',
+                'name' => 'electronics',
                 'parent_id' => null,
                 'description' => 'Category for electronic products.',
                 'store_id'=>1,
@@ -23,7 +23,15 @@ class CategoriesTableSeeder extends Seeder
                 'updated_at'=> now(),
             ],
             [
-                'name' => 'Smartphones',
+                'name' => 'smartphones',
+                'parent_id' => 1,
+                'description' => 'Category for smartphones.',
+                'store_id'=> 1,
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'name' => 'fournitures',
                 'parent_id' => 1,
                 'description' => 'Category for smartphones.',
                 'store_id'=> 1,

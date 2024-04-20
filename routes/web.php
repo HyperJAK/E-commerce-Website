@@ -10,9 +10,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-})->name('/');
+Route::get('/', [StoreController::class, 'getStoresByCategory'])->name('/');
 
 
 //Products routes
@@ -45,6 +43,7 @@ Route::get('stores/getPendingByUserId/{userId}', [StoreController::class, 'getPe
 Route::get('stores/{id}/getStatus', [StoreController::class, 'getStoreStatus']);
 // Get Route for Store Creator
 Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']);
+Route::get('SortByCategory', [StoreController::class, 'SortByCategory'])->name('SortByCategory');
 
 
 
