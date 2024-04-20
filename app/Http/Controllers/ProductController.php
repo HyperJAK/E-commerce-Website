@@ -46,7 +46,7 @@ class ProductController extends Controller
         $cats=Category::all();                 
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
 
-        if ($obj) {$fullAnswers = [];
+        if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
@@ -55,7 +55,8 @@ class ProductController extends Controller
             return view('products')->with('objs',$obj)->with('cats',$cats);
             // return $obj;
         } else {
-           return response()->json(['message'=>'Products not found']);
+            return view('products');
+        //    return response()->json(['message'=>'Products not found']);
         }
 
     }

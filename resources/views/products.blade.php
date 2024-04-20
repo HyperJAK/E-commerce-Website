@@ -16,6 +16,7 @@
                </h1>
                     <div class="fashion_section_2">
                        <div class="row">
+   @isset($objs)
     @foreach($objs as $obj)
                 <div class="col-lg-4 col-sm-4">
                  
@@ -34,6 +35,16 @@
         
 
             @endforeach
+            @else
+            <div class="box_main">
+<h4 class="shirt_text">Error</h4>
+<h3 class="fashion_taital_Small">Data Fetch Failed</h3>
+    <p class="price_text">Price  <span style="color: #262626;">$0</span></p>
+            <p class="prod_desc">Error fetching data</p>
+    </div>
+</div>
+            </div>
+            @endisset 
            
             </div>
                        </div>
@@ -53,7 +64,9 @@
            </div>
           
         </div>
+        @isset($objs)
         <div class="pages">{{$objs->links()}}</div>
+        @endisset
      </div>  
      
       <!-- fashion section end -->
