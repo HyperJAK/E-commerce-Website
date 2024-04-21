@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use Hamcrest\Text\IsEmptyString;
 use Illuminate\Support\Str;
 use App\Models\Store;
 use App\Models\Category;
@@ -42,17 +43,24 @@ class ProductController extends Controller
     }
 
     public function getAllProdSmall(Request $request){
+        $request->validate([
+            'order'=>'in:asc,desc',
+            ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::all();                 
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
-
+        $cats=Category::all();  
+        if($request->order){             
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
+        }else{
+         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
+      
+        }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
                 $fullAnswers[] = $key;
             }
-            return view('products')->with('objs',$obj)->with('cats',$cats);
+            return $request->order? view('products')->with('objs',$obj)->with('cats',$cats)->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats);
             // return $obj;
         } else {
             return view('products');
@@ -60,10 +68,18 @@ class ProductController extends Controller
         }
 
     }
-    public function getProdSmallCat($category_id){
+    public function getProdSmallCat(Request $request){
+        $request->validate([
+            'order'=>'in:asc,desc',
+            'category_id'=>'exists:categories,category_id'
+            ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::all();  
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $category_id)->whereIn('store_id', $storeCheck)->paginate(9);
+        $cats=Category::all(); 
+        if($request->order){    
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $request->category_id)->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
+        } else{
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $request->category_id)->whereIn('store_id', $storeCheck)->paginate(9);
+        }
        
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
@@ -71,23 +87,35 @@ class ProductController extends Controller
             $key->description=Str::limit($key->description, 69);
                 $fullAnswers[] = $key;
             }
-            return view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
+            return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0])->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
         } else {
            return response()->json(['message'=>'Products not found']);
         }
     
     }
-    public function getProdSmallSearch($search){
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$search%")->orWhere('description','like',"%$search%")->get();
-
-        if ($obj) {$fullAnswers = [];
+    public function getProdSmallSearch(Request $request){
+        $request->validate([
+            'order'=>'in:asc,desc',
+            ]);
+        $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
+        $cats=Category::all(); 
+        if(empty($request->search) || $request->search === null){
+           return redirect()->to('products');
+        }
+        if($request->order){  
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$request->search%")->orWhere('description','like',"%$request->search%")->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
+        } else{
+             $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$request->search%")->orWhere('description','like',"%$request->search%")->whereIn('store_id', $storeCheck)->paginate(9);
+        }   
+        if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
+            $key->description=Str::limit($key->description, 69);
                 $fullAnswers[] = $key;
             }
-            return $fullAnswers;
+            return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result')->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result');
         } else {
-           return response()->json(['message'=>'Products not found']);
+            return view('products');
         }
     }
     public function getProdSmallStore($store_id){

@@ -82,25 +82,70 @@
                      <a href="{{route('/')}}">Jewellery</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
-                  @isset($cats)
+                 
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @isset($title) {{ $title }} @else 
-                 All Category
+                 All Categories
                   @endisset 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item" href="{{route('products')}}">All</a>
-                     
+                      @isset($cats)
                        @foreach($cats as $obj)
                         <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
                         @endforeach
-                       
+                       @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
                      </div>
-                  
+</div>
+                     <div class="dropdown">
+                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @isset($order) {{ $order }} @else 
+                     No order
+                     @endisset 
+                     </button>
+@php
+    $route = request();
+    $routeParameters = $route->query();
+   
+    $routeAsc = $routeParameters;
+    $routeAsc['order'] = 'asc';
+    $queryString0 = http_build_query($routeAsc);
+    $fullLink1 = url()->current() . '?' . $queryString0;
+
+    $routeOG = $routeParameters;
+    $queryString1 = http_build_query($routeOG);
+    $fullLink0 = url()->current().'?' . $queryString1;
+    
+
+    $routeDesc = $routeParameters;
+    $routeDesc['order'] = 'desc';
+    $queryString2 = http_build_query($routeDesc);
+    $fullLink2 = url()->current() . '?' . $queryString2;
+@endphp
+                     
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
+               <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>
+               <a class="dropdown-item" href="{{$fullLink2}}">High to Low</a>
+               <!-- <a class="dropdown-item" href="#">Another action</a> -->
+            </div>
+               </div>
+
+                  <div class="main">
+                     <!-- Another variation with a button -->
+                     <div class="input-group">
+                     <form action="{{route('prodSearch')}}" class="form-inline" method="get">
+                        <input type="text" class="form-control" placeholder="Search here" name="search">
+                        <div class="input-group-append">
+                           <button class="btn btn-secondary" type="submit" style="background-color: dark; ">
+                           <i class="fa fa-search"></i>
+                           </button>
+                        </form>
+                        </div>
+                     </div>
                   </div>
-                   @endisset
 
                   <div class="header_box">
                      <div class="login_menu">
@@ -125,10 +170,14 @@
       <div class="footer_section layout_padding">
          <div class="container">
             <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
+            
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+            
             </div>
+         </form>
             <div class="footer_menu">
                <ul>
                   <li><a href="#">Best Sellers</a></li>

@@ -6,6 +6,8 @@
 
       <!-- fashion section start -->
       <div class="fashion_section">
+    
+
         <div id="main_slider" class="carousel slide" data-ride="carousel">
            <div class="carousel-inner">
               <div class="carousel-item active">
@@ -38,9 +40,8 @@
             @else
             <div class="box_main">
 <h4 class="shirt_text">Error</h4>
-<h3 class="fashion_taital_Small">Data Fetch Failed</h3>
-    <p class="price_text">Price  <span style="color: #262626;">$0</span></p>
-            <p class="prod_desc">Error fetching data</p>
+<h3 class="fashion_taital_Small">No data found</h3>
+            <p class="prod_desc">Error fetching data or No data found</p>
     </div>
 </div>
             </div>

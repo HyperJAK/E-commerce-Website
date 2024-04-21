@@ -19,9 +19,9 @@ Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCat
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
 Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
-Route::get('getByCat/{category_id}',[ProductController::class,'getProdSmallCat'])->name('getByCat');
+Route::get('getByCat',[ProductController::class,'getProdSmallCat'])->name('getByCat');
 Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
-Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
+Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
