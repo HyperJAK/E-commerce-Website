@@ -75,10 +75,12 @@ class ProductController extends Controller
             ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
         $cats=Category::all(); 
+        $cat2=Category::find($request->category_id)->getChildrensId()->toArray(); 
+        $cat2[]=intval($request->category_id);
         if($request->order){    
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $request->category_id)->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('category_id', $cat2)->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
         } else{
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('category_id', $request->category_id)->whereIn('store_id', $storeCheck)->paginate(9);
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('category_id', $cat2)->whereIn('store_id', $storeCheck)->paginate(9);
         }
        
         if ($obj) {$fullAnswers = [];

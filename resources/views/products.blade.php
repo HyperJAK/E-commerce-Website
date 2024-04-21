@@ -7,7 +7,6 @@
       <!-- fashion section start -->
       <div class="fashion_section">
     
-
         <div id="main_slider" class="carousel slide" data-ride="carousel">
            <div class="carousel-inner">
               <div class="carousel-item active">

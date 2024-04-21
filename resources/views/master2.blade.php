@@ -58,7 +58,7 @@
                </div>
             </div>
          </div>
-         <!-- header top section start -->
+         <!-- header top section end -->
          <!-- logo section start -->
          <div class="logo_section">
             <div class="container">
@@ -165,6 +165,15 @@
             </div>
          </div>
          <!-- header section end -->
+         @if ($errors->any())
+                <div class="alert alert-secondary" style="margin-top:2%;width:60%;margin-left:2%">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
    @yield('content')
       <!-- footer section start -->
       <div class="footer_section layout_padding">
