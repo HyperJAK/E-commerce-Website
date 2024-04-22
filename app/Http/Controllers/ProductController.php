@@ -6,6 +6,7 @@ use Hamcrest\Text\IsEmptyString;
 use Illuminate\Support\Str;
 use App\Models\Store;
 use App\Models\Category;
+use App\Models\CategoryForStores;
 use Illuminate\Http\Request;
 
 // As a buyer i want to be able to add a product to my cart, to my Wishlist or normally browse it
@@ -126,22 +127,47 @@ class ProductController extends Controller
             return view('products');
         }
     }
-    public function getProdSmallStore($store_id){
-        $storeCheck=Store::where('store_id',$store_id)->where('status','1')->get();
-        if ($storeCheck->isNotEmpty()) {
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $store_id)->get();
+    public function getProdSmallStore(Request $request){
+        $request->validate([
+            'order'=>'in:asc,desc',
+            'store_id'=>'exists:stores,store_id'
+            ]);
 
-        if ($obj) {$fullAnswers = [];
+            //this returns the product in a certain category
+            // $categories = CategoryForStores::where('store_id', $request->store_id)->get();
+            // foreach ($categories as $key) {
+            //     $key->category_id = $key->getCatNameStore();
+            //         $fullAnswers[] = $key;
+            //     }
+                
+            //this now returns name of categories in reuqest store
+                $categories = CategoryForStores::where('store_id', $request->store_id)->get();
+            foreach ($categories as $key) {
+                $key->name = $key->getCatNameStore();
+                }
+
+        $storeCheck=Store::where('store_id',$request->store_id)->where('status','1')->get();
+        $cats=Category::where('store_id',$request->store_id)->get();
+        if ($storeCheck->isNotEmpty()) {
+            if($request->order){ 
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->orderBy('price',$request->order)->paginate(6);
+    } else{
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->paginate(6);
+    }
+        
+        if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
+    // $storeCheck->first()->name;
                 $fullAnswers[] = $key;
             }
-            return $fullAnswers;
+            return $request->order? view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name);
         } else {
            return response()->json(['message'=>'Products not found']);
         } }else {
             return response()->json(['message'=>'Store does not exist or not verified yet']);
          }
+         
     }
     public function getProdName($name){
         $obj= Product::where('name','like',"%$name%")->get();

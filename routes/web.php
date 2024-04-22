@@ -20,7 +20,7 @@ Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
 Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
 Route::get('getByCat',[ProductController::class,'getProdSmallCat'])->name('getByCat');
-Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
+Route::get('getByStore',[ProductController::class,'getProdSmallStore'])->name('getByStore');
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);

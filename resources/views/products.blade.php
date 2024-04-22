@@ -11,7 +11,7 @@
            <div class="carousel-inner">
               <div class="carousel-item active">
                  <div class="container">
-                 <h1 class="fashion_taital">@isset($title) {{ $title }} @else 
+                 <h1 class="fashion_taital" style="text-transform: capitalize">@isset($title) {{ $title }} @else 
                  All Products
                   @endisset
                </h1>
