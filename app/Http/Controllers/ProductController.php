@@ -127,13 +127,50 @@ class ProductController extends Controller
             return view('products');
         }
     }
+    public function getProdSmallSearchStore(Request $request){
+        $request->validate([
+            'order'=>'in:asc,desc',
+            'store_id'=>'exists:stores,store_id'
+            ]);
+        $storeCheck=Store::where('store_id',$request->store_id)->where('status','1')->get();
+        $categories = CategoryForStores::where('store_id', $request->store_id)->get();
+        foreach ($categories as $key) {
+            $key->name = $key->getCatNameStore();
+            }
+        if($storeCheck){
+        if($request->order){  
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1') ->where('store_id', $request->store_id)
+        ->where(function($query) use ($request) {
+            $query->where('name', 'like', "%$request->search%")
+                  ->orWhere('description', 'like', "%$request->search%");
+        })->orderBy('price',$request->order)->paginate(9);
+        } else{
+             $obj= Product::select('product_id','name', 'description','price','category_id','path1') ->where('store_id', $request->store_id)
+             ->where(function($query) use ($request) {
+                 $query->where('name', 'like', "%$request->search%")
+                       ->orWhere('description', 'like', "%$request->search%");
+             })->paginate(9);
+        }   
+        if (count($obj)>0) {$fullAnswers = [];
+            foreach ($obj as $key) {
+            $key->category_id = $key->getCatName();
+            $key->description=Str::limit($key->description, 69);
+                $fullAnswers[] = $key;
+            }
+          return $request->order?view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title','Search Result');
+            
+        } else {
+            return view('viewProdStore');
+        }
+    }
+    }
     public function getProdSmallStore(Request $request){
         $request->validate([
             'order'=>'in:asc,desc',
             'store_id'=>'exists:stores,store_id'
             ]);
 
-            //this returns the product in a certain category
+            //this returns the product in a certain category ymkin la2 b3t2d m8albat
             // $categories = CategoryForStores::where('store_id', $request->store_id)->get();
             // foreach ($categories as $key) {
             //     $key->category_id = $key->getCatNameStore();

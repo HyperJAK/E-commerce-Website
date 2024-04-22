@@ -136,8 +136,9 @@
                   <div class="main">
                      <!-- Another variation with a button -->
                      <div class="input-group">
-                     <form action="{{route('prodSearch')}}" class="form-inline" method="get">
-                        <input type="text" class="form-control" placeholder="Search here" name="search">
+                     <form action="{{route('prodSearchStore')}}" class="form-inline" method="get">
+                        <input type="text" class="form-control" placeholder="Search in Store" name="search">
+                        <input type="hidden" class="form-control" placeholder="" name="store_id" value="{{$route->query('store_id')}}">
                         <div class="input-group-append">
                            <button class="btn btn-secondary" type="submit" style="background-color: dark; ">
                            <i class="fa fa-search"></i>
