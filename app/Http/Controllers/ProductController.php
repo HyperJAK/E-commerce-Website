@@ -21,8 +21,14 @@ class ProductController extends Controller
         return $obj;
     }
     public function getProd($id){
+        $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
+        $cats=Category::all();
         $obj= Product::find($id);
-        if ($obj) { return $obj;
+        if ($obj && in_array($obj->store_id,$storeCheck)) { 
+            $obj->category_id = $obj->getCatName();
+            $obj->store_name = $obj->getStoreName();
+            // return $obj;
+            return view('viewProd')->with('obj',$obj)->with('cats',$cats);
         } else {
            return response()->json(['message'=>'Product not found']);
         }

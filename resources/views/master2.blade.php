@@ -93,7 +93,7 @@
                      <a class="dropdown-item" href="{{route('products')}}">All</a>
                       @isset($cats)
                        @foreach($cats as $obj)
-                        <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
+                        <a class="dropdown-item {{ $obj->parent_id ? '' : 'text-dark font-weight-bold' }}" href="{{route('getByCat',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
                         @endforeach
                        @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
