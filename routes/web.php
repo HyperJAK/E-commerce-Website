@@ -6,6 +6,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\MicrosoftAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
@@ -77,8 +78,11 @@ Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleC
 Route::get('/auth/facebook/redirect', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
 Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
 
-Route::get('/auth/microsoft/redirect', [SocialAuthController::class, 'redirectToMicrosoft'])->name('auth.microsoft');
-Route::get('/auth/microsoft/callback', [SocialAuthController::class, 'handleMicrosoftCallback']);
+// Route::get('/auth/microsoft/redirect', [MicrosoftAuthController::class, 'redirectToMicrosoft'])->name('auth.microsoft');
+// Route::get('/auth/microsoft/callback', [MicrosoftAuthController::class, 'handleMicrosoftCallback']);
+
+Route::get('/auth/microsoft-graph', [MicrosoftAuthController::class, 'redirectToMicrosoftGraph'])->name('auth.microsoft-graph');
+Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'handleMicrosoftGraphCallback'])->name('auth.microsoft-graph.callback');
 
 
 

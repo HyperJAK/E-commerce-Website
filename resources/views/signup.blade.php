@@ -65,10 +65,8 @@
         <button type="submit">Sign Up</button>
 
         <a href="{{ route('auth.google') }}">Sign Up with Google</a>
-<a href="{{ route('auth.facebook') }}">Sign Up with Facebook</a>
-<a href="{{ route('auth.microsoft') }}">Sign Up with Microsoft</a>
+<a href="{{ route('auth.microsoft-graph') }}">Sign Up with Microsoft</a>
 
-<button onclick="facebookLogin()">Login with Facebook</button>
 
 <p>Already have an account? <a href="{{ route('signin') }}">Sign In</a></p>
     </form>

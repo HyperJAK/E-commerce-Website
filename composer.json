@@ -13,6 +13,7 @@
         "socialiteproviders/manager": "^4.5",
         "socialiteproviders/microsoft": "^4.2",
         "socialiteproviders/microsoft-azure": "^5.2",
+        "socialiteproviders/microsoft-graph": "^4.1",
         "symfony/http-client": "^7.0",
         "symfony/mailgun-mailer": "^7.0"
     },

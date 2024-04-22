@@ -37,16 +37,16 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
     
-    'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('FACEBOOK_REDIRECT_URI'),
-    ],
-
     'microsoft' => [
         'client_id' => env('MICROSOFT_CLIENT_ID'),
         'client_secret' => env('MICROSOFT_CLIENT_SECRET'),
         'redirect' => env('MICROSOFT_REDIRECT'),
+    ],
+
+    'microsoft-graph' => [
+        'client_id' => env('MICROSOFT_GRAPH_CLIENT_ID'),
+        'client_secret' => env('MICROSOFT_GRAPH_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/auth/microsoft-graph/callback', 
     ],
 
 ];
