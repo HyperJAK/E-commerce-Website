@@ -25,7 +25,7 @@
         
         <div>
             <a href="{{ route('auth.google') }}">Sign In with Google</a>
-            <a href="{{ route('auth.facebook') }}">Sign In with Facebook</a>
+            <a href="{{ route('auth.microsoft-graph') }}">Sign In with Microsoft</a>
         </div>
         <div>
     <a href="{{ route('password.forgot') }}">Forgot Password?</a>

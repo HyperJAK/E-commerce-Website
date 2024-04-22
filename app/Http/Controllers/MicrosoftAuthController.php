@@ -27,9 +27,7 @@ public function redirectToMicrosoftGraph()
 }
 public function handleMicrosoftGraphCallback(Request $request)
 {
-    if ($request->state !== csrf_token()) {
-        return redirect()->route('signin')->with('error', 'Invalid state parameter.');
-    }
+    
 
     $response = Http::asForm()->post('https://login.microsoftonline.com/common/oauth2/v2.0/token', [
         'client_id' => env('MICROSOFT_GRAPH_CLIENT_ID'),
