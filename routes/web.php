@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-Route::get('/', function () {
-    return view('index');
-})->name('/');
-
+Route::get('/', [StoreController::class, 'getStoresByCategory'])->name('/');
+Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd']);
@@ -52,6 +50,7 @@ Route::get('stores/getPendingByUserId/{userId}', [StoreController::class, 'getPe
 Route::get('stores/{id}/getStatus', [StoreController::class, 'getStoreStatus']);
 // Get Route for Store Creator
 Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']);
+Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortStoresByCategory'])->name('SortStoresByCategory');
 
 
 
