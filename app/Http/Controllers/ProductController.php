@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index(){
         // $cats=Category::all();
         $cats=Category::where('parent_id',null)->get();                  
-            return view('index')->with('cats',$cats);
+            return view('products')->with('cats',$cats);
     }
     public function getProdImages($id){
         $obj= Product::select('path1','path2','path3','path4')->where('product_id',$id)->get();

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
-Route::get('/',[ProductController::class,'index'])->name('/');
+Route::get('/',[ProductController::class,'index'])->name('/')->middleware('is_admin');
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
 Route::get('getAllProd',[ProductController::class,'getAllProd']);

@@ -621,15 +621,18 @@ a:hover {
     padding-bottom: 10px;
 }
 
-.fashion_taital {
-    width: 100%;
+.fashion_title {
+    width: 30vw;
+    margin: auto;
     font-size: 40px;
     color: rgb(114, 100, 166);
+    background-color: rgba(255, 255, 255, 0.889);
     text-align: center;
     margin-top: 2%;
     font-weight: bold;
 }
-.fashion_taital_Small {
+
+.fashion_title_Small {
     width: 100%;
     font-size: 16px;
     color: rgb(114, 100, 166);
