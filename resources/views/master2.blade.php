@@ -166,7 +166,7 @@
          </div>
          <!-- header section end -->
          @if ($errors->any())
-                <div class="alert alert-secondary" style="margin-top:2%;width:60%;margin-left:2%">
+                <div class="alert alert-danger" style="margin-top:2%;width:60%;margin-left:8%">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>

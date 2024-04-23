@@ -3,25 +3,8 @@
 <title>Products</title>
 @endsection
 @section('content')
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{{ asset($obj->path1) }}" class="img-fluid" alt="Product Image">
-        </div>
-        <div class="col-md-6">
-            <h1>{{ $obj->name }}</h1>
-            <p>{{ $obj->description }}</p>
-            <p>Price: ${{ $obj->price }}</p>
-            <p>Available Quantity: {{ $obj->quantity }}</p>
-            <p>Category: {{ $obj->category_id[0] }}</p>
-            <form action="{{ route('/') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
-            </form>
-        </div>
-    </div>
-</div> -->
 
+@isset($obj)
 <div class="container" id="productDiv">
     <div class="row">
         <div class="col-md-6">
@@ -75,5 +58,22 @@
         </div>
     </div>
 </div>
+@else
+<div class="container" id="productDiv">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Not Found</h1>
+                    <h3>Category: No data found</h3>
+                    <p>Description:<br/>The product you're requesting may have been deleted or the store deactivated</p>
+                    
+               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endisset
 
 @endsection
