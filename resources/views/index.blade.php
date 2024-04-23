@@ -3,6 +3,7 @@
 
       <!-- electronic section start -->
       <div class="fashion_section">
+          @isset($categories)
           @foreach($categories as $categoryId => $category)
 
                   <div id="{{ 'carousel-slide_' . $category['category']->category_id }}" class="carousel slide" data-ride="carousel">
@@ -44,6 +45,7 @@
 
 
           @endforeach
+          @endisset
               <div class="loader_main">
                   <div class="loader"></div>
               </div>
@@ -55,7 +57,7 @@
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
             <div class="input_bt">
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>

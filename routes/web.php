@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-Route::get('/', [StoreController::class, 'getStoresByCategory'])->name('/');
+Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 
 //Products routes
@@ -41,7 +41,7 @@ Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItems
 //Stores routes
 // Read Routes
 Route::get('stores/{id}', [StoreController::class, 'getStore']); // Show a specific store
-Route::get('stores', [StoreController::class, 'getAllStores']); // Show a specific store
+Route::get('getAllStores', [StoreController::class, 'getAllStores'])->name('getAllStores'); // Show a specific store
 Route::get('stores/getActiveByUserId/{userId}', [StoreController::class, 'getActiveStoresByUserId']); // Show all active stores for specific user
 Route::get('stores/getPendingByUserId/{userId}', [StoreController::class, 'getPendingStoresByUserId']); // Show all pending stores for specific user
 
@@ -133,9 +133,6 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard')->middleware('auth');
 
-Route::get('/home', function () {
-    return view('index');
-})->name('home')->middleware('auth');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () {

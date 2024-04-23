@@ -64,7 +64,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
+                    <div class="logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
                 </div>
             </div>
         </div>
@@ -76,10 +76,10 @@
             <div class="containt_main">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="{{route('/')}}">Home</a>
-                    <a href="{{route('/')}}">Fashion</a>
-                    <a href="{{route('/')}}">Electronic</a>
-                    <a href="{{route('/')}}">Jewellery</a>
+                    <a href="{{route('home')}}">Home</a>
+                    <a href="#">Fashion</a>
+                    <a href="#">Electronic</a>
+                    <a href="#">Jewellery</a>
                 </div>
                 <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
                 <div class="dropdown">
@@ -126,7 +126,7 @@
     <!-- footer section start -->
     <div class="footer_section layout_padding">
         <div class="container">
-            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
             <div class="input_bt">
                 <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                 <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
