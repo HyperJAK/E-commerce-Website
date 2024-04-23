@@ -86,7 +86,7 @@
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{route('index')}}">All</a>
+                        <a class="dropdown-item" href="{{route('home')}}">All</a>
                         @isset($cats)
                             @foreach($cats as $obj)
                                 <a class="dropdown-item" href="{{route('SortStoresByCategory',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name}}</a>
@@ -94,7 +94,7 @@
                         @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
                     </div>
-                </div> 
+                </div>
 
                 <div class="header_box">
                     <div class="login_menu">
