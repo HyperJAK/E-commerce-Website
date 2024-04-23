@@ -15,10 +15,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 
 
-
+// ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
-Route::get('/',[ProductController::class,'index'])->name('/')->middleware('is_admin');
+Route::get('/',[StoreController::class,'getStoresByCategory'])->name('/');
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
 Route::get('getAllProd',[ProductController::class,'getAllProd']);
