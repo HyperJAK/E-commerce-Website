@@ -97,7 +97,7 @@ Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'h
 
 
 Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
-Route::post('/signin', [UserController::class, 'signin']);
+Route::post('/signin', [UserController::class, 'signin'])->name('signin');
 
 Route::get('/verify-email', [UserController::class, 'verifyEmail'])->name('verify.email');
 
@@ -116,7 +116,7 @@ Route::get('/verify-email/{token}', [UserController::class, 'verifyEmail']);
 
 Route::get('/test-email', function () {
     Mail::raw('This is a test email.', function ($message) {
-        $message->to('charbelse01@gmail.com')  
+        $message->to('charbelse01@gmail.com')
                 ->subject('Test Email');
     });
     return 'Test email sent!';
@@ -135,7 +135,7 @@ Route::get('/admin/dashboard', function () {
 })->name('admin.dashboard')->middleware('auth');
 
 Route::get('/home', function () {
-    return view('home');
+    return view('index');
 })->name('home')->middleware('auth');
 
 Route::middleware(['auth', 'admin'])->group(function () {

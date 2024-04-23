@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function showSignUpForm()
     {
-        return view('signup'); 
+        return view('signup');
     }
 
     public function signup(Request $request)
@@ -30,11 +30,11 @@ class UserController extends Controller
             'address' => 'string|nullable|max:1000'
         ]);
 
-        
+
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password')); 
+        $user->password = Hash::make($request->input('password'));
         $user->country = $request->input('country');
         $user->city = $request->input('city');
         $user->address = $request->input('address', '');
@@ -45,7 +45,7 @@ class UserController extends Controller
         $user->save();
 
         $this->sendVerificationEmail($user);
-        
+
         return redirect()->route('home')->with('status', 'Account created! Please check your email to verify your account.');
     }
 
@@ -63,20 +63,20 @@ class UserController extends Controller
         'password' => 'required|string',
     ]);
 
-    
+
     if (Auth::attempt($request->only('email', 'password'))) {
-        
+
         $user = Auth::user();
 
         if ($user->is_admin) {
-            
+
             return redirect()->route('admin.dashboard')->with('status', 'Welcome to the Admin Dashboard');
         } else {
-           
+
             return redirect()->route('home')->with('status', 'Welcome to Home');
         }
     } else {
-        
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->withInput();
@@ -92,24 +92,24 @@ class UserController extends Controller
 
 public function verifyEmail($token)
 {
-    
+
     $user = User::where('verification_token', $token)->first();
 
-    
+
     if ($user) {
-        
+
         $user->is_verified = 1;
-        
+
         $user->email_verified_at = now();
-        
+
         $user->verification_token = null;
-       
+
         $user->save();
 
-        
+
         Mail::to($user->email)->send(new VerificationSuccessEmail($user));
 
-        
+
         return response()->json([
             'message' => 'Your email has been successfully verified!'
         ]);
@@ -169,7 +169,7 @@ public function sendPasswordResetLink(Request $request)
 
     $user = User::where('email', $request->input('email'))->first();
     if (!$user) {
-        
+
         return back()->withErrors(['email' => 'Email address does not exist.']);
     }
 
@@ -183,7 +183,7 @@ public function sendPasswordResetLink(Request $request)
 
     $resetUrl = route('password.reset', ['token' => $token, 'email' => $request->email]);
 
-    
+
     Mail::to($request->email)->send(new PasswordResetEmail($resetUrl));
 
     return back()->with('status', 'Password reset link has been sent to your email!');
@@ -228,7 +228,7 @@ public function resetPassword(Request $request)
     $user->password = Hash::make($request->password);
     $user->save();
 
-    
+
     //\DB::table('password_resets')->where('token', $request->token)->delete();
 
     return redirect()->route('signin')->with('status', 'Password has been reset successfully. Please sign in with your new password.');
@@ -254,7 +254,7 @@ public function updateProfile(Request $request)
         'address' => 'nullable|string|max:1000',
     ]);
 
-    
+
     $user = Auth::user();
 
     $user->username = $request->input('username');
