@@ -155,8 +155,8 @@ input[type="submit"]:hover {
 .external-links {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center vertically */
-    flex-direction: column; /* Stack items vertically */
+    align-items: center; 
+    flex-direction: column; 
     margin-top: 20px;
 }
 
@@ -167,13 +167,13 @@ input[type="submit"]:hover {
 }
 
 .external-links a {
-    margin: 20px; /* Adjust spacing between logos */
+    margin: 20px; 
 }
 
 
 .external-links img {
-    width: 40px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 40px; 
+    height: auto; 
 }
 
 
