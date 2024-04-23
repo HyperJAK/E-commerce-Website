@@ -1,5 +1,9 @@
 <?php
 
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -14,8 +18,8 @@ use Illuminate\Support\Facades\Mail;
 
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('/');
 
 
 //Products routes
@@ -25,11 +29,16 @@ Route::get('getProdName/{name}',[ProductController::class,'getProdName']);
 Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCategory']);
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
-Route::get('getAllProdSmall',[ProductController::class,'getAllProdSmall']);
-Route::get('getProdSmallCat/{category_id}',[ProductController::class,'getProdSmallCat']);
+Route::get('getAllProdSmall/{page}',[ProductController::class,'getAllProdSmall']);
+Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
 Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
+Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
+
+Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
+Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
+Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
 
 //Stores routes
 // Read Routes
@@ -60,6 +69,7 @@ Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.u
 
 //Delete doesnt work here, put in api.php
 Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
 
 
 
@@ -139,3 +149,14 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile/edit', [UserController::class, 'showEditProfileForm'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
+
+//Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
+Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
+Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
+Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
+Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
+Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
+Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
+Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
+Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
+

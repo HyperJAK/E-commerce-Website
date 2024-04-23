@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->bigIncrements('cart_id');
             $table->unsignedBigInteger('buyer_id');
-            // ma tnsa to un-comment the next 2 lines after creating
-
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
 

@@ -17,7 +17,7 @@ class CartsTableSeeder extends Seeder
         $buyerIds = DB::table('users')->pluck('user_id');
 
         // Create carts
-        for ($i = 0; $i < 50; $i++) { // Adjust the number of carts as needed
+        for ($i = 0; $i < 10; $i++) { // Adjust the number of carts as needed
             // Sample cart data
             $cartData = [
                 'buyer_id' => $buyerIds->random(),
