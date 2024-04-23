@@ -16,7 +16,7 @@ class StoreController extends Controller
     public function getIndex(){
 
 
-        return view('index');
+        return view('stores');
     }
 
     public function getStore($id){
@@ -48,7 +48,7 @@ class StoreController extends Controller
             if ($stores->isNotEmpty()) {
                 $storesChunks = $stores->chunk(3); // Chunk stores into groups of three
 
-                return view('index')->with('stores', $storesChunks);
+                return view('stores')->with('stores', $storesChunks);
             } else {
                 return response()->json(['message'=>'Stores not found']);
             }
@@ -77,7 +77,7 @@ class StoreController extends Controller
             $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
         }
 
-        return view('index')->with('categories', $groupedData);/*$groupedData*/
+        return view('stores')->with('categories', $groupedData);/*$groupedData*/
     }
 
     public function getStoresByCategory()
@@ -103,7 +103,7 @@ class StoreController extends Controller
             $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
         }
 
-        return view('index')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
+        return view('stores')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
     }
 
 
