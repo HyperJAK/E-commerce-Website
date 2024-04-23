@@ -14,7 +14,7 @@
                           @foreach(collect($category['stores'])->chunk(3) as $chunk)
                               <div class="carousel-item {{$index === 0 ? 'active' : ''}}">
                                   <div class="container">
-                                      <h1 class="fashion_taital">{{ ucfirst($category['category']->name) }}</h1>
+                                      <h1 class="fashion_title">{{ ucfirst($category['category']->name) }}</h1>
                                       <div class="fashion_section_2">
                                           <div class="row">
                                               @foreach($chunk as $store)

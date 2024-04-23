@@ -20,6 +20,6 @@ class EnsureUserIsAdmin
         if ($user && $user->is_admin) {
             return $next($request);
         }
-        return redirect()->route('home')->with('status', 'You are not authorized to access this page.');
+        return redirect()->route('home')->withErrors(['You are not authorized to access this page.']);
     }
 }

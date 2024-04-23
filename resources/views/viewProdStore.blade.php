@@ -182,7 +182,7 @@
        <div class="carousel-inner">
           <div class="carousel-item active">
              <div class="container">
-             <h1 class="fashion_taital">@isset($title) {{ $title }} @else 
+             <h1 class="fashion_title">@isset($title) {{ $title }} @else 
              All Products
               @endisset
            </h1>
@@ -194,7 +194,7 @@
              
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
-<h3 class="fashion_taital_Small">{{$obj->category_id[0]}}</h3>
+<h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
 <p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
         <div class="tshirt_img"><img src="{{asset($obj->path1)}}"></div>
         <p class="prod_desc">{{$obj->description}}</p>
@@ -210,7 +210,7 @@
         @else
         <div class="box_main">
 <h4 class="shirt_text">Error</h4>
-<h3 class="fashion_taital_Small">No data found</h3>
+<h3 class="fashion_title_Small">No data found</h3>
         <p class="prod_desc">Error fetching data or No data found</p>
 </div>
 </div>
