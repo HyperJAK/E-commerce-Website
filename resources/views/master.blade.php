@@ -98,15 +98,19 @@
 
                 <div class="header_box">
                     <div class="login_menu">
-                        <ul>
-                            <li><a href="#">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="padding_10">Cart</span></a>
-                            </li>
-                            <li><a href="#">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span class="padding_10">Account</span></a>
-                            </li>
+                    <ul>
+                           <li style="padding-right:1vw"><a href="#">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           <li style="padding-right:1vw"><a href="#">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                           </li>
+                           <li style="padding-right:1vw"><a href="#">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span class="padding_10">Account</span></a>
+                           </li>
                         </ul>
                     </div>
                 </div>

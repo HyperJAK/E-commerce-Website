@@ -70,6 +70,25 @@
             </div>
          </div>
          <!-- logo section end -->
+         @php
+    $route = request();
+    $routeParameters = $route->query();
+   
+    $routeAsc = $routeParameters;
+    $routeAsc['order'] = 'asc';
+    $queryString0 = http_build_query($routeAsc);
+    $fullLink1 = url()->current() . '?' . $queryString0;
+
+    $routeOG = $routeParameters;
+    $queryString1 = http_build_query($routeOG);
+    $fullLink0 = url()->current().'?' . $queryString1;
+    
+
+    $routeDesc = $routeParameters;
+    $routeDesc['order'] = 'desc';
+    $queryString2 = http_build_query($routeDesc);
+    $fullLink2 = url()->current() . '?' . $queryString2;
+@endphp
          <!-- header section start -->
          <div class="header_section">
             <div class="container">
@@ -90,10 +109,10 @@
                   @endisset 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item" href="{{route('products')}}">All</a>
+                     <a class="dropdown-item" href="{{route('getByStore',['store_id'=>$route->query('store_id')])}}">All</a>
                       @isset($cats)
                        @foreach($cats as $obj)
-                        <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name[0]}}</a>
+                        <a class="dropdown-item" href="{{route('getByStoreCat',['category_id'=>$obj->category_id,'store_id'=>$route->query('store_id')])}}" style="text-transform: capitalize">{{$obj->name[0]}}</a>
                         @endforeach
                        @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
@@ -105,26 +124,8 @@
                      No order
                      @endisset 
                      </button>
-@php
-    $route = request();
-    $routeParameters = $route->query();
-   
-    $routeAsc = $routeParameters;
-    $routeAsc['order'] = 'asc';
-    $queryString0 = http_build_query($routeAsc);
-    $fullLink1 = url()->current() . '?' . $queryString0;
 
-    $routeOG = $routeParameters;
-    $queryString1 = http_build_query($routeOG);
-    $fullLink0 = url()->current().'?' . $queryString1;
-    
-
-    $routeDesc = $routeParameters;
-    $routeDesc['order'] = 'desc';
-    $queryString2 = http_build_query($routeDesc);
-    $fullLink2 = url()->current() . '?' . $queryString2;
-@endphp
-                     
+           
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
                <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>

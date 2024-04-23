@@ -26,4 +26,10 @@ class Product extends Model
      return $this->getCategories()->pluck('name');
 
     }
+    public function getWish(){
+        return $this->belongsTo(Wishlist::class, 'product_id', 'product_id');
+       }
+    public function getUserStatus($user_id){
+        return $this->getWish()->where('user_id',$user_id)->get();
+       }
 }

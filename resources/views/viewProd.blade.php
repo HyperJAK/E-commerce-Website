@@ -38,20 +38,32 @@
                 <div class="col-md-12">
                     <h1>{{ $obj->name }}</h1>
                     <h3>Category: {{ $obj->category_id[0] }}</h3>
-                    <h4>⁕Store Name: {{ $obj->store_name[0] }}</h4>
+                    <h4>⁕Store Name: <a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{ $obj->store_name[0] }}</a></h4>
                     <p>Description:<br/>{{ $obj->description }}</p>
                     <h4>Price: ${{ $obj->price }}</h4>
                     <p>Available Quantity: {{ $obj->quantity }}</p>
-                    
-                <div class="col-md-8" id="ProdBtns">
-                    <form action="{{ route('/') }}" method="POST">
+                     <p>{{$obj->wish}}</p>
+                <div class="col-md-9" id="ProdBtns">
+                    @isset($wished)
+                    @if($wished==false)
+                <form action="{{ route('AddWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
                     </form>
+                    @else
+                    <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
+                    </form>
+                    @endif
+                    @endisset
                     <form action="{{ route('/') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-secondary">Add to Cart</button>
+                        <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
+                    <br/>
+                   
                 </div>
                 </div>
             </div>

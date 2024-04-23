@@ -13,8 +13,8 @@ Route::post('EditProd',[ProductController::class,'EditProd']);
 Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd']);
 
 // Routes for Wishlists
-Route::post('AddWishlist',[WishlistController::class,'AddWishlist']);
-Route::delete('DeleteWishlist/{wishlist_id}',[WishlistController::class,'DeleteWishlist']);
+Route::post('AddWishlist',[WishlistController::class,'AddWishlist'])->name('AddWishlist');
+Route::delete('DeleteWishlist',[WishlistController::class,'DeleteWishlist'])->name('DeleteWishlist');
 
 //Routes for CartItems
 Route::post('AddCartItem',[CartItemController::class,'AddCartItem']);
