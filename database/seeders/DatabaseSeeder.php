@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             PaymentsTableSeeder::class,
             EventsTableSeeder::class,
             WishlistsTableSeeder::class,
-            
+            CategoryForStoresSeeder::class
+
         ]);
     }
 }

@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\CategoryForStores;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use \Illuminate\Http\JsonResponse;
 
 class StoreController extends Controller
 {
+
+
+
+    public function getIndex(){
+
+
+        return view('stores');
+    }
+
     public function getStore($id){
         $store = Store::find($id);
         if ($store) {
@@ -25,6 +36,76 @@ class StoreController extends Controller
             return response()->json(['message'=>'Stores not found']);
         }
     }
+
+    public function getStoreSmallInfo(Request $request){
+        $page = intval($request->page) ?: 1;
+        $pageSize = 6;
+        $offset = ($page - 1) * $pageSize;
+
+        if ($page >= 0) {
+            $stores = Store::select('store_id','name', 'description')->offset($offset)->limit($pageSize)->get();
+
+            if ($stores->isNotEmpty()) {
+                $storesChunks = $stores->chunk(3); // Chunk stores into groups of three
+
+                return view('stores')->with('stores', $storesChunks);
+            } else {
+                return response()->json(['message'=>'Stores not found']);
+            }
+        }
+    }
+
+    public function SortStoresByCategory($categoryId)
+    {
+        $categories = CategoryForStores::where('category_id', $categoryId);
+        $groupedData = [];
+
+        foreach ($categories as $category) {
+            $categoryId = $category->category_id;
+
+            if (!isset($groupedData[$categoryId])) {
+                $groupedData[$categoryId] = [
+                    'id' => $category->id,
+                    'category' => null,
+                    'stores' => [],
+                ];
+
+                $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+            }
+
+
+            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
+        }
+
+        return view('stores')->with('categories', $groupedData);/*$groupedData*/
+    }
+
+    public function getStoresByCategory()
+    {
+        $categories = CategoryForStores::all();
+        $groupedData = [];
+        $cats=Category::all();
+
+        foreach ($categories as $category) {
+            $categoryId = $category->category_id;
+
+            if (!isset($groupedData[$categoryId])) {
+                $groupedData[$categoryId] = [
+                    'id' => $category->id,
+                    'category' => null,
+                    'stores' => [],
+                ];
+
+                $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+            }
+
+
+            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
+        }
+
+        return view('stores')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
+    }
+
 
     public function getPendingStoresByUserId($userId)
     {
