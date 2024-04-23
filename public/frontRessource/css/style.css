@@ -22,7 +22,7 @@
 
 :root{
     /* --maincolor:#f26522; */
-    --maincolor:rgb(164, 144, 238);
+    --maincolor:#7f69ce;
 }
 html {
     scroll-behavior: smooth;
@@ -165,6 +165,7 @@ img {
     font-size: 16px;
 }
 
+
 .lead {
     font-size: 18px;
     line-height: 30px;
@@ -226,10 +227,11 @@ button {
 .banner_bg_main2 {
     width: 100%;
     float: left;
-background: linear-gradient(180deg, rgba(164, 153, 208, 0.896) 0%, rgba(249, 235, 255, 0.02) 15%);
+background: linear-gradient(180deg, rgb(127, 105, 206) 0%, rgba(249, 235, 255, 0.02) 30%);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
+    /* padding-bottom: 10%; */
 }
 
 
@@ -552,7 +554,54 @@ a:hover {
     color: #000;
     border-radius: 100px;
 }
-
+#productCarousel .carousel-control-next,
+#productCarousel .carousel-control-prev {
+    width: 35px;
+    height: 35px;
+    top:40%;
+    background: var(--maincolor);
+    opacity: 1;
+    font-size: 20px;
+    color: #000;
+    border-radius: 100px;
+}
+#productCarousel{
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+}
+#productCarousel img{
+    margin: auto;
+    width: 30vw;
+    border-radius: 20px;
+}
+#productDiv{
+    margin-top: 5%;
+    margin-bottom:10%;
+    color: #1f1f1f;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    height:40vw;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+}
+#productDiv h1{
+    color: #6e5caf;
+    margin-left: 1%;
+    font-weight: 700;
+}
+#productDiv h2,#productDiv h3,#productDiv h4,#productDiv h5,#productDiv h6{
+    color: #1f1f1f;
+    font-weight: 600;
+    margin-left: 3%;
+    padding-bottom:0;
+}
+#productDiv #ProdBtns form{
+    margin: 0;
+    display: inline-block;
+}
 #my_slider .carousel-control-next:focus,
 #my_slider .carousel-control-next:hover,
 #my_slider .carousel-control-prev:focus,
@@ -569,7 +618,7 @@ a:hover {
 .fashion_section {
     width: 100%;
     float: left;
-    padding-bottom: 150px;
+    padding-bottom: 10px;
 }
 
 .fashion_taital {
@@ -577,12 +626,20 @@ a:hover {
     font-size: 40px;
     color: rgb(114, 100, 166);
     text-align: center;
+    margin-top: 2%;
     font-weight: bold;
+}
+.fashion_taital_Small {
+    width: 100%;
+    font-size: 16px;
+    color: rgb(114, 100, 166);
+    text-align: center;
+    font-weight:400;
 }
 
 .fashion_section_2 {
     width: 100%;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .box_main {
@@ -590,7 +647,7 @@ a:hover {
     background-color: #ffffff;
     height: auto;
     padding: 20px;
-    box-shadow: 0px 0 30px 10px #f0f0f0;
+    box-shadow: 0px 0 20px 10px #f0f0f0;
     margin-bottom: 20px;
 }
 
@@ -602,7 +659,9 @@ a:hover {
     font-weight: bold;
     padding-bottom: 5px;
 }
-
+.prod_desc{
+    text-align: center;
+}
 .price_text {
     width: 100%;
     font-size: 16px;
@@ -612,10 +671,11 @@ a:hover {
 }
 
 .tshirt_img {
-    width: 100%;
-    text-align: center;
-    margin: 50px 0px;
-    min-height: 370px;
+    width: 65%;
+    align-items: center;
+    margin: auto;
+    margin-top:20px;
+    min-height: 270px;
 }
 
 .btn_main {
@@ -968,6 +1028,13 @@ input.mail_bt::placeholder {
 .margin_top90 {
     margin-top: 90px;
 }
+.pages{
+margin-left:4%;
+margin-bottom:4%;
 
+}
+.pages svg{
+width:22px;
+}
 
 /* copyright section end */

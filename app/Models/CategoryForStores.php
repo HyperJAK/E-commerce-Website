@@ -10,4 +10,8 @@ class CategoryForStores extends Model
     use HasFactory;
 
     protected $fillable = ['category_id', 'store_id'];
+    public function getCatNameStore()
+    {
+        return $this->belongsTo(Category::class,'category_id','category_id')->pluck('name');
+    }
 }

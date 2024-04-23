@@ -10,7 +10,7 @@
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <!-- <title>LEcommerce</title> -->
-      @yield('title')
+      <title>Products By Store</title>
       <meta name="keywords" content="">
       <meta name="description" content="Laravel E-commerce made for end of semester project">
       <meta name="author" content="JJCC">
@@ -84,16 +84,16 @@
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
                  
                   <div class="dropdown">
-                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
+                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @isset($title) {{ $title }} @else 
-                 All Categories
+                 All Stores
                   @endisset 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item" href="{{route('products')}}" >All</a>
+                     <a class="dropdown-item" href="{{route('products')}}">All</a>
                       @isset($cats)
                        @foreach($cats as $obj)
-                        <a class="dropdown-item {{ $obj->parent_id ? '' : 'text-dark font-weight-bold' }}" href="{{route('getByCat',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name}}</a>
+                        <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name[0]}}</a>
                         @endforeach
                        @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
@@ -136,8 +136,9 @@
                   <div class="main">
                      <!-- Another variation with a button -->
                      <div class="input-group">
-                     <form action="{{route('prodSearch')}}" class="form-inline" method="get">
-                        <input type="text" class="form-control" placeholder="Search here" name="search">
+                     <form action="{{route('prodSearchStore')}}" class="form-inline" method="get">
+                        <input type="text" class="form-control" placeholder="Search in Store" name="search">
+                        <input type="hidden" class="form-control" placeholder="" name="store_id" value="{{$route->query('store_id')}}">
                         <div class="input-group-append">
                            <button class="btn btn-secondary" type="submit" style="background-color: dark; ">
                            <i class="fa fa-search"></i>
@@ -174,7 +175,73 @@
                     </ul>
                 </div>
             @endif
-   @yield('content')
+       <!-- fashion section start -->
+       <div class="fashion_section">
+    
+    <div id="main_slider" class="carousel slide" data-ride="carousel">
+       <div class="carousel-inner">
+          <div class="carousel-item active">
+             <div class="container">
+             <h1 class="fashion_taital">@isset($title) {{ $title }} @else 
+             All Products
+              @endisset
+           </h1>
+                <div class="fashion_section_2">
+                   <div class="row">
+@isset($objs)
+@foreach($objs as $obj)
+            <div class="col-lg-4 col-sm-4">
+             
+<div class="box_main">
+<h4 class="shirt_text">{{$obj->name}}</h4>
+<h3 class="fashion_taital_Small">{{$obj->category_id[0]}}</h3>
+<p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
+        <div class="tshirt_img"><img src="{{asset($obj->path1)}}"></div>
+        <p class="prod_desc">{{$obj->description}}</p>
+<div class="btn_main">
+    <div class="buy_bt"><a href="#">Buy Now</a></div>
+    <div class="seemore_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
+</div>
+</div>
+        </div>
+    
+
+        @endforeach
+        @else
+        <div class="box_main">
+<h4 class="shirt_text">Error</h4>
+<h3 class="fashion_taital_Small">No data found</h3>
+        <p class="prod_desc">Error fetching data or No data found</p>
+</div>
+</div>
+        </div>
+        @endisset 
+       
+        </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <!-- <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+       <i class="fa fa-angle-left"></i>
+       </a>
+       <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+       <i class="fa fa-angle-right"></i>
+       </a> -->
+       </div> 
+   </div>
+</div>
+</div>
+       </div>
+      
+    </div>
+    @isset($objs)
+    <div class="pages">{{$objs->links()}}</div>
+    @endisset
+ </div>  
+ 
+  <!-- fashion section end -->
+  
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
