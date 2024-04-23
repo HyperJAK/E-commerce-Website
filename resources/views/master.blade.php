@@ -89,20 +89,12 @@
                         <a class="dropdown-item" href="{{route('index')}}">All</a>
                         @isset($cats)
                             @foreach($cats as $obj)
-                                <a class="dropdown-item" href="{{route('SortStoresByCategory',['category_id'=>$obj->category_id])}}">{{$obj->name}}</a>
+                                <a class="dropdown-item" href="{{route('SortStoresByCategory',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name}}</a>
                             @endforeach
                         @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
                     </div>
-                    <!-- <select name="cat">
-                        <option value="">All Categories</option>
-                  @isset($cats)
-                        @foreach($cats as $obj)
-                            <option value="{{$obj->category_id}}">{{$obj->name}}</option>
-                @endforeach
-                    @endisset
-                    </select> -->
-                </div>
+                </div> 
 
                 <div class="header_box">
                     <div class="login_menu">

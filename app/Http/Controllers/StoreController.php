@@ -84,7 +84,7 @@ class StoreController extends Controller
     {
         $categories = CategoryForStores::all();
         $groupedData = [];
-        $cats=Category::all();
+        $cats=Category::where('parent_id',null)->get();
 
         foreach ($categories as $category) {
             $categoryId = $category->category_id;
