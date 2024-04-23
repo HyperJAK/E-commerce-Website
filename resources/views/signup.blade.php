@@ -2,73 +2,82 @@
 <html>
 <head>
     <title>Sign Up</title>
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('/style.css') }}">
 </head>
 
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '388845330635730',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v19.0'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <body>
-    <form action="{{ route('signup') }}" method="POST">
-        @csrf
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
-        <br>
-        
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
-        <br>
-        
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        
-        <label for="password_confirmation">Confirm Password:</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" required>
-        <br>
-        
-        <label for="country">Country:</label>
-        <input type="text" name="country" id="country" required>
-        <br>
-        
-        <label for="city">City:</label>
-        <input type="text" name="city" id="city" required>
-        <br>
-        
-        <label for="address">Address:</label>
-        <input type="text" name="address" id="address">
-        <br>
-        
-        <label for="is_seller">Are you a seller?</label>
-        <input type="checkbox" name="is_seller" id="is_seller">
-        <br>
-        
-        <button type="submit">Sign Up</button>
+    <div class="center">
+        <h1>Sign Up</h1>
+        <form action="{{ route('signup') }}" method="POST">
+            @csrf
+            
+            <div class="left-column">
+            <div class="txt_field username"> 
+    <input type="text" name="username" id="username" required>
+    <span></span>
+    <label>Username</label>
+</div>
+                
+                <div class="txt_field">
+                    <input type="email" name="email" id="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                
+                <div class="txt_field">
+                    <input type="password" name="password" id="password" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                
+                <div class="txt_field">
+                    <input type="password" name="password_confirmation" id="password_confirmation" required>
+                    <span></span>
+                    <label>Confirm Password</label>
+                </div>
+            </div>
+            
+            <div class="right-column">
+            <div class="txt_field username"> 
+                    <input type="text" name="country" id="country" required>
+                    <span></span>
+                    <label>Country</label>
+                </div>
+                
+                <div class="txt_field">
+                    <input type="text" name="city" id="city" required>
+                    <span></span>
+                    <label>City</label>
+                </div>
+                
+                <div class="txt_field">
+                    <input type="text" name="address" id="address" required>
+                    <span></span>
+                    <label>Address</label>
+                </div>
+                
+                <div class="txt_field checkbox-field">
+                    <input type="checkbox" name="is_seller" id="is_seller" >
+                    <span class="checkmark"></span>
+                    <label>Are you a seller?</label>
+                </div>
+            </div>
 
-        <a href="{{ route('auth.google') }}">Sign Up with Google</a>
-<a href="{{ route('auth.microsoft-graph') }}">Sign Up with Microsoft</a>
-
-
-<p>Already have an account? <a href="{{ route('signin') }}">Sign In</a></p>
-    </form>
+            
+            <input type="submit" value="Sign Up" class="btn">
+        
+                  <div class="external-links">
+          <h2>Or sign up using:</h2>
+          <div class="logos-container">
+              <a href="{{ route('auth.google') }}"><img src="google_logo.png" alt="Google Logo"></a>
+              <a href="{{ route('auth.microsoft-graph') }}"><img src="microsoft_logo.png" alt="Microsoft Logo"></a>
+          </div>
+      </div>
+            
+            <div class="signup_link">
+                <p>Already have an account? <a href="{{ route('signin') }}">Sign In</a></p>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

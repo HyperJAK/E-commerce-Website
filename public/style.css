@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: linear-gradient(120deg, #007bff, #d0314c);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.txt_field.username {
+    margin-top: 20px;
+}
+
+.left-column, .right-column {
+    width: 45%;
+    margin: 10px;
+}
+
+.left-column {
+    float: left;
+}
+
+.right-column {
+    float: right;
+}
+
+.center h1 {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid silver;
+    width: 100%;
+    margin: 0;
+}
+
+.center form {
+    width: 100%;
+}
+
+.txt_field {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.txt_field input {
+    width: calc(100% - 10px);
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.txt_field label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.txt_field span::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0px;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+}
+
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
+    top: -5px;
+    color: #2691d9;
+}
+
+.txt_field input:focus ~ span::before,
+.txt_field input:Valid ~ span::before {
+    width: 100%;
+}
+
+.pass {
+    margin: -5px 0 20px 5px;
+    color: #a6a6a6;
+    cursor: pointer;
+}
+
+.pass:hover {
+    text-decoration: underline;
+}
+
+input[type="submit"] {
+    width: 50%;
+    height: 50px;
+    border: 1px solid;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    background: #2691d9;
+}
+
+input[type="submit"]:hover {
+    background: #c05f94;
+    color: #e9f4fb;
+    transition: .5s;
+}
+
+.signup_link {
+    margin: 30px 0;
+    text-align: center;
+    font-size: 19px;
+    color: #666666;
+}
+
+.signup_link a {
+    color: #2691d9;
+    text-decoration: none;
+}
+
+.signup_link a:hover {
+    text-decoration: underline;
+}
+
+.HomeAbout {
+    width: 100vw;
+    height: 25vh;
+}
+
+.external-links {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Stack items vertically */
+    margin-top: 20px;
+}
+
+.external-links h1 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #666666;
+}
+
+.external-links a {
+    margin: 20px; /* Adjust spacing between logos */
+}
+
+
+.external-links img {
+    width: 40px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+
+.checkbox-field input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-field .checkmark {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    width: 30px; 
+    height: 30px; 
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+.checkbox-field .checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.checkbox-field input[type="checkbox"]:checked + .checkmark:after {
+    display: block;
+    content: '';
+    left: 6px;
+    top: 2px;
+    width: 12px;
+    height: 17px;
+    border: solid #2691d9;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
