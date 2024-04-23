@@ -84,26 +84,32 @@ class StoreController extends Controller
     {
         $categories = CategoryForStores::all();
         $groupedData = [];
-        $cats=Category::where('parent_id',null)->get();
+        $groupedCats = [];
+        $cats=CategoryForStores::all()->unique();
 
         foreach ($categories as $category) {
             $categoryId = $category->category_id;
 
             if (!isset($groupedData[$categoryId])) {
                 $groupedData[$categoryId] = [
-                    'id' => $category->id,
+                    'id' => $category->category_id,
                     'category' => null,
                     'stores' => [],
                 ];
 
                 $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+
             }
 
+            $groupedCats[$categoryId] = Category::where('category_id', $category->category_id)->first();
 
             $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
+
         }
 
-        return view('stores')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
+
+
+        return view('stores')->with('cats', $groupedCats)->with('categories', $groupedData)/*$groupedData*/ /*$groupedCats*/;
     }
 
 
