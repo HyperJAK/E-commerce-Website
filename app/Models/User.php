@@ -5,13 +5,17 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
+
+    //disabled the timestamp so laravel avoid excepting created_time and updated_at
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -23,10 +27,10 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
-        'postal_code',
         'country',
         'city',
-        'email_verified_at',
+        'phone',
+        'about',
         'is_seller'
     ];
 
@@ -48,7 +52,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'postal_code' => 'integer',
             'is_seller' => 'boolean'
         ];
     }

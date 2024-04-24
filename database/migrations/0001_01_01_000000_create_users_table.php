@@ -17,6 +17,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
+            $table->longText('address')->nullable();
+            $table->string('country');
+            $table->string('city');
+            $table->string('phone')->nullable();
+            $table->string('about')->nullable();
+            $table->boolean('is_seller')->default(false);
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_verified')->default(false);
+            $table->boolean('is_deleted')->default(false);
             /*$table->unsignedBigInteger('store_id');*/
 /*            $table->unsignedBigInteger('cart_id');*/
 
@@ -45,7 +54,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-       Schema::dropIfExists('password_reset_tokens');
+     Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };

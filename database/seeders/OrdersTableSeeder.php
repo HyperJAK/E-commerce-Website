@@ -17,6 +17,7 @@ class OrdersTableSeeder extends Seeder
         $buyerIds = DB::table('users')->pluck('user_id');
         $sellerIds = DB::table('users')->pluck('user_id');
         $orderStatuses = DB::table('order_statuses')->pluck('order_status_id');
+        $carts = DB::table('carts')->pluck('cart_id');
 
         // Create orders
         for ($i = 0; $i < 50; $i++) { // Adjust the number of orders as needed
@@ -30,6 +31,7 @@ class OrdersTableSeeder extends Seeder
                 'total_price' => rand(100, 1000), // Sample total price
                 'buyer_id' => $buyerIds->random(),
                 'seller_id' => $sellerIds->random(),
+                'cart_id' => $carts->random()
             ];
 
             // Insert order into the database
