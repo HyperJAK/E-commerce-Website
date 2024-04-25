@@ -21,6 +21,7 @@ class CartsTableSeeder extends Seeder
             // Sample cart data
             $cartData = [
                 'buyer_id' => $buyerIds->random(),
+                'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
