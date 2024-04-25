@@ -57,53 +57,87 @@ class StoreController extends Controller
 
     public function SortStoresByCategory($categoryId)
     {
-        $categories = CategoryForStores::where('category_id', $categoryId);
+        $categories = CategoryForStores::where('category_id', $categoryId)->get();
+        $cats = CategoryForStores::all()->unique();
         $groupedData = [];
+        $groupedCats = [];
 
-        foreach ($categories as $category) {
-            $categoryId = $category->category_id;
 
-            if (!isset($groupedData[$categoryId])) {
-                $groupedData[$categoryId] = [
-                    'id' => $category->id,
+        foreach ($categories as $category){
+            $catId = $category->category_id;
+
+            if (!isset($groupedData[$catId])) {
+                $groupedData[$catId] = [
+                    'id' => $catId,
                     'category' => null,
                     'stores' => [],
                 ];
 
-                $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+
+            }
+
+            $groupedData[$catId]['category'] = Category::where('category_id', $catId)->first();
+
+            $store = Store::where('store_id', $category->store_id)->first();
+
+
+            $storesCollection = collect($groupedData[$catId]['stores']);
+
+            if (!$storesCollection->contains('store_id', $store->store_id)) {
+                $groupedData[$catId]['stores'][] = $store;
             }
 
 
-            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
         }
 
-        return view('stores')->with('categories', $groupedData);/*$groupedData*/
+
+        foreach ($cats as $cat) {
+            $categoryId = $cat->category_id;
+
+            $groupedCats[$categoryId] = Category::find($cat->category_id);
+
+        }
+
+
+        return view('stores')->with('cats', $groupedCats)->with('categories', $groupedData);/*$groupedData*/
     }
 
     public function getStoresByCategory()
     {
         $categories = CategoryForStores::all();
         $groupedData = [];
-        $cats=Category::where('parent_id',null)->get();
+        $groupedCats = [];
 
         foreach ($categories as $category) {
             $categoryId = $category->category_id;
 
             if (!isset($groupedData[$categoryId])) {
                 $groupedData[$categoryId] = [
-                    'id' => $category->id,
+                    'id' => $category->category_id,
                     'category' => null,
                     'stores' => [],
                 ];
 
                 $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+
             }
 
+            $groupedCats[$categoryId] = Category::where('category_id', $category->category_id)->first();
 
-            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
+            $store = Store::where('store_id', $category->store_id)->first();
+
+
+            $storesCollection = collect($groupedData[$categoryId]['stores']);
+
+            if (!$storesCollection->contains('store_id', $store->store_id)) {
+                $groupedData[$categoryId]['stores'][] = $store;
+            }
+
         }
 
-        return view('stores')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
+
+
+        return view('stores')->with('cats', $groupedCats)->with('categories', $groupedData)/*$groupedData*/ /*$groupedCats*/;
     }
 
 
