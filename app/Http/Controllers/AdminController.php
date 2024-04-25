@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('/dashboard/index');
+        return view('/admin/dashboard/index');
     }
 
     public function userProfile(Request $request)
@@ -18,42 +18,42 @@ class AdminController extends Controller
         $user = User::where('email', 'admin@example.com')->first();
 
 
-        return view('/pages/laravel-examples/user-profile')->with('user', $user);
+        return view('/admin/pages/laravel-examples/user-profile')->with('user', $user);
     }
 
     public function profile()
     {
-        return view('/pages/profile');
+        return view('/admin/pages/profile');
     }
 
     public function userManagement()
     {
-        return view('/pages/laravel-examples/user-management');
+        return view('/admin/pages/laravel-examples/user-management');
     }
 
     public function tables()
     {
-        return view('/pages/tables');
+        return view('/admin/pages/tables');
     }
 
     public function billing()
     {
-        return view('/pages/billing');
+        return view('/admin/pages/billing');
     }
 
 
     public function notifications()
     {
-        return view('/pages/notifications');
+        return view('/admin/pages/notifications');
     }
 
     public function staticSignIn()
     {
-        return view('/pages/static-sign-in');
+        return view('/admin/pages/static-sign-in');
     }
 
     public function staticSignUp()
     {
-        return view('/pages/static-sign-up');
+        return view('/admin/pages/static-sign-up');
     }
 }
