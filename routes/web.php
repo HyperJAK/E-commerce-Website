@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 
 
-
+// ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 

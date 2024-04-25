@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    //
     // Display a list of all orders
     public function index()
     {
-        $orders = Order::all();
-        if ($orders->isNotEmpty()) {
-            return $orders;
-        } else {
-            return response()->json(['message'=>'Orders not found']);
-        }
+        $orders = Order::with(['buyer', 'seller', 'items'])->get();
+        return view('orders.index', compact('orders'));
     }
 
     // Show the form for creating a new order
@@ -46,14 +42,14 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::with(['buyer', 'seller', 'items'])->find($id);
-        return $order;
+        return view('orders.show', compact('order'));
     }
 
     // Show the form for editing the specified order
     public function edit($id)
     {
         $order = Order::find($id);
-        return view('orders.edit');
+        return view('orders.edit', compact('order'));
     }
 
     // Update the specified order in the database
@@ -70,7 +66,7 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validated);
-        return $order /*redirect()->route('orders.index')*/;
+        return redirect()->route('orders.index');
     }
 
     // Remove the specified order from the database
@@ -78,7 +74,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         $order->delete();
-        return $order /*redirect()->route('orders.index')*/;
+        return redirect()->route('orders.index');
     }
 
     // Additional methods to modify products within an order
@@ -91,7 +87,7 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    /*public function updateProductInOrder(Request $request, $orderId, $productId)
+    public function updateProductInOrder(Request $request, $orderId, $productId)
     {
         $order = Order::find($orderId);
         $quantity = $request->quantity;
@@ -104,5 +100,5 @@ class OrderController extends Controller
         $order = Order::find($orderId);
         $order->products()->detach($productId);
         return redirect()->back();
-    }*/
+    }
 }
