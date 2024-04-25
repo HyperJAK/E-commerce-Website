@@ -23,7 +23,7 @@ class StoresTableSeeder extends Seeder
             [
                 'name' => 'Store 2',
                 'description' => 'Description of Store 2',
-                'status' => false, // or true based on your requirements
+                'status' => true, // or true based on your requirements
                 'user_id' => 2, // Assuming you have users already seeded
             ],
             [
