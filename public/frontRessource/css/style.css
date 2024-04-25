@@ -602,6 +602,16 @@ a:hover {
     margin: 0;
     display: inline-block;
 }
+.purple{
+    background-color: var(--maincolor);
+    color: whitesmoke;
+    opacity: 1;
+}
+.purple:hover{
+    background-color: var(--maincolor);
+    color: whitesmoke;
+    opacity: 0.8;
+}
 #my_slider .carousel-control-next:focus,
 #my_slider .carousel-control-next:hover,
 #my_slider .carousel-control-prev:focus,

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
+Route::get('/',[StoreController::class,'getStoresByCategory'])->name('/')->middleware('auth');
 
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd']);
@@ -27,10 +28,19 @@ Route::get('getProdName/{name}',[ProductController::class,'getProdName']);
 Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCategory']);
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
+
+Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
+Route::get('getByCat',[ProductController::class,'getProdSmallCat'])->name('getByCat');
+Route::get('getByStore',[ProductController::class,'getProdSmallStore'])->name('getByStore');
+Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->name('getByStoreCat');
+Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
+Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
+
 Route::get('getAllProdSmall/{page}',[ProductController::class,'getAllProdSmall']);
 Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
 Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);
+
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
