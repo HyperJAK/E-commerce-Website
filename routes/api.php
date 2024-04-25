@@ -17,9 +17,9 @@ Route::post('AddWishlist',[WishlistController::class,'AddWishlist'])->name('AddW
 Route::delete('DeleteWishlist',[WishlistController::class,'DeleteWishlist'])->name('DeleteWishlist');
 
 //Routes for CartItems
-Route::post('AddCartItem',[CartItemController::class,'AddCartItem']);
+Route::post('AddCartItem',[CartItemController::class,'AddCartItem'])->name('AddCartItem');
 Route::post('EditCartItemQtt',[CartItemController::class,'EditCartItemQtt']);
-Route::delete('DeleteCartItem/{cartItem_id}',[CartItemController::class,'DeleteCartItem']);
+Route::delete('DeleteCartItem/{cartItem_id}',[CartItemController::class,'DeleteCartItem'])->name('DeleteCartItem');
 
 //Routes for Cart
 Route::post('AddCart',[CartController::class,'AddCart']);

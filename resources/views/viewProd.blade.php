@@ -58,12 +58,29 @@
                     </form>
                     @endif
                     @endisset
-                    <form action="{{ route('/') }}" method="POST">
+
+                    <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
                     <br/>
-                   
+                        @isset($quantity)
+
+                            @if($quantity > 0)
+                                @if($cartItem_id)
+
+                                <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem_id]) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn purple" >Remove from cart</button>
+                                </form>
+                                <br/>
+
+                                @endif
+
+                        @endif
+                        @endisset
+
                 </div>
                 </div>
             </div>
@@ -79,8 +96,8 @@
                     <h1>Not Found</h1>
                     <h3>Category: No data found</h3>
                     <p>Description:<br/>The product you're requesting may have been deleted or the store deactivated</p>
-                    
-               
+
+
                 </div>
             </div>
         </div>
