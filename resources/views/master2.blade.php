@@ -48,7 +48,7 @@
                      <div class="custom_menu">
                         <ul>
                            <li><a href="{{route('products')}}">Products</a></li>
-                           <li><a href="{{route('home')}}">Stores</a></li>
+                           <li><a href="{{route('/')}}">Stores</a></li>
                            <li><a href="#">Events</a></li>
                            <li><a href="#">Today's Deals</a></li>
                            <li><a href="#">Customer Service</a></li>
@@ -82,12 +82,12 @@
                      <a href="{{route('/')}}">Jewellery</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
-                 
+
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
-                        @isset($title) {{ $title }} @else 
+                        @isset($title) {{ $title }} @else
                  All Categories
-                  @endisset 
+                  @endisset
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item" href="{{route('products')}}" >All</a>
@@ -101,14 +101,14 @@
 </div>
                      <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($order) {{ $order }} @else 
+                        @isset($order) {{ $order }} @else
                      No order
-                     @endisset 
+                     @endisset
                      </button>
 @php
     $route = request();
     $routeParameters = $route->query();
-   
+
     $routeAsc = $routeParameters;
     $routeAsc['order'] = 'asc';
     $queryString0 = http_build_query($routeAsc);
@@ -117,14 +117,14 @@
     $routeOG = $routeParameters;
     $queryString1 = http_build_query($routeOG);
     $fullLink0 = url()->current().'?' . $queryString1;
-    
+
 
     $routeDesc = $routeParameters;
     $routeDesc['order'] = 'desc';
     $queryString2 = http_build_query($routeDesc);
     $fullLink2 = url()->current() . '?' . $queryString2;
 @endphp
-                     
+
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
                <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>
@@ -185,10 +185,10 @@
             <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
             <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
-            
+
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-            
+
             </div>
          </form>
             <div class="footer_menu">
@@ -224,7 +224,7 @@
          function openNav() {
            document.getElementById("mySidenav").style.width = "250px";
          }
-         
+
          function closeNav() {
            document.getElementById("mySidenav").style.width = "0";
          }

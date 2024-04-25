@@ -47,9 +47,9 @@
                 <div class="col-sm-12">
                     <div class="custom_menu">
                         <ul>
-                            <li><a href="{{--{{route('products')}}--}}">Best Sellers</a></li>
-                            <li><a href="#">Gift Ideas</a></li>
-                            <li><a href="#">New Releases</a></li>
+                            <li><a href="{{route('products')}}">Products</a></li>
+                            <li><a href="{{route('/')}}">Stores</a></li>
+                            <li><a href="#">Events</a></li>
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
                         </ul>
