@@ -50,19 +50,27 @@
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
                     </form>
-                    @elseif(!Auth::check())
+                    <form action="{{ route('/') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn purple" >Add to Cart</button>
+                    </form>
+                    @elseif($wished==true)
                     <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
                     </form>
-                    @endif
-                    @endisset
                     <form action="{{ route('/') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
-                    <p>User check: {{Auth::check()?'true '.Auth::id():'false'}}</p>
+                    @elseif(!Auth::check())
+                    <form action="{{ route('login') }}" method="GET">
+                        <button type="submit" class="btn btn-outline-danger">Login or Register</button>
+                    </form>
+                    @endif
+                    @endisset
+                    
                     <br/>
                    
                 </div>
