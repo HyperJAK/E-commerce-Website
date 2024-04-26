@@ -36,7 +36,7 @@ class ProductController extends Controller
 
         //retrieving if its added to users current active cart
         $activeCart = Cart::select('cart_id')->where('status', 0)->get();
-        $itemAddedToCart = CartItem::select('quantity', 'cartItem_id')->where('cart_id', $activeCart[0]->cart_id)->get();
+        $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
 
 
         if(count($obj->getUserStatus(Auth::id()))>0){
@@ -46,17 +46,19 @@ class ProductController extends Controller
         }
 
         if($itemAddedToCart->isNotEmpty()){
-            if ($obj && in_array($obj->store_id,$storeCheck)) {
-                $obj->category_id = $obj->getCatName();
-                $obj->store_name = $obj->getStoreName();
-                $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
-                // return $obj;
-                return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
-            } else {
-                //    return response()->json(['message'=>'Product not found']);
-                return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["your_custom_error"=>"Product not found"]);
+            
+                if ($obj && in_array($obj->store_id,$storeCheck)) {
+                    $obj->category_id = $obj->getCatName();
+                    $obj->store_name = $obj->getStoreName();
+                    $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
+                    // return $obj;
+                    return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
+                } else {
+                    //    return response()->json(['message'=>'Product not found']);
+                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["your_custom_error"=>"Product not found"]);
 
-            }
+                }
+
         }
         else{
             if ($obj && in_array($obj->store_id,$storeCheck)) {
