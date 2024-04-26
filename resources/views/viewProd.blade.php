@@ -1,6 +1,6 @@
 @extends('master2')
 @section('title')
-<title>Products</title>
+<title>Product</title>
 @endsection
 @section('content')
 
@@ -11,16 +11,16 @@
             <div id="productCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset($obj->path1) }}" class="d-block" alt="Product Image 1">
+                        <img src="{{ asset('frontRessource/images/'.$obj->path1) }}" class="d-block" alt="Product Image 1">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path2) }}" class="d-block" alt="Product Image 2">
+                        <img src="{{ asset('frontRessource/images/'.$obj->path2) }}" class="d-block" alt="Product Image 2">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path3) }}" class="d-block" alt="Product Image 3">
+                        <img src="{{ asset('frontRessource/images/'.$obj->path3) }}" class="d-block" alt="Product Image 3">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path4) }}" class="d-block" alt="Product Image 4">
+                        <img src="{{ asset('frontRessource/images/'.$obj->path4) }}" class="d-block" alt="Product Image 4">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
@@ -45,24 +45,32 @@
                      <p>{{$obj->wish}}</p>
                 <div class="col-md-9" id="ProdBtns">
                     @isset($wished)
-                    @if($wished==false)
+                    @if($wished==false && Auth::check())
                 <form action="{{ route('AddWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
                     </form>
-                    @else
+                   <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn purple" >Add to Cart</button>
+                    </form>
+                    @elseif($wished==true)
                     <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
                     </form>
-                    @endif
-                    @endisset
-
                     <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
+                    @elseif(!Auth::check())
+                    <form action="{{ route('login') }}" method="GET">
+                        <button type="submit" class="btn btn-outline-danger">Login or Register</button>
+                    </form>
+                    @endif
+                    @endisset
+                    
                     <br/>
                         @isset($quantity)
 

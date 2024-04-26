@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
@@ -28,7 +27,6 @@ Route::get('getProdName/{name}',[ProductController::class,'getProdName']);
 Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCategory']);
 Route::get('getProdStore/{store}',[ProductController::class,'getProdStore']);
 Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
-
 Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
 Route::get('getByCat',[ProductController::class,'getProdSmallCat'])->name('getByCat');
 Route::get('getByStore',[ProductController::class,'getProdSmallStore'])->name('getByStore');
@@ -36,10 +34,6 @@ Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->n
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
 
-/*Route::get('getAllProdSmall/{page}',[ProductController::class,'getAllProdSmall']);
-Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
-Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
-Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);*/
 
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
@@ -88,6 +82,7 @@ Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orde
 
 //Sign up routes
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
+Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::post('/signup', [UserController::class, 'signup'])->name('signup');
 
 
@@ -107,6 +102,7 @@ Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'h
 
 
 Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
+Route::get('/login', [UserController::class, 'showSignInForm'])->name('login');
 Route::post('/signin', [UserController::class, 'signin'])->name('signin');
 
 Route::get('/verify-email', [UserController::class, 'verifyEmail'])->name('verify.email');
@@ -140,17 +136,15 @@ Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('
 
 
 
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard')->middleware('auth');
 
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
-    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 });
 
 
@@ -159,5 +153,13 @@ Route::middleware('auth')->group(function() {
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
-
+//Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
+Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
+Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
+Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
+Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
+Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
+Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
+Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
+Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
 
