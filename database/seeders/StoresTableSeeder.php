@@ -17,25 +17,25 @@ class StoresTableSeeder extends Seeder
             [
                 'name' => 'Store 1',
                 'description' => 'Description of Store 1',
-                'status' => true, // or false based on your requirements
+                'status' => false, // or false based on your requirements
                 'user_id' => 1, // Assuming you have users already seeded
             ],
             [
                 'name' => 'Store 2',
                 'description' => 'Description of Store 2',
-                'status' => false, // or true based on your requirements
+                'status' => true, // or true based on your requirements
                 'user_id' => 2, // Assuming you have users already seeded
             ],
             [
                 'name' => 'Store 3',
                 'description' => 'Description of Store 3',
-                'status' => false, // or true based on your requirements
+                'status' => true, // or true based on your requirements
                 'user_id' => 1, // Assuming you have users already seeded
             ],
             [
                 'name' => 'Store 4',
                 'description' => 'Description of Store 4',
-                'status' => false, // or true based on your requirements
+                'status' => true, // or true based on your requirements
                 'user_id' => 2, // Assuming you have users already seeded
             ],
             // Add more stores as needed

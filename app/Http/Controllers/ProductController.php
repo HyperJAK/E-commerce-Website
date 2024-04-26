@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Hamcrest\Text\IsEmptyString;
@@ -17,7 +19,7 @@ class ProductController extends Controller
 {
     public function index(){
         // $cats=Category::all();
-        $cats=Category::where('parent_id',null)->get();                  
+        $cats=Category::where('parent_id',null)->get();
             return view('products')->with('cats',$cats);
 
     }
@@ -28,25 +30,50 @@ class ProductController extends Controller
     public function getProd($id){
         // $isWished=Wishlist::getUserStatus($id);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::where('parent_id',null)->get(); 
-    $wishlists=Wishlist::where('product_id',$id)->count();
+        $cats=Category::where('parent_id',null)->get();
+        $wishlists=Wishlist::where('product_id',$id)->count();
         $obj= Product::find($id);
+
+        //retrieving if its added to users current active cart
+        $activeCart = Cart::select('cart_id')->where('status', 0)->get();
+        $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+
+
         if(count($obj->getUserStatus(Auth::id()))>0){
             $wished=true;
         }else{
             $wished=false;
         }
-        if ($obj && in_array($obj->store_id,$storeCheck)) { 
-            $obj->category_id = $obj->getCatName();
-            $obj->store_name = $obj->getStoreName();
-            $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
-            // return $obj;
-            return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished);
-        } else {
-        //    return response()->json(['message'=>'Product not found']);
-        return view('viewProd')->with('cats',$cats)->withErrors(["custom_error"=>"Product not found"]);
+
+        if($itemAddedToCart->isNotEmpty()){
+            
+                if ($obj && in_array($obj->store_id,$storeCheck)) {
+                    $obj->category_id = $obj->getCatName();
+                    $obj->store_name = $obj->getStoreName();
+                    $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
+                    // return $obj;
+                    return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
+                } else {
+                    //    return response()->json(['message'=>'Product not found']);
+                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["your_custom_error"=>"Product not found"]);
+
+                }
 
         }
+        else{
+            if ($obj && in_array($obj->store_id,$storeCheck)) {
+                $obj->category_id = $obj->getCatName();
+                $obj->store_name = $obj->getStoreName();
+                $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
+                // return $obj;
+                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished);
+            } else {
+                //    return response()->json(['message'=>'Product not found']);
+                return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"]);
+
+            }
+        }
+
     }
     public function getAllProd(){
         $obj= Product::all();
@@ -68,12 +95,12 @@ class ProductController extends Controller
             'order'=>'in:asc,desc',
             ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::where('parent_id',null)->get(); 
-        if($request->order){             
+        $cats=Category::where('parent_id',null)->get();
+        if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
         }else{
          $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
-      
+
         }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
@@ -95,18 +122,18 @@ class ProductController extends Controller
             'category_id'=>'exists:categories,category_id'
             ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::where('parent_id',null)->get(); 
+        $cats=Category::where('parent_id',null)->get();
         $cat2=Category::find($request->category_id);
         if ($cat2 !== null) {
             $cat2 = $cat2->getChildrensId()->toArray();
-        } 
+        }
         $cat2[]=intval($request->category_id);
-        if($request->order){    
+        if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('category_id', $cat2)->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
         } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('category_id', $cat2)->whereIn('store_id', $storeCheck)->paginate(9);
         }
-       
+
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -114,26 +141,26 @@ class ProductController extends Controller
                 $fullAnswers[] = $key;
             }
          return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0])->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
-        
+
         } else {
            return response()->json(['message'=>'Products not found']);
         }
-    
+
     }
     public function getProdSmallSearch(Request $request){
         $request->validate([
             'order'=>'in:asc,desc',
             ]);
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
-        $cats=Category::where('parent_id',null)->get(); 
+        $cats=Category::where('parent_id',null)->get();
         if(empty($request->search) || $request->search === null){
            return redirect()->to('products');
         }
-        if($request->order){  
+        if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$request->search%")->orWhere('description','like',"%$request->search%")->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(9);
         } else{
              $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$request->search%")->orWhere('description','like',"%$request->search%")->whereIn('store_id', $storeCheck)->paginate(9);
-        }   
+        }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -156,7 +183,7 @@ class ProductController extends Controller
             $key->name = $key->getCatNameStore();
             }
         if($storeCheck){
-        if($request->order){  
+        if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1') ->where('store_id', $request->store_id)
         ->where(function($query) use ($request) {
             $query->where('name', 'like', "%$request->search%")
@@ -168,7 +195,7 @@ class ProductController extends Controller
                  $query->where('name', 'like', "%$request->search%")
                        ->orWhere('description', 'like', "%$request->search%");
              })->paginate(9);
-        }   
+        }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -176,7 +203,7 @@ class ProductController extends Controller
                 $fullAnswers[] = $key;
             }
           return $request->order?view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title','Search Result');
-            
+
         } else {
             return view('viewProdStore');
         }
@@ -194,7 +221,7 @@ class ProductController extends Controller
             //     $key->category_id = $key->getCatNameStore();
             //         $fullAnswers[] = $key;
             //     }
-                
+
             //this now returns name of categories in reuqest store
                 $categories = CategoryForStores::where('store_id', $request->store_id)->get();
             foreach ($categories as $key) {
@@ -204,12 +231,12 @@ class ProductController extends Controller
         $storeCheck=Store::where('store_id',$request->store_id)->where('status','1')->get();
         // $cats=Category::where('store_id',$request->store_id)->get();
         if ($storeCheck->isNotEmpty()) {
-            if($request->order){ 
+            if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->orderBy('price',$request->order)->paginate(6);
     } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->paginate(6);
     }
-        
+
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -223,7 +250,7 @@ class ProductController extends Controller
         } }else {
             return response()->json(['message'=>'Store does not exist or not verified yet']);
          }
-         
+
     }
     public function getProdSmallStoreCat(Request $request){
         $request->validate([
@@ -239,12 +266,12 @@ class ProductController extends Controller
 
         $storeCheck=Store::where('store_id',$request->store_id)->where('status','1')->get();
         if ($storeCheck->isNotEmpty()) {
-            if($request->order){ 
+            if($request->order){
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->where('category_id',$request->category_id)->orderBy('price',$request->order)->paginate(6);
     } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->where('category_id',$request->category_id)->paginate(6);
     }
-        
+
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
@@ -258,7 +285,7 @@ class ProductController extends Controller
         } }else {
             return response()->json(['message'=>'Store does not exist or not verified yet']);
          }
-         
+
     }
     public function getProdName($name){
         $obj= Product::where('name','like',"%$name%")->get();
@@ -375,7 +402,7 @@ class ProductController extends Controller
     public function DeleteProd($prod_id){
         $obj= Product::find($prod_id);
         if ($obj) {
-            $obj->delete();        
+            $obj->delete();
         return response()->json(["message"=>"Product deleted successfully"]);
         } else {
         return response()->json(['message'=>'Product does not exist or delete product failed']);

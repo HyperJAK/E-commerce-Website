@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 Route::get('/',[StoreController::class,'getStoresByCategory'])->name('/');
+
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
 Route::get('getAllProd',[ProductController::class,'getAllProd']);
@@ -33,11 +34,13 @@ Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->n
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
 
+
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
 Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
 Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
+Route::get('getActiveCart/{buyer_id}',[CartController::class,'getActiveCart'])->name('getActiveCart');
 Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
 
 //Stores routes

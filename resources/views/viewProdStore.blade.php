@@ -47,11 +47,11 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-                           <li><a href="{{route('products')}}">Best Sellers</a></li>
-                           <li><a href="#">Gift Ideas</a></li>
-                           <li><a href="#">New Releases</a></li>
-                           <li><a href="#">Today's Deals</a></li>
-                           <li><a href="#">Customer Service</a></li>
+                            <li><a href="{{route('products')}}">Products</a></li>
+                            <li><a href="{{route('/')}}">Stores</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Today's Deals</a></li>
+                            <li><a href="#">Customer Service</a></li>
                         </ul>
                      </div>
                   </div>
@@ -73,7 +73,7 @@
          @php
     $route = request();
     $routeParameters = $route->query();
-   
+
     $routeAsc = $routeParameters;
     $routeAsc['order'] = 'asc';
     $queryString0 = http_build_query($routeAsc);
@@ -82,7 +82,7 @@
     $routeOG = $routeParameters;
     $queryString1 = http_build_query($routeOG);
     $fullLink0 = url()->current().'?' . $queryString1;
-    
+
 
     $routeDesc = $routeParameters;
     $routeDesc['order'] = 'desc';
@@ -101,12 +101,12 @@
                      <a href="{{route('/')}}">Jewellery</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
-                 
+
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($title) {{ $title }} @else 
+                        @isset($title) {{ $title }} @else
                  All Stores
-                  @endisset 
+                  @endisset
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item" href="{{route('getByStore',['store_id'=>$route->query('store_id')])}}">All</a>
@@ -120,12 +120,12 @@
 </div>
                      <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($order) {{ $order }} @else 
+                        @isset($order) {{ $order }} @else
                      No order
-                     @endisset 
+                     @endisset
                      </button>
 
-           
+
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
                <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>
@@ -178,12 +178,12 @@
             @endif
        <!-- fashion section start -->
        <div class="fashion_section">
-    
+
     <div id="main_slider" class="carousel slide" data-ride="carousel">
        <div class="carousel-inner">
           <div class="carousel-item active">
              <div class="container">
-             <h1 class="fashion_title">@isset($title) {{ $title }} @else 
+             <h1 class="fashion_title">@isset($title) {{ $title }} @else
              All Products
               @endisset
            </h1>
@@ -192,7 +192,7 @@
 @isset($objs)
 @foreach($objs as $obj)
             <div class="col-lg-4 col-sm-4">
-             
+
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
@@ -205,7 +205,7 @@
 </div>
 </div>
         </div>
-    
+
 
         @endforeach
         @else
@@ -216,8 +216,8 @@
 </div>
 </div>
         </div>
-        @endisset 
-       
+        @endisset
+
         </div>
                    </div>
                 </div>
@@ -229,30 +229,30 @@
        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
        <i class="fa fa-angle-right"></i>
        </a> -->
-       </div> 
+       </div>
    </div>
 </div>
 </div>
        </div>
-      
+
     </div>
     @isset($objs)
     <div class="pages">{{$objs->links()}}</div>
     @endisset
- </div>  
- 
+ </div>
+
   <!-- fashion section end -->
-  
+
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
             <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
             <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
-            
+
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-            
+
             </div>
          </form>
             <div class="footer_menu">
@@ -288,7 +288,7 @@
          function openNav() {
            document.getElementById("mySidenav").style.width = "250px";
          }
-         
+
          function closeNav() {
            document.getElementById("mySidenav").style.width = "0";
          }
