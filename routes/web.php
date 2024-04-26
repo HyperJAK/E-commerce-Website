@@ -84,8 +84,8 @@ Route::post('/signup', [UserController::class, 'signup'])->name('signup');
 Route::get('/auth/google/redirect', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
 
-Route::get('/auth/facebook/redirect', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
-Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+// Route::get('/auth/facebook/redirect', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+// Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
 
 // Route::get('/auth/microsoft/redirect', [MicrosoftAuthController::class, 'redirectToMicrosoft'])->name('auth.microsoft');
 // Route::get('/auth/microsoft/callback', [MicrosoftAuthController::class, 'handleMicrosoftCallback']);
@@ -145,6 +145,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile/edit', [UserController::class, 'showEditProfileForm'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
+
+Route::post('/logout',  [UserController::class, 'logout'])->name('logout');
 
 //Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
 Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');

@@ -62,10 +62,18 @@
                     <label>Are you a seller?</label>
                 </div>
             </div>
-
+            
             
             <input type="submit" value="Sign Up" class="btn">
-        
+            @if ($errors->any())
+        <div class="alert alert-danger" style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
                   <div class="external-links">
           <h2>Or sign up using:</h2>
           <div class="logos-container">

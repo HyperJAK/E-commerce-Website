@@ -22,9 +22,9 @@ class UserController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
             'country' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'address' => 'string|nullable|max:1000'
@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $this->sendVerificationEmail($user);
 
-        return redirect()->route('home')->with('status', 'Account created! Please check your email to verify your account.');
+        return redirect()->route('signin')->with('status', 'Account created! Please check your email to verify your account.');
     }
 
 
@@ -267,6 +267,19 @@ public function updateProfile(Request $request)
 
     return redirect()->route('profile.edit')->with('status', 'Profile updated successfully.');
 }
+
+
+public function logout(Request $request)
+{
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect()->route('signin')->with('status', 'You have been logged out.');
+}
+
 }
 
 

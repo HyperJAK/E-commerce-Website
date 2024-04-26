@@ -52,6 +52,12 @@
                            <li><a href="#">Events</a></li>
                            <li><a href="#">Today's Deals</a></li>
                            <li><a href="#">Customer Service</a></li>
+                           <li>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </li>
                         </ul>
                      </div>
                   </div>

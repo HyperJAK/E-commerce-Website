@@ -24,7 +24,15 @@
             </div>
 
             <input type="submit" value="Sign In" class="btn">
-
+            @if ($errors->any())
+        <div class="alert alert-danger" style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
             <div class="external-links">
     <h2>Or sign in using:</h2>
     <div class="logos-container">

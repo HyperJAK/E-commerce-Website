@@ -24,6 +24,15 @@
             <div>
                 <input type="submit" value="Send Password Reset Link" class="btn">
             </div>
+            @if ($errors->any())
+        <div class="alert alert-danger" style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         </form>
         
         <div class="signup_link">
