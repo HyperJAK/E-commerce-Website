@@ -35,7 +35,7 @@ class ProductController extends Controller
         $obj= Product::find($id);
 
         //retrieving if its added to users current active cart
-        $activeCart = Cart::select('cart_id')->where('status', 0)->get();
+        $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
         $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
 
 
@@ -66,10 +66,10 @@ class ProductController extends Controller
                 $obj->store_name = $obj->getStoreName();
                 $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
                 // return $obj;
-                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished);
+                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished)->with('quantity', 0);
             } else {
                 //    return response()->json(['message'=>'Product not found']);
-                return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"]);
+                return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"])->with('quantity', 0);
 
             }
         }

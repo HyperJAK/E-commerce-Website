@@ -50,20 +50,28 @@
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
                     </form>
+                    @isset($quantity)
+                            @if($quantity <=0)
                    <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
+                    @endif
+                        @endisset
                     @elseif($wished==true)
                     <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
                     </form>
+                    @isset($quantity)
+                            @if($quantity <=0)
                     <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
+                    @endif
+                        @endisset
                     @elseif(!Auth::check())
                     <form action="{{ route('login') }}" method="GET">
                         <button type="submit" class="btn btn-outline-danger">Login or Register</button>
@@ -72,18 +80,17 @@
                     @endisset
                     
                     <br/>
+                    <br/>
                         @isset($quantity)
 
                             @if($quantity > 0)
                                 @if($cartItem_id)
-
                                 <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem_id]) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger" >Remove from cart</button>
+                                    <button type="submit" class="btn btn-danger">Remove from cart</button>
                                 </form>
                                 <br/>
-
                                 @endif
 
                         @endif

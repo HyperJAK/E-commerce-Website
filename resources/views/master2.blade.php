@@ -154,10 +154,15 @@
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
                            </li>
-                           <li style="padding-right:1vw"><a href="#">
+                           @if(Auth::check())
+                        <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
-                           </li>
+                        @else
+                        <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @endif
                            <li style="padding-right:1vw"><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Account</span></a>

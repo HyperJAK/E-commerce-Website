@@ -30,6 +30,18 @@
                     </div>
                 </div>
             </div>
+            @else
+<div class="container" id="productDiv" >
+        <div class="col-md-6" style="margin:auto;margin-top:10%;">
+            <div class="row" >
+                <div class="col-md-12" style="text-align:center;">
+                    <h1>Not Found</h1>
+                    <h3>Oh dear it looks like your cart is empty</h3>
+                    <h1><a href="{{route('products')}}">Start your shopping now!</a></h1>
+                </div>
+            </div>
+        </div>
+    </div>
         @endisset
         <div class="loader_main">
             <div class="loader"></div>
