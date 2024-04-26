@@ -80,7 +80,7 @@
                                 <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem_id]) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn purple" >Remove from cart</button>
+                                    <button type="submit" class="btn btn-danger" >Remove from cart</button>
                                 </form>
                                 <br/>
 

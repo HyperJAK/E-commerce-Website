@@ -22,7 +22,7 @@ class CartItemController extends Controller
             $price= Product::select('price')->where('product_id',$request->product_id)->get();
 
             //to test if theres an open cart
-            $availableCartTest = Cart::select('cart_id')->where('status', 0)->get();
+            $availableCartTest = Cart::select('cart_id')->where('status', 0)->where('buyer_id', $request->buyer_id)->get();
 
             if(!$availableCartTest->isNotEmpty()){
                 $cartController = new CartController();
@@ -30,7 +30,7 @@ class CartItemController extends Controller
             }
 
             //after cart is created we get it
-        $availableCart = Cart::select('cart_id')->where('status', 0)->get();
+        $availableCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id', $request->buyer_id)->get();
 
             if($availableCart->isNotEmpty()){
                 CartItem::create([
