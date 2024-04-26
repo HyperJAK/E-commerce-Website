@@ -42,43 +42,35 @@
                     <p>Description:<br/>{{ $obj->description }}</p>
                     <h4>Price: ${{ $obj->price }}</h4>
                     <p>Available Quantity: {{ $obj->quantity }}</p>
+                    <p>Desired Quantity:
+                    <input type="number" form="wlist" name="quantity" min="1" max="{{ $obj->quantity }}" value='1'/>
+                </p>
                      <p>{{$obj->wish}}</p>
                 <div class="col-md-9" id="ProdBtns">
                     @isset($wished)
                     @if($wished==false && Auth::check())
-                <form action="{{ route('AddWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
+                <form  action="{{ route('AddWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
                     </form>
-                    @isset($quantity)
-                            @if($quantity <=0)
-                   <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn purple" >Add to Cart</button>
-                    </form>
-                    @endif
-                        @endisset
                     @elseif($wished==true)
                     <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
                     </form>
+                    @elseif(!Auth::check())
+                        <a href="{{ route('login') }}" class="btn btn-outline-danger">Login or Register</a>
+                    @endif
+                    @endisset
                     @isset($quantity)
-                            @if($quantity <=0)
-                    <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'quantity'=>1,'buyer_id'=>Auth::id()]) }}" method="POST">
+                            @if($quantity <=0 && Auth::check())
+                    <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'buyer_id'=>Auth::id()]) }}" id="wlist" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>
                     </form>
                     @endif
                         @endisset
-                    @elseif(!Auth::check())
-                    <form action="{{ route('login') }}" method="GET">
-                        <button type="submit" class="btn btn-outline-danger">Login or Register</button>
-                    </form>
-                    @endif
-                    @endisset
-                    
                     <br/>
                     <br/>
                         @isset($quantity)

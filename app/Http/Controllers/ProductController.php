@@ -34,9 +34,12 @@ class ProductController extends Controller
         $wishlists=Wishlist::where('product_id',$id)->count();
         $obj= Product::find($id);
 
+        $itemAddedToCart=collect();
         //retrieving if its added to users current active cart
+        if(Auth::check()){
         $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
         $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+    }
 
 
         if(count($obj->getUserStatus(Auth::id()))>0){
