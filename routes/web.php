@@ -79,6 +79,7 @@ Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orde
 
 //Sign up routes
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
+Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::post('/signup', [UserController::class, 'signup'])->name('signup');
 
 
@@ -98,6 +99,7 @@ Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'h
 
 
 Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
+Route::get('/login', [UserController::class, 'showSignInForm'])->name('login');
 Route::post('/signin', [UserController::class, 'signin'])->name('signin');
 
 Route::get('/verify-email', [UserController::class, 'verifyEmail'])->name('verify.email');
