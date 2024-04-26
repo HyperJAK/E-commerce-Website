@@ -12,13 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->bigIncrements('user_id');
+            $table->string('username');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->longText('address')->nullable();
+            $table->string('country');
+            $table->string('city');
+            $table->string('phone')->nullable();
+            $table->string('about')->nullable();
+            $table->boolean('is_seller')->default(false);
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_verified')->default(false);
+            $table->boolean('is_deleted')->default(false);
+            /*$table->unsignedBigInteger('store_id');*/
+/*            $table->unsignedBigInteger('cart_id');*/
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -27,6 +37,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
+        //For now, its not needed
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -43,7 +54,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
+     Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };
