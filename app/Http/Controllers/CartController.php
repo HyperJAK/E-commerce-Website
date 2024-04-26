@@ -28,7 +28,7 @@ public function EditCartStatus(Request $request){
     if($obj){
     if($request->status==0 || $request->status==1){
         $obj->status = $request->status;
-        $obj->save();        
+        $obj->save();
     return response()->json(["message"=>"Cart status edited successfully"]);
     }else{
         return response()->json(["message"=>"Cart edit failed"]);
@@ -47,7 +47,7 @@ public function ActivateCartStatus(Request $request){
         ->where('cart_id', '!=',$request->cart_id)
         ->update(['status' => 0]);
         $obj->status=1;
-        $obj->save();       
+        $obj->save();
     return response()->json(["message"=>"Cart status activated successfully"]);
 }else{
         return response()->json(["message"=>"Cart could not be found"]);
@@ -56,20 +56,30 @@ public function ActivateCartStatus(Request $request){
 public function getCarts($buyer_id) {
     $cart = Cart::where('buyer_id',$buyer_id)->get();
     if ($cart->isNotEmpty()) {
-      return $cart;  
+      return $cart;
     }else{
     return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
     }
 }
+
+    public function getActiveCart($buyer_id) {
+        $cart = Cart::where('buyer_id',$buyer_id)->where('status', 0)->get();
+        if ($cart->isNotEmpty()) {
+            return $cart;
+        }else{
+            return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
+        }
+    }
+
 public function getCartItemsBuyerId($buyer_id) {
     $cart = Cart::select('cart_id')->where('buyer_id',$buyer_id)->get();
     if ($cart->isNotEmpty()) {
-    //   return $cart;  
+    //   return $cart;
     $fullAnswers=[];
     foreach ($cart as $key) {
         $obj2= CartItem::find($key);
         $fullAnswers[] = $obj2;
-    } 
+    }
     return $fullAnswers;
     }else{
     return response()->json(['message' => 'cartItems not found or this user has no items in his cart'], 404);
@@ -78,7 +88,7 @@ public function getCartItemsBuyerId($buyer_id) {
 public function DeleteCart($cart_id){
     $obj= Cart::find($cart_id);
     if ($obj) {
-        $obj->delete();        
+        $obj->delete();
     return response()->json(["message"=>"Cart deleted successfully"]);
     } else {
     return response()->json(['message'=>'Cart does not exist or delete Cartfailed']);
