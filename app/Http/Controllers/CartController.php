@@ -64,8 +64,9 @@ public function getCarts($buyer_id) {
 
     public function getActiveCart($buyer_id) {
         $cart = Cart::where('buyer_id',$buyer_id)->where('status', 0)->get();
-        if ($cart->isNotEmpty()) {
-            return $cart;
+        $allCartItems = CartItem::where('cart_id', $cart[0]->cart_id)->get();
+        if ($allCartItems->isNotEmpty()) {
+            return $allCartItems;
         }else{
             return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
         }
