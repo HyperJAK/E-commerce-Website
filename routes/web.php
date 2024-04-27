@@ -35,7 +35,7 @@ Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
 
 
-Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist');
+Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist')->middleware('auth');
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
 Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
