@@ -47,7 +47,7 @@
                             <input type="hidden" name="seller_id" value="{{ Auth::id() }}">
 
                             <div class="row">
-                                <div class="d-flex flex-row">
+                                <div class="d-flex flex-row justify-content-center gap-2">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label">Name</label>
                                         <input type="text" name="name" class="form-control border border-2 p-2" placeholder="Your store name here">
