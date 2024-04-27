@@ -11,7 +11,7 @@ class Store extends Model
     use HasFactory;
 
     protected $primaryKey = 'store_id';
-    protected $fillable = ['name','description','status', 'user_id'];
+    protected $fillable = ['name','description','status', 'user_id', 'image'];
 
     public function owner(): BelongsTo
     {

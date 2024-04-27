@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserController;
@@ -33,6 +34,19 @@ Route::get('getByStore',[ProductController::class,'getProdSmallStore'])->name('g
 Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->name('getByStoreCat');
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
+
+
+//Manage products routes
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::post('AddProd',[ProductController::class,'AddProd'])->name('seller-add-product');
+    Route::post('EditProd',[ProductController::class,'EditProd'])->name('seller-edit-product');
+    Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd'])->name('seller-delete-product');
+});
+
+/*Route::get('getAllProdSmall/{page}',[ProductController::class,'getAllProdSmall']);
+Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
+Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
+Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);*/
 
 
 Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist')->middleware('auth');
@@ -147,19 +161,42 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('admin.dashboard');
 });
 
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
+    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
+    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
+    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
+    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
+    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
+    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
+});
+
+
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
+    Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
+    Route::get('seller/user-management', [SellerController::class, 'userManagement'])->name('seller-user-management');
+    Route::get('seller/tables', [SellerController::class, 'tables'])->name('seller-tables');
+    Route::get('seller/billing', [SellerController::class, 'billing'])->name('seller-billing');
+    Route::get('seller/notifications', [SellerController::class, 'notifications'])->name('seller-notifications');
+    Route::get('seller/profile', [SellerController::class, 'profile'])->name('seller-profile');
+    Route::get('seller/static-sign-up', [SellerController::class, 'staticSignUp'])->name('seller-static-sign-up');
+    Route::get('seller/static-sign-in', [SellerController::class, 'staticSignIn'])->name('seller-static-sign-in');
+
+    Route::get('seller/createStore', [SellerController::class, 'createStoreViewRedirect'])->name('redirect-create-store');
+    Route::get('seller/editStoreOptions', [SellerController::class, 'editStoreViewRedirect'])->name('redirect-edit-store');
+    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
+    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('seller-edit-store');
+
+    Route::get('seller/createProduct', [SellerController::class, 'createProductView'])->name('redirect-create-product');
+
+});
+
 
 Route::middleware('auth')->group(function() {
     Route::get('/profile/edit', [UserController::class, 'showEditProfileForm'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
-
-//Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
-Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
 
