@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="notifications"></x-navbars.sidebar>
+    <x-navbars.sidebarSeller activePage="seller-notifications"></x-navbars.sidebarSeller>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Notifications"></x-navbars.navs.auth>

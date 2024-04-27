@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="billing"></x-navbars.sidebar>
+    <x-navbars.sidebarSeller activePage="seller-billing"></x-navbars.sidebarSeller>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Billing"></x-navbars.navs.auth>

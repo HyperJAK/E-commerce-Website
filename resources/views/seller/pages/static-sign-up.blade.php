@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <!-- Navbar -->
-                    <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest>
+                    <x-navbars.navs.guest signin='seller-static-sign-in' signup='seller-static-sign-up'></x-navbars.navs.guest>
                     <!-- End Navbar -->
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-management"></x-navbars.sidebar>
+    <x-navbars.sidebarSeller activePage="seller-user-management"></x-navbars.sidebarSeller>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="User Management"></x-navbars.navs.auth>
@@ -93,7 +93,7 @@
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                
+
                                                 <button type="button" class="btn btn-danger btn-link"
                                                 data-original-title="" title="">
                                                 <i class="material-icons">close</i>

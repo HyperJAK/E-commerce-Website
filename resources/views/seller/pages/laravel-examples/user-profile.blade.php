@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-profile"></x-navbars.sidebar>
+    <x-navbars.sidebarSeller activePage="seller-user-profile"></x-navbars.sidebarSeller>
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage='User Profile'></x-navbars.navs.auth>
