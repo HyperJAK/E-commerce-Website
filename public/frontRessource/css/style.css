@@ -565,6 +565,23 @@ a:hover {
     color: #000;
     border-radius: 100px;
 }
+#storeCarousel .carousel-control-next,
+#storeCarousel .carousel-control-prev {
+    width: 35px;
+    height: 35px;
+    top:50%;
+    background: var(--maincolor);
+    opacity: 1;
+    font-size: 20px;
+    color: #ffffff;
+    border-radius: 100px;
+}
+#storeCarousel{
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    width: 90vw;
+}
 #productCarousel{
     margin: auto;
     margin-top: 5%;

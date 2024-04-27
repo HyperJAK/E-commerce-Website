@@ -70,8 +70,6 @@ public function DeleteCartItem($cartItem_id){
     $product_id = $obj->product_id;
     $wished = false;
 
-
-
     if($obj){
         $checkIfWishlisted= Product::find($obj->product_id);
 

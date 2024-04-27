@@ -39,9 +39,16 @@ class WishlistController extends Controller
 public function getWishlist($user_id) {
     $wishlist = Wishlist::where('user_id',$user_id)->get();
     if ($wishlist->isNotEmpty()) {
-      return $wishlist;  
+    
+    foreach ($wishlist as $key) {
+        $key->product_name = $key->getProdName()[0];
+        $key->path1 = $key->getProdPic()[0];
+        }
+    // return $wishlist;
+    return view('Wishlists')->with('objs',$wishlist);  
     }else{
-    return response()->json(['message' => 'Wishlist not found or this user has no wishlist'], 404);
+    // return response()->json(['message' => 'Wishlist not found or this user has no wishlist'], 404);
+     return view('Wishlists');  
     }
 }
 //to know that product how many people wished for it
@@ -66,7 +73,7 @@ public function DeleteWishlist(Request $request){
         $list=Wishlist::find($obj->wishlist_id);
         $list->delete();        
     // return response()->json(["message"=>"wishlist deleted successfully"]);
-    return redirect()->route('getProd',['id'=>$request->product_id]);
+    return back()->withSuccess(['Product removed from wishlist!']);
     } else {
     // return response()->json(['message'=>'wishlist does not exist or delete wishlist failed']);
     return redirect()->route('getProd',['id'=>$request->product_id])->withErrors(['Error Removing from wishlist']);

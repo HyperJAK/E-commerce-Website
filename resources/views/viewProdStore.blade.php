@@ -152,10 +152,26 @@
                   <div class="header_box">
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
+                        @if(Auth::check())
+                           <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
                            </li>
+                           @else
+                           <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           @endif
+                           @if(Auth::check())
+                        <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @else
+                        <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @endif
                            <li><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Account</span></a>
@@ -197,11 +213,11 @@
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
 <p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
-        <div class="tshirt_img"><img src="{{asset($obj->path1)}}"></div>
+        <div class="tshirt_img"><img src="{{asset('frontRessource/images/'.$obj->path1)}}"></div>
         <p class="prod_desc">{{$obj->description}}</p>
 <div class="btn_main">
-    <div class="buy_bt"><a href="#">Buy Now</a></div>
-    <div class="seemore_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
+    
+    <div class="buy_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
 </div>
 </div>
         </div>
