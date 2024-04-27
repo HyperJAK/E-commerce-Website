@@ -7,6 +7,7 @@ use App\Models\CategoryForStores;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use \Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Session;
 
 class StoreController extends Controller
 {
@@ -161,15 +162,83 @@ class StoreController extends Controller
         }
     }
 
-    public function addStore(Request $request): JsonResponse
+    public function addStore(Request $request)
     {
-        Store::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-            'user_id' => $request->user_id,
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        return response()->json(["message" => "Store added successfully"]);
+
+        $storeCategory = strtolower($request->category);
+
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images/storeImages/').$request->seller_id, $imageName);
+        $store = new Store();
+        $store->name = $request->name;
+        $store->description = $request->description;
+        $store->status = 0;
+        $store->user_id = $request->seller_id;
+        $store->image = 'images/storeImages/'.$request->seller_id.'/'.$imageName;
+
+        $store->save();
+
+
+
+        $checkDuplicateCategory = Category::select('category_id')->where('name', $storeCategory)->get();
+
+        if(count($checkDuplicateCategory) == 0){
+            $category = new Category();
+            $category->name = $storeCategory;
+            $category->store_id = $store->store_id;
+
+            $category->save();
+
+            $recheckDuplicate = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if(count($recheckDuplicate) > 0) {
+                $categoryForStore = new CategoryForStores();
+                $categoryForStore->category_id = $recheckDuplicate[0]->category_id;
+                $categoryForStore->store_id = $store->store_id;
+
+                $categoryForStore->save();
+            }
+        }
+        else{
+            $recheckDuplicate2 = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if(count($recheckDuplicate2) > 0){
+                $categoryForStore = new CategoryForStores();
+                $categoryForStore->category_id = $recheckDuplicate2[0]->category_id;
+                $categoryForStore->store_id = $store->store_id;
+
+                $categoryForStore->save();
+            }
+
+        }
+
+
+        $allUserStores = Store::where('user_id', $request->seller_id)->get();
+
+        if ($allUserStores) {
+            foreach ($allUserStores as $store) {
+                $categoriesIds = CategoryForStores::select('category_id')->where('store_id', $store->store_id)->distinct()->get();
+                $storeCategories = [];
+
+                foreach ($categoriesIds as $categoryId) {
+                    $category = Category::select('name')->where('category_id', $categoryId->category_id)->first();
+                    if ($category) {
+                        $storeCategories[] = $category->name;
+                    }
+                }
+
+                $store['categories'] = $storeCategories;
+            }
+        }
+
+        return redirect()->route('seller-tables', ['seller_id' => $request->seller_id]);
     }
 
     public function updateStore(Request $request, $id): JsonResponse
