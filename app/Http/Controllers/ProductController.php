@@ -32,11 +32,14 @@ class ProductController extends Controller
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
         $cats=Category::where('parent_id',null)->get();
         $wishlists=Wishlist::where('product_id',$id)->count();
-        $obj= Product::find($id);
+        $obj= Product::findOrFail($id);
 
+        $itemAddedToCart=collect();
         //retrieving if its added to users current active cart
-        $activeCart = Cart::select('cart_id')->where('status', 0)->get();
+        if(Auth::check()){
+        $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
         $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+    }
 
 
         if(count($obj->getUserStatus(Auth::id()))>0){
@@ -55,7 +58,7 @@ class ProductController extends Controller
                     return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
                 } else {
                     //    return response()->json(['message'=>'Product not found']);
-                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["your_custom_error"=>"Product not found"]);
+                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["Product not found"]);
 
                 }
 
@@ -66,10 +69,10 @@ class ProductController extends Controller
                 $obj->store_name = $obj->getStoreName();
                 $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
                 // return $obj;
-                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished);
+                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished)->with('quantity', 0);
             } else {
                 //    return response()->json(['message'=>'Product not found']);
-                return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"]);
+                return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"])->with('quantity', 0);
 
             }
         }
@@ -97,15 +100,16 @@ class ProductController extends Controller
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
         $cats=Category::where('parent_id',null)->get();
         if($request->order){
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1','store_id')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
         }else{
-         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
+         $obj= Product::select('product_id','name', 'description','price','category_id','path1','store_id')->whereIn('store_id', $storeCheck)->paginate(6);
 
         }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $key->store_name = $key->getStoreName()[0];
                 $fullAnswers[] = $key;
             }
             return $request->order? view('products')->with('objs',$obj)->with('cats',$cats)->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats);
@@ -321,31 +325,37 @@ class ProductController extends Controller
             'price'=>'required|numeric',
            'category_id' => 'required|exists:categories,category_id|numeric',
            'quantity'=>'required|numeric',
-           'path1'=>'required',
-           'path2'=>'required',
-           'path3'=>'required',
-           'path4'=>'required',
+           'path1'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
+           'path2'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
+           'path3'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
+           'path4'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
            'store_id'=>'required|exists:stores,store_id|numeric',
             ]);
-        // $str= Store::find($request->store_id);
-        // $cat= Category::find($request->category_id);
-        // if($str && $cat){
+            $newPath1= time(). "-" . $request->file('path1')->getClientOriginalName();
+            $request->file('path1')->move('frontRessource/images',$newPath1);
+
+            $newPath2= time(). "-" . $request->file('path2')->getClientOriginalName();
+            $request->file('path2')->move('frontRessource/images',$newPath2);
+
+            $newPath3= time(). "-" . $request->file('path3')->getClientOriginalName();
+            $request->file('path3')->move('frontRessource/images',$newPath3);
+
+            $newPath4= time(). "-" . $request->file('path4')->getClientOriginalName();
+            $request->file('path4')->move('frontRessource/images',$newPath4);
+
         Product::create([
             'name'=> $request->name,
             'description'=>$request->description,
             'price'=>$request->price,
             'category_id'=>$request->category_id,
             'quantity'=>$request->quantity,
-            'path1'=>$request->path1,
-            'path2'=>$request->path2,
-            'path3'=>$request->path3,
-            'path4'=>$request->path4,
+            'path1'=>$newPath1,
+            'path2'=>$newPath2,
+            'path3'=>$newPath3,
+            'path4'=>$newPath4,
             'store_id'=>$request->store_id,
         ]);
         return response()->json(["message"=>"Product added successfully"]);
-    // }else{
-    //     return response()->json(['message'=>'Store or category does not exist!']);
-    // }
 }
     public function EditProd(Request $request){
         $request->validate([
@@ -355,31 +365,42 @@ class ProductController extends Controller
             'price'=>'required|numeric',
            'category_id' => 'required|exists:categories,category_id|numeric',
            'quantity'=>'required|numeric',
-           'path1'=>'required',
-           'path2'=>'required',
-           'path3'=>'required',
-           'path4'=>'required',
+           'path1'=>'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+           'path2'=>'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+           'path3'=>'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+           'path4'=>'nullable|mimes:jpeg,png,jpg,gif|max:10000',
            'store_id'=>'required|exists:stores,store_id|numeric',
             ]);
         $obj= Product::find($request->id);
-        // $str= Store::find($request->store_id);
-        // $cat= Category::find($request->category_id);
-        // if ($obj && $str && $cat) {
             $obj->name = $request->name;
             $obj->description = $request->description;
             $obj->price = $request->price;
             $obj->category_id = $request->category_id;
             $obj->quantity = $request->quantity;
-            $obj->path1 = $request->path1;
-            $obj->path2 = $request->path2;
-            $obj->path3 = $request->path3;
-            $obj->path4 = $request->path4;
+
+        if ($request->hasFile('path1')) {
+            $newPath1= time(). "-" . $request->file('path1')->getClientOriginalName();
+            $request->file('path1')->move('frontRessource/images',$newPath1);
+            $obj->path1 = $newPath1;
+        } 
+        if ($request->hasFile('path2')) {
+            $newPath2= time(). "-" . $request->file('path2')->getClientOriginalName();
+            $request->file('path2')->move('frontRessource/images',$newPath2);
+            $obj->path2 = $newPath2;
+        }
+        if ($request->hasFile('path3')) {
+            $newPath3= time(). "-" . $request->file('path3')->getClientOriginalName();
+            $request->file('path3')->move('frontRessource/images',$newPath3);
+            $obj->path3 = $newPath3;
+        }
+         if ($request->hasFile('path4')) {
+            $newPath4= time(). "-" . $request->file('path4')->getClientOriginalName();
+            $request->file('path4')->move('frontRessource/images',$newPath4);
+            $obj->path4 = $newPath4;
+        }    
             $obj->store_id = $request->store_id;
             $obj->save();
         return response()->json(["message"=>"Product edited successfully"]);
-    //     } else {
-    //         return response()->json(['message'=>'Product, store or category does not exist!']);
-    // }
         }
 
     public function DeleteProd($prod_id){

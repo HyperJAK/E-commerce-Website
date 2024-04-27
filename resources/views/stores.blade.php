@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+<title>All Stores</title>
+@endsection
 @section('content')
 
       <!-- electronic section start -->
@@ -6,7 +9,7 @@
           @isset($categories)
           @foreach($categories as $categoryId => $category)
 
-                  <div id="{{ 'carousel-slide_' . $category['category']->category_id }}" class="carousel slide" data-ride="carousel">
+                  <div id="storeCarousel" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
                           @php
                           $index = 0;

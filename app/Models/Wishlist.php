@@ -23,4 +23,10 @@ class Wishlist extends Model
     public function getUserStatus($user_id){
         return $this->getProd()->where('user_id',$user_id);
        }
+    public function getProdName(){
+        return $this->getProd()->pluck('name');
+       }
+       public function getProdPic(){
+        return $this->getProd()->pluck('path1');
+       }
 }

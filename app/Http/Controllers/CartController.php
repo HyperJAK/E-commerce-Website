@@ -68,7 +68,8 @@ public function getCarts($buyer_id) {
         if ($allCartItems->isNotEmpty()) {
             return view('userCart',['userCartItems'=>$allCartItems]);
         }else{
-            return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
+            // return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
+            return view('userCart');
         }
     }
 
