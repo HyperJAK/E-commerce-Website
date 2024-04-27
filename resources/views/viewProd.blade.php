@@ -48,7 +48,7 @@
                      <p>{{$obj->wish}}</p>
                 <div class="col-md-9" id="ProdBtns">
                     @isset($wished)
-                    @if($wished==false && Auth::check())
+                    @if($wished==false && Auth::check() && !is_null(Auth::id()))
                 <form  action="{{ route('AddWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-dark">Add to Wishlist ❤</button>
@@ -59,12 +59,12 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Remove from Wishlist ❤</button>
                     </form>
-                    @elseif(!Auth::check())
+                    @elseif(!Auth::check() || is_null(Auth::id()))
                         <a href="{{ route('login') }}" class="btn btn-outline-danger">Login or Register</a>
                     @endif
                     @endisset
                     @isset($quantity)
-                            @if($quantity <=0 && Auth::check())
+                            @if($quantity <=0 && Auth::check() && !is_null(Auth::id()))
                     <form action="{{ route('AddCartItem', ['product_id' => $obj->product_id,'buyer_id'=>Auth::id()]) }}" id="wlist" method="POST">
                         @csrf
                         <button type="submit" class="btn purple" >Add to Cart</button>

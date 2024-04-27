@@ -152,7 +152,7 @@
                   <div class="header_box">
                      <div class="login_menu">
                         <ul>
-                        @if(Auth::check())
+                        @if(Auth::check() && !is_null(Auth::id()))
                            <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
@@ -163,7 +163,7 @@
                               <span class="padding_10">Wishlist </span></a>
                            </li>
                            @endif
-                           @if(Auth::check())
+                           @if(Auth::check() && !is_null(Auth::id()))
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
