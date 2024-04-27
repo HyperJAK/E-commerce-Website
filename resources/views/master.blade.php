@@ -99,10 +99,17 @@
                 <div class="header_box">
                     <div class="login_menu">
                     <ul>
-                           <li style="padding-right:1vw"><a href="#">
+                    @if(Auth::check())
+                           <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
                            </li>
+                           @else
+                           <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           @endif
                         @if(Auth::check())
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>

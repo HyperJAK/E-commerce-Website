@@ -32,7 +32,7 @@ class ProductController extends Controller
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
         $cats=Category::where('parent_id',null)->get();
         $wishlists=Wishlist::where('product_id',$id)->count();
-        $obj= Product::find($id);
+        $obj= Product::findOrFail($id);
 
         $itemAddedToCart=collect();
         //retrieving if its added to users current active cart
@@ -58,7 +58,7 @@ class ProductController extends Controller
                     return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
                 } else {
                     //    return response()->json(['message'=>'Product not found']);
-                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["your_custom_error"=>"Product not found"]);
+                    return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["Product not found"]);
 
                 }
 

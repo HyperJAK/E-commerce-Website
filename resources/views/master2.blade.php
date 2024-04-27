@@ -150,10 +150,17 @@
                   <div class="header_box">
                      <div class="login_menu">
                         <ul>
-                           <li style="padding-right:1vw"><a href="#">
+                           @if(Auth::check())
+                           <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
                            </li>
+                           @else
+                           <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           @endif
                            @if(Auth::check())
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -182,7 +189,20 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif
+            @endif 
+            @if (session()->has('success'))
+<div class="alert alert-success" style="margin-top:2%;width:60%;margin-left:8%">
+    @if(is_array(session('success')))
+        <ul>
+            @foreach (session('success') as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    @else
+        {{ session('success') }}
+    @endif
+</div>
+@endif
    @yield('content')
       <!-- footer section start -->
       <div class="footer_section layout_padding">
