@@ -150,17 +150,6 @@ Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('
 
 
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard')->middleware('auth');
-
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-});
-
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
