@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
@@ -163,3 +164,4 @@ Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile'
 Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
 Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
 
+Route::get('payment', [PaymentController::class, 'createPayment']);
