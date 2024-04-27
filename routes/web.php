@@ -164,4 +164,6 @@ Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile'
 Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
 Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
 
-Route::get('payment', [PaymentController::class, 'createPayment']);
+Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
+Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
+Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');

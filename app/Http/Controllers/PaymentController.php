@@ -22,23 +22,49 @@ class PaymentController extends Controller
         //         'description' => 'Laravel Payment', 
         //     ]);
         //     return $charge;
-        try {
-            $paymentIntent = PaymentIntent::create([
-                'amount' => 1000, // Amount in cents
-                'currency' => 'usd',
-                'payment_method_types' => ['card'],
-            ]);
 
-            return response()->json(['client_secret' => $paymentIntent->client_secret]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => [
+                [
+                    'price_data' =>[
+                        'currency' => 'USD',
+                        'product_data' => [
+                            'name' => "testing payment joe",
+                        ],
+                        'unit_amount' => 1099,
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => route('payment/success'),
+            'cancel_url' => route('payment/failure'),
+        ]);
+        // return $session;
+        return redirect()->away($session->url);
+        // try {
+        //     $paymentIntent = PaymentIntent::create([
+        //         'amount' => 1000, // Amount in cents
+        //         'currency' => 'usd',
+        //         'payment_method_types' => ['card'],
+        //     ]);
+
+        //     return response()->json(['client_secret' => $paymentIntent->client_secret]);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => $e->getMessage()], 500);
+        // }
         
     }
 
-    public function paymentCallback(Request $request)
+    public function paymentSuccess(Request $request)
     {
-        // Handle payment success or failure here
+        // return 'payment success';
+        return view('payValid');
+    }
+    public function paymentFailure(Request $request)
+    {
+        // return 'payment failed';
+        return view('payFail');
     }
 
 }

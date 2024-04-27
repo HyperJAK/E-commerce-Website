@@ -13,7 +13,7 @@
 
                     <div class="card-body">
                         <form id="payment-form" action="{{route('payment/process')}}" method="POST">
-
+                        @csrf
                         <div class="form-group">
                                 <label for="card_number">Card Number</label>
                                 <div id="card_number" class="form-control"></div>
@@ -39,7 +39,7 @@
 
                            
                             <button type="submit" class="btn btn-outline-dark" id="pay-btn">Submit Payment</button>
-                        </action=>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -50,19 +50,12 @@
 @section('scripts')
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        // Initialize Stripe.js
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
-
-        // Create an instance of Elements
         const elements = stripe.elements();
-
-        // Create card element
-        const cardElement = elements.create('card');
-
-        // Mount card element to card_number div
+        const cardElement = elements.create('card', {
+            hidePostalCode: true,
+        });
         cardElement.mount('#card_number');
-
-        // Handle form submission
         const form = document.getElementById('payment-form');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -74,16 +67,13 @@
 
             if (error) {
                 console.error(error);
-                // Handle error display
             } else {
-                // Send paymentMethod.id to your server to complete the payment
                 const tokenInput = document.createElement('input');
                 tokenInput.setAttribute('type', 'hidden');
                 tokenInput.setAttribute('name', 'payment_method_id');
                 tokenInput.setAttribute('value', paymentMethod.id);
                 form.appendChild(tokenInput);
 
-                // Submit the form
                 form.submit();
             }
         });

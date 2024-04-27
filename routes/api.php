@@ -40,4 +40,3 @@ Route::put('stores/{id}/updateStatus', [StoreController::class, 'updateStoreStat
 Route::delete('stores/{id}', [StoreController::class, 'deleteStore']); // Delete a specific store
 
 Route::post('payment/process', [PaymentController::class, 'processPayment'])->name('payment/process');
-Route::post('payment/callback', [PaymentController::class, 'paymentCallback']);
