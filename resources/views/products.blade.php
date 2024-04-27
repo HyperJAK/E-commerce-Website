@@ -1,6 +1,6 @@
 @extends('master2')
 @section('title')
-<title>Products</title>
+<title>Products | Icom</title>
 @endsection
 @section('content')
 

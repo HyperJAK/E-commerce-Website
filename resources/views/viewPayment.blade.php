@@ -1,6 +1,6 @@
 @extends('master2')
 @section('title')
-<title>Payment</title>
+<title>Payment | Icom</title>
 @endsection
 @section('content')
 <h1 class="fashion_title">Confirm Payment</h1>

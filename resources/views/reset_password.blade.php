@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reset Password</title>
+    <title>Reset Password | Icom</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/style.css') }}">
 </head>
 <body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Password Reset</title>
+    <title>Password Reset | Icom</title>
 </head>
 <body>
     <h1>Password Reset Request</h1>

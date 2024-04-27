@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Verification Successful</title>
+    <title>Verification Successful | Icom</title>
 </head>
 <body>
     <h1>Congratulations, {{ $user->username }}!</h1>

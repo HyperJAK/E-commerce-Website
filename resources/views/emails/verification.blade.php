@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Verify Your Email</title>
+    <title>Verify Your Email | Icom</title>
 </head>
 <body>
     <h1>Verify Your Email</h1>

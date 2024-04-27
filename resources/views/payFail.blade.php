@@ -1,6 +1,6 @@
 @extends('master2')
 @section('title')
-<title>Payment Fail!</title>
+<title>Payment Fail | Icom</title>
 @endsection
 @section('content')
 <h1 class="fashion_title">Payment Error!</h1>

@@ -10,7 +10,7 @@
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <!-- <title>LEcommerce</title> -->
-      <title>Products By Store</title>
+      <title>Products By Store | Icom</title>
       <meta name="keywords" content="">
       <meta name="description" content="Laravel E-commerce made for end of semester project">
       <meta name="author" content="JJCC">
@@ -21,7 +21,7 @@
       <!-- Responsive-->
       <link rel="stylesheet" href="{{asset('frontRessource/css/responsive.css')}}">
       <!-- fevicon -->
-      <link rel="icon" href="{{asset('frontRessource/images/fevicon.png')}}" type="image/gif" />
+      <link rel="icon" href="{{asset('frontRessource/images/favicon.ico')}}" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" href="{{asset('frontRessource/css/jquery.mCustomScrollbar.min.css')}}">
       <!-- Tweaks for older IEs-->
@@ -64,7 +64,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
+                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo3.svg')}}"></a></div>
                   </div>
                </div>
             </div>
@@ -262,7 +262,7 @@
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo4.svg')}}"></a></div>
             <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
 
