@@ -100,15 +100,16 @@ class ProductController extends Controller
         $storeCheck=Store::where('status','1')->pluck('store_id')->toArray();
         $cats=Category::where('parent_id',null)->get();
         if($request->order){
-        $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
+        $obj= Product::select('product_id','name', 'description','price','category_id','path1','store_id')->whereIn('store_id', $storeCheck)->orderBy('price',$request->order)->paginate(6);
         }else{
-         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('store_id', $storeCheck)->paginate(6);
+         $obj= Product::select('product_id','name', 'description','price','category_id','path1','store_id')->whereIn('store_id', $storeCheck)->paginate(6);
 
         }
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $key->store_name = $key->getStoreName()[0];
                 $fullAnswers[] = $key;
             }
             return $request->order? view('products')->with('objs',$obj)->with('cats',$cats)->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats);

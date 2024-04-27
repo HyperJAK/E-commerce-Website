@@ -28,7 +28,7 @@
             <div class="tshirt_img"><img src="{{asset('frontRessource/images/'.$obj->path1)}}"></div>
             <p class="prod_desc">{{$obj->description}}</p>
     <div class="btn_main">
-        <div class="buy_bt"><a href="#">Buy Now</a></div>
+        <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{$obj->store_name}}</a></div>
         <div class="seemore_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
     </div>
 </div>
