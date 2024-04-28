@@ -8,7 +8,7 @@
     <div class="center">
         <h1>Sign In</h1>
         
-        <form action="{{ route('signin') }}" method="POST">
+        <form action="{{ route('signin.process') }}" method="POST">
             @csrf
             
             <div class="txt_field username">

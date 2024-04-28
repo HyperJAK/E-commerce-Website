@@ -27,4 +27,9 @@ protected $routeMiddleware = [
     
 ];
 
+protected $middleware = [
+    \App\Http\Middleware\Authenticate::class,
+];
+
+
 }

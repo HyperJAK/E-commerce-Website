@@ -11,6 +11,8 @@ use App\Mail\VerificationEmail;
 use App\Mail\VerificationSuccessEmail;
 use App\Mail\PasswordResetEmail;
 
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -271,11 +273,29 @@ public function updateProfile(Request $request)
 
 public function logout(Request $request)
 {
-    Auth::logout();
+// DB::table('sessions')
+//     ->whereUserId($request->user_id)
+//     ->delete();
 
+
+// $sessions = DB::table('sessions')
+//     ->where('user_id',$request->user_id)
+//     ->first();
+
+
+
+//     DB::table('sessions')
+//         ->where('id' , $sessions->id)
+//         ->delete();
+    
+
+
+   Auth::logout();
     $request->session()->invalidate();
+    
 
     $request->session()->regenerateToken();
+
 
     return redirect()->route('signin')->with('status', 'You have been logged out.');
 }

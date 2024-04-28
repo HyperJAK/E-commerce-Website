@@ -8,7 +8,7 @@
 <body>
     <div class="center">
         <h1>Sign Up</h1>
-        <form action="{{ route('signup') }}" method="POST">
+        <form action="{{ route('signup.process') }}" method="POST">
             @csrf
             
             <div class="left-column">

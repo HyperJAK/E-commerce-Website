@@ -53,7 +53,7 @@
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
                             <li>
-        <form action="{{ route('logout') }}" method="POST">
+        <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
             @csrf
             <button type="submit">Logout</button>
         </form>
@@ -109,7 +109,8 @@
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="padding_10">Cart</span></a>
                             </li>
-                            <li><a href="#">
+                           
+                            <li><a href=" {{ route('myaccount') }}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <span class="padding_10">Account</span></a>
                             </li>
@@ -176,5 +177,14 @@
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
+    <script>
+    function logout() {
+        @auth
+            document.getElementById('logout-form').submit(); 
+        @else
+            alert("You are not logged in!"); 
+        @endauth
+    }
+</script>
 </body>
 </html>

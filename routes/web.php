@@ -13,6 +13,8 @@ use App\Http\Controllers\MicrosoftAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\UserAccountController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -73,11 +75,10 @@ Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orde
 
 
 
-
-
 //Sign up routes
+Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
-Route::post('/signup', [UserController::class, 'signup'])->name('signup');
+Route::post('/signup', [UserController::class, 'signup'])->name('signup.process');
 
 
 
@@ -94,9 +95,9 @@ Route::get('/auth/microsoft-graph', [MicrosoftAuthController::class, 'redirectTo
 Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'handleMicrosoftGraphCallback'])->name('auth.microsoft-graph.callback');
 
 
-
+Route::get('/login', [UserController::class, 'showSignInForm'])->name('login');
 Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
-Route::post('/signin', [UserController::class, 'signin'])->name('signin');
+Route::post('/signin', [UserController::class, 'signin'])->name('signin.process');
 
 Route::get('/verify-email', [UserController::class, 'verifyEmail'])->name('verify.email');
 
@@ -146,7 +147,9 @@ Route::middleware('auth')->group(function() {
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
-Route::post('/logout',  [UserController::class, 'logout'])->name('logout');
+Route::post('/logout',  [UserController::class, 'logout'])->name('logout')->middleware('auth');
+
+//Route::post('/logout',  [UserController::class, 'logout'])->name('logout');
 
 //Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
 Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
@@ -157,4 +160,11 @@ Route::get('admin/notifications', [AdminController::class, 'notifications'])->na
 Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
 Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
 Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
+
+
+
+Route::get('/account', [UserAccountController::class, 'show'])->name('myaccount')->middleware('auth');
+Route::post('/account/update', [UserAccountController::class, 'update'])->name('updatemyaccount')->middleware('auth');
+
+
 
