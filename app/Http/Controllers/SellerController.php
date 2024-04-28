@@ -42,8 +42,10 @@ class SellerController extends Controller
 
         }
 
+/*        return $store;*/
 
-        return view('/seller/functionalities/editStoreOptions')->with('store', $store[0]);
+
+        return view('/seller/functionalities/editStoreOptions')->with('store', $store);
     }
 
     //this is similar to the table function that opens page where it shows all products of our store
