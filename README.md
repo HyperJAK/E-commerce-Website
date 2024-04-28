@@ -19,7 +19,12 @@ Just make sure you have the mysql80 service running and your mysql app open and 
 
 --Then change .env files in base project dir accordingly, specifically change the database mysql section to match your database configuration. 
 
+<span style="color:red">(In Case Of Any view related error!)</span>  
+Please if you encounter any problems with loading a view when accessing a route, then turn off php artisan serve and try this command:  
 
+```bash
+php artisan view:clear
+```
 
 ### To Start
 <details>

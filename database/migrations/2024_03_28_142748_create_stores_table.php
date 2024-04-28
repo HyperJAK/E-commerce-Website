@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('user_id');
+            $table->string('image')->nullable();
             $table->timestamps();
 
         });

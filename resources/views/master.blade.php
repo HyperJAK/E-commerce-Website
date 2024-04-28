@@ -109,6 +109,7 @@
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
                            </li>
+
                            @endif
                         @if(Auth::check() && !is_null(Auth::id()))
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
@@ -120,6 +121,7 @@
                               <span class="padding_10">Cart </span></a>
                         @endif
                            </li>
+
                            <li style="padding-right:1vw"><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Account</span></a>
