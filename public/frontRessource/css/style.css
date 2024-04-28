@@ -23,6 +23,8 @@
 :root{
     /* --maincolor:#f26522; */
     --maincolor:#7f69ce;
+    /* --maincolor2:#ae9afa; */
+    --maincolor2:#d5c9ff;
 }
 html {
     scroll-behavior: smooth;

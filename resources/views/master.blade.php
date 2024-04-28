@@ -192,6 +192,7 @@
     <script src="{{asset('frontRessource/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <script src="{{asset('frontRessource/js/custom.js')}}"></script>
     <script>
+
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
         }
@@ -209,5 +210,20 @@
         @endauth
     }
 </script>
+<script>
+var botmanWidget = {
+    frameEndpoint: 'viewbot',
+    introMessage: 'Hello, I am Icom Bot, How may I help you today',
+    chatServer : 'api/botman', 
+    title: 'Icom Bot', 
+    mainColor: '#d5c9ff',
+    bubbleBackground: '#ae9afa',
+    aboutText: '',
+    bubbleAvatarUrl: '',
+    desktopHeight:500,
+    desktopWidth:400,    
+};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </body>
 </html>

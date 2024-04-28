@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
@@ -200,3 +201,4 @@ Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
+Route::get('viewbot', [BotmanController::class, 'Botmanview']);
