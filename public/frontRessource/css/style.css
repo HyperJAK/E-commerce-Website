@@ -254,6 +254,20 @@ background: linear-gradient(180deg, rgb(127, 105, 206) 0%, rgba(249, 235, 255, 0
     margin: 0 auto;
     text-align: center;
 }
+.custom_menu button{
+  background-color: transparent;
+  color: var(--maincolor);
+  border-radius: 10px;
+  border: solid;
+  padding:0px 5px;
+  margin-top: -5px;
+  transition: all 0.2s ease-in-out;
+}
+.custom_menu button:hover{
+  background-color: var(--maincolor);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
 
 .custom_menu ul {
     margin: 0px;
