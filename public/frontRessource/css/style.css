@@ -288,10 +288,10 @@ background: linear-gradient(180deg, rgb(127, 105, 206) 0%, rgba(249, 235, 255, 0
 }
 
 .logo {
-    width: 100%;
-    float: left;
+    width: 18%;
+    margin:auto;
     text-align: center;
-    padding: 30px 0px;
+    padding: 2px 0px;
 }
 
 
@@ -565,6 +565,23 @@ a:hover {
     color: #000;
     border-radius: 100px;
 }
+#storeCarousel .carousel-control-next,
+#storeCarousel .carousel-control-prev {
+    width: 35px;
+    height: 35px;
+    top:50%;
+    background: var(--maincolor);
+    opacity: 1;
+    font-size: 20px;
+    color: #ffffff;
+    border-radius: 100px;
+}
+#storeCarousel{
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    width: 90vw;
+}
 #productCarousel{
     margin: auto;
     margin-top: 5%;
@@ -601,6 +618,16 @@ a:hover {
 #productDiv #ProdBtns form{
     margin: 0;
     display: inline-block;
+}
+.purple{
+    background-color: var(--maincolor);
+    color: whitesmoke;
+    opacity: 1;
+}
+.purple:hover{
+    background-color: var(--maincolor);
+    color: whitesmoke;
+    opacity: 0.8;
 }
 #my_slider .carousel-control-next:focus,
 #my_slider .carousel-control-next:hover,
@@ -908,7 +935,9 @@ a:hover {
 }
 
 .footer_logo {
-    width: 100%;
+    width: 18%;
+    margin:auto;
+    margin-top:-5%;
     text-align: center;
 }
 

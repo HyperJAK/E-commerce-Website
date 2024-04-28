@@ -21,7 +21,7 @@
       <!-- Responsive-->
       <link rel="stylesheet" href="{{asset('frontRessource/css/responsive.css')}}">
       <!-- fevicon -->
-      <link rel="icon" href="{{asset('frontRessource/images/fevicon.png')}}" type="image/gif" />
+      <link rel="icon" href="{{asset('frontRessource/images/favicon.ico')}}" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" href="{{asset('frontRessource/css/jquery.mCustomScrollbar.min.css')}}">
       <!-- Tweaks for older IEs-->
@@ -48,7 +48,7 @@
                      <div class="custom_menu">
                         <ul>
                            <li><a href="{{route('products')}}">Products</a></li>
-                           <li><a href="{{route('home')}}">Stores</a></li>
+                           <li><a href="{{route('/')}}">Stores</a></li>
                            <li><a href="#">Events</a></li>
                            <li><a href="#">Today's Deals</a></li>
                            <li><a href="#">Customer Service</a></li>
@@ -70,7 +70,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
+                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo3.svg')}}"></a></div>
                   </div>
                </div>
             </div>
@@ -88,12 +88,12 @@
                      <a href="{{route('/')}}">Jewellery</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
-                 
+
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
-                        @isset($title) {{ $title }} @else 
+                        @isset($title) {{ $title }} @else
                  All Categories
-                  @endisset 
+                  @endisset
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item" href="{{route('products')}}" >All</a>
@@ -107,14 +107,14 @@
 </div>
                      <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($order) {{ $order }} @else 
+                        @isset($order) {{ $order }} @else
                      No order
-                     @endisset 
+                     @endisset
                      </button>
 @php
     $route = request();
     $routeParameters = $route->query();
-   
+
     $routeAsc = $routeParameters;
     $routeAsc['order'] = 'asc';
     $queryString0 = http_build_query($routeAsc);
@@ -123,14 +123,14 @@
     $routeOG = $routeParameters;
     $queryString1 = http_build_query($routeOG);
     $fullLink0 = url()->current().'?' . $queryString1;
-    
+
 
     $routeDesc = $routeParameters;
     $routeDesc['order'] = 'desc';
     $queryString2 = http_build_query($routeDesc);
     $fullLink2 = url()->current() . '?' . $queryString2;
 @endphp
-                     
+
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
                <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>
@@ -156,11 +156,27 @@
                   <div class="header_box">
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
+                           @if(Auth::check() && !is_null(Auth::id()))
+                           <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
                            </li>
-                           <li><a href="#">
+                           @else
+                           <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           @endif
+                           @if(Auth::check() && !is_null(Auth::id()))
+                        <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @else
+                        <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @endif
+                           <li style="padding-right:1vw"><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Account</span></a>
                            </li>
@@ -179,18 +195,31 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif
+            @endif 
+            @if (session()->has('success'))
+<div class="alert alert-success" style="margin-top:2%;width:60%;margin-left:8%">
+    @if(is_array(session('success')))
+        <ul>
+            @foreach (session('success') as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    @else
+        {{ session('success') }}
+    @endif
+</div>
+@endif
    @yield('content')
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo4.svg')}}"></a></div>
             <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
-            
+
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-            
+
             </div>
          </form>
             <div class="footer_menu">
@@ -226,10 +255,11 @@
          function openNav() {
            document.getElementById("mySidenav").style.width = "250px";
          }
-         
+
          function closeNav() {
            document.getElementById("mySidenav").style.width = "0";
          }
       </script>
    </body>
+   @yield('scripts')
 </html>

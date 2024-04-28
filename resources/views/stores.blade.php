@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+<title>All Stores | Icom</title>
+@endsection
 @section('content')
 
       <!-- electronic section start -->
@@ -6,10 +9,10 @@
           @isset($categories)
           @foreach($categories as $categoryId => $category)
 
-                  <div id="{{ 'carousel-slide_' . $category['category']->category_id }}" class="carousel slide" data-ride="carousel">
+                  <div id="storeCarousel" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
-                          @php 
-                          $index = 0; 
+                          @php
+                          $index = 0;
                           @endphp
                           @foreach(collect($category['stores'])->chunk(3) as $chunk)
                               <div class="carousel-item {{$index === 0 ? 'active' : ''}}">
@@ -24,7 +27,7 @@
                                                           <p class="price_text">{{ $store['description'] }}</p>
                                                           <div class="tshirt_img"><img src="{{ asset('frontRessource/images/tshirt-img.png') }}" alt="T-Shirt pic"></div>
                                                           <div class="btn_main">
-                                                              <div class="buy_bt"><a href="#">Visit Now</a></div>
+                                                              <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$store->store_id])}}">Visit Now</a></div>
                                                               <div class="seemore_bt"><a href="#">Message Us</a></div>
                                                           </div>
                                                       </div>
@@ -35,7 +38,7 @@
                                   </div>
                               </div>
                               @php
-                              $index++; 
+                              $index++;
                               @endphp
                           @endforeach
                       </div>
@@ -58,5 +61,5 @@
 
 
       <!-- jewellery  section end -->
- 
+
 @endsection

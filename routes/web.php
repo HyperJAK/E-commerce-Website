@@ -4,7 +4,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\UserAccountController;
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
 Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 Route::get('/',[StoreController::class,'getStoresByCategory'])->name('/');
+
 //Products routes
 Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
 Route::get('getAllProd',[ProductController::class,'getAllProd']);
@@ -31,13 +34,30 @@ Route::get('getProdImages/{id}',[ProductController::class,'getProdImages']);
 Route::get('products',[ProductController::class,'getAllProdSmall'])->name('products');
 Route::get('getByCat',[ProductController::class,'getProdSmallCat'])->name('getByCat');
 Route::get('getByStore',[ProductController::class,'getProdSmallStore'])->name('getByStore');
+Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->name('getByStoreCat');
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
-Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist']);
+
+
+//Manage products routes
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::post('AddProd',[ProductController::class,'AddProd'])->name('seller-add-product');
+    Route::post('EditProd',[ProductController::class,'EditProd'])->name('seller-edit-product');
+    Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd'])->name('seller-delete-product');
+});
+
+/*Route::get('getAllProdSmall/{page}',[ProductController::class,'getAllProdSmall']);
+Route::get('getProdSmallCat/{category_id}/{page}',[ProductController::class,'getProdSmallCat']);
+Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmallStore']);
+Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);*/
+
+
+Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist')->middleware('auth');
 Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
 Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
 Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
+Route::get('getActiveCart/{buyer_id}',[CartController::class,'getActiveCart'])->name('getActiveCart');
 Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
 
 //Stores routes
@@ -79,6 +99,7 @@ Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orde
 Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
 Route::post('/signup', [UserController::class, 'signup'])->name('signup.process');
+
 
 
 
@@ -130,15 +151,37 @@ Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('
 
 
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard')->middleware('auth');
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
+    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
+    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
+    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
+    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
+    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
+    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
+});
 
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
+    Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
+    Route::get('seller/user-management', [SellerController::class, 'userManagement'])->name('seller-user-management');
+    Route::get('seller/tables', [SellerController::class, 'tables'])->name('seller-tables');
+    Route::get('seller/billing', [SellerController::class, 'billing'])->name('seller-billing');
+    Route::get('seller/notifications', [SellerController::class, 'notifications'])->name('seller-notifications');
+    Route::get('seller/profile', [SellerController::class, 'profile'])->name('seller-profile');
+    Route::get('seller/static-sign-up', [SellerController::class, 'staticSignUp'])->name('seller-static-sign-up');
+    Route::get('seller/static-sign-in', [SellerController::class, 'staticSignIn'])->name('seller-static-sign-in');
+
+    Route::get('seller/createStore', [SellerController::class, 'createStoreViewRedirect'])->name('redirect-create-store');
+    Route::get('seller/editStoreOptions', [SellerController::class, 'editStoreViewRedirect'])->name('redirect-edit-store');
+    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
+    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('seller-edit-store');
+
+    Route::get('seller/createProduct', [SellerController::class, 'createProductView'])->name('redirect-create-product');
+
 });
 
 
@@ -147,24 +190,13 @@ Route::middleware('auth')->group(function() {
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
+
 Route::post('/logout',  [UserController::class, 'logout'])->name('logout')->middleware('auth');
-
-//Route::post('/logout',  [UserController::class, 'logout'])->name('logout');
-
-//Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard'); // Show a specific store
-Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
-
-
 
 Route::get('/account', [UserAccountController::class, 'show'])->name('myaccount')->middleware('auth');
 Route::post('/account/update', [UserAccountController::class, 'update'])->name('updatemyaccount')->middleware('auth');
 
-
+Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
+Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
+Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 

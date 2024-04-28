@@ -7,6 +7,7 @@ use App\Models\CategoryForStores;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use \Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Session;
 
 class StoreController extends Controller
 {
@@ -57,53 +58,87 @@ class StoreController extends Controller
 
     public function SortStoresByCategory($categoryId)
     {
-        $categories = CategoryForStores::where('category_id', $categoryId);
+        $categories = CategoryForStores::where('category_id', $categoryId)->get();
+        $cats = CategoryForStores::all()->unique();
         $groupedData = [];
+        $groupedCats = [];
 
-        foreach ($categories as $category) {
-            $categoryId = $category->category_id;
 
-            if (!isset($groupedData[$categoryId])) {
-                $groupedData[$categoryId] = [
-                    'id' => $category->id,
+        foreach ($categories as $category){
+            $catId = $category->category_id;
+
+            if (!isset($groupedData[$catId])) {
+                $groupedData[$catId] = [
+                    'id' => $catId,
                     'category' => null,
                     'stores' => [],
                 ];
 
-                $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+
+            }
+
+            $groupedData[$catId]['category'] = Category::where('category_id', $catId)->first();
+
+            $store = Store::where('store_id', $category->store_id)->first();
+
+
+            $storesCollection = collect($groupedData[$catId]['stores']);
+
+            if (!$storesCollection->contains('store_id', $store->store_id)) {
+                $groupedData[$catId]['stores'][] = $store;
             }
 
 
-            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
         }
 
-        return view('stores')->with('categories', $groupedData);/*$groupedData*/
+
+        foreach ($cats as $cat) {
+            $categoryId = $cat->category_id;
+
+            $groupedCats[$categoryId] = Category::find($cat->category_id);
+
+        }
+
+
+        return view('stores')->with('cats', $groupedCats)->with('categories', $groupedData);/*$groupedData*/
     }
 
     public function getStoresByCategory()
     {
         $categories = CategoryForStores::all();
         $groupedData = [];
-        $cats=Category::where('parent_id',null)->get();
+        $groupedCats = [];
 
         foreach ($categories as $category) {
             $categoryId = $category->category_id;
 
             if (!isset($groupedData[$categoryId])) {
                 $groupedData[$categoryId] = [
-                    'id' => $category->id,
+                    'id' => $category->category_id,
                     'category' => null,
                     'stores' => [],
                 ];
 
                 $groupedData[$categoryId]['category'] = Category::where('category_id', $category->category_id)->first();
+
             }
 
+            $groupedCats[$categoryId] = Category::where('category_id', $category->category_id)->first();
 
-            $groupedData[$categoryId]['stores'][] = Store::where('store_id', $category->store_id)->first();
+            $store = Store::where('store_id', $category->store_id)->first();
+
+
+            $storesCollection = collect($groupedData[$categoryId]['stores']);
+
+            if (!$storesCollection->contains('store_id', $store->store_id)) {
+                $groupedData[$categoryId]['stores'][] = $store;
+            }
+
         }
 
-        return view('stores')->with('cats', $cats)->with('categories', $groupedData)/*$groupedData*/;
+
+
+        return view('stores')->with('cats', $groupedCats)->with('categories', $groupedData)/*$groupedData*/ /*$groupedCats*/;
     }
 
 
@@ -127,15 +162,83 @@ class StoreController extends Controller
         }
     }
 
-    public function addStore(Request $request): JsonResponse
+    public function addStore(Request $request)
     {
-        Store::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-            'user_id' => $request->user_id,
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        return response()->json(["message" => "Store added successfully"]);
+
+        $storeCategory = strtolower($request->category);
+
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images/storeImages/').$request->seller_id, $imageName);
+        $store = new Store();
+        $store->name = $request->name;
+        $store->description = $request->description;
+        $store->status = 0;
+        $store->user_id = $request->seller_id;
+        $store->image = 'images/storeImages/'.$request->seller_id.'/'.$imageName;
+
+        $store->save();
+
+
+
+        $checkDuplicateCategory = Category::select('category_id')->where('name', $storeCategory)->get();
+
+        if(count($checkDuplicateCategory) == 0){
+            $category = new Category();
+            $category->name = $storeCategory;
+            $category->store_id = $store->store_id;
+
+            $category->save();
+
+            $recheckDuplicate = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if(count($recheckDuplicate) > 0) {
+                $categoryForStore = new CategoryForStores();
+                $categoryForStore->category_id = $recheckDuplicate[0]->category_id;
+                $categoryForStore->store_id = $store->store_id;
+
+                $categoryForStore->save();
+            }
+        }
+        else{
+            $recheckDuplicate2 = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if(count($recheckDuplicate2) > 0){
+                $categoryForStore = new CategoryForStores();
+                $categoryForStore->category_id = $recheckDuplicate2[0]->category_id;
+                $categoryForStore->store_id = $store->store_id;
+
+                $categoryForStore->save();
+            }
+
+        }
+
+
+        $allUserStores = Store::where('user_id', $request->seller_id)->get();
+
+        if ($allUserStores) {
+            foreach ($allUserStores as $store) {
+                $categoriesIds = CategoryForStores::select('category_id')->where('store_id', $store->store_id)->distinct()->get();
+                $storeCategories = [];
+
+                foreach ($categoriesIds as $categoryId) {
+                    $category = Category::select('name')->where('category_id', $categoryId->category_id)->first();
+                    if ($category) {
+                        $storeCategories[] = $category->name;
+                    }
+                }
+
+                $store['categories'] = $storeCategories;
+            }
+        }
+
+        return redirect()->route('seller-tables', ['seller_id' => $request->seller_id]);
     }
 
     public function updateStore(Request $request, $id): JsonResponse

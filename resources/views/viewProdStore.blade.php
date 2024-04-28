@@ -10,7 +10,7 @@
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
       <!-- <title>LEcommerce</title> -->
-      <title>Products By Store</title>
+      <title>Products By Store | Icom</title>
       <meta name="keywords" content="">
       <meta name="description" content="Laravel E-commerce made for end of semester project">
       <meta name="author" content="JJCC">
@@ -21,7 +21,7 @@
       <!-- Responsive-->
       <link rel="stylesheet" href="{{asset('frontRessource/css/responsive.css')}}">
       <!-- fevicon -->
-      <link rel="icon" href="{{asset('frontRessource/images/fevicon.png')}}" type="image/gif" />
+      <link rel="icon" href="{{asset('frontRessource/images/favicon.ico')}}" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" href="{{asset('frontRessource/css/jquery.mCustomScrollbar.min.css')}}">
       <!-- Tweaks for older IEs-->
@@ -47,11 +47,11 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-                           <li><a href="{{route('products')}}">Best Sellers</a></li>
-                           <li><a href="#">Gift Ideas</a></li>
-                           <li><a href="#">New Releases</a></li>
-                           <li><a href="#">Today's Deals</a></li>
-                           <li><a href="#">Customer Service</a></li>
+                            <li><a href="{{route('products')}}">Products</a></li>
+                            <li><a href="{{route('/')}}">Stores</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Today's Deals</a></li>
+                            <li><a href="#">Customer Service</a></li>
                         </ul>
                      </div>
                   </div>
@@ -64,12 +64,31 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
+                     <div class="logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo3.svg')}}"></a></div>
                   </div>
                </div>
             </div>
          </div>
          <!-- logo section end -->
+         @php
+    $route = request();
+    $routeParameters = $route->query();
+
+    $routeAsc = $routeParameters;
+    $routeAsc['order'] = 'asc';
+    $queryString0 = http_build_query($routeAsc);
+    $fullLink1 = url()->current() . '?' . $queryString0;
+
+    $routeOG = $routeParameters;
+    $queryString1 = http_build_query($routeOG);
+    $fullLink0 = url()->current().'?' . $queryString1;
+
+
+    $routeDesc = $routeParameters;
+    $routeDesc['order'] = 'desc';
+    $queryString2 = http_build_query($routeDesc);
+    $fullLink2 = url()->current() . '?' . $queryString2;
+@endphp
          <!-- header section start -->
          <div class="header_section">
             <div class="container">
@@ -82,18 +101,18 @@
                      <a href="{{route('/')}}">Jewellery</a>
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="{{asset('frontRessource/images/toggle-icon.png')}}"></span>
-                 
+
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($title) {{ $title }} @else 
+                        @isset($title) {{ $title }} @else
                  All Stores
-                  @endisset 
+                  @endisset
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item" href="{{route('products')}}">All</a>
+                     <a class="dropdown-item" href="{{route('getByStore',['store_id'=>$route->query('store_id')])}}">All</a>
                       @isset($cats)
                        @foreach($cats as $obj)
-                        <a class="dropdown-item" href="{{route('getByCat',['category_id'=>$obj->category_id])}}" style="text-transform: capitalize">{{$obj->name[0]}}</a>
+                        <a class="dropdown-item" href="{{route('getByStoreCat',['category_id'=>$obj->category_id,'store_id'=>$route->query('store_id')])}}" style="text-transform: capitalize">{{$obj->name[0]}}</a>
                         @endforeach
                        @endisset
                         <!-- <a class="dropdown-item" href="#">Another action</a> -->
@@ -101,30 +120,12 @@
 </div>
                      <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @isset($order) {{ $order }} @else 
+                        @isset($order) {{ $order }} @else
                      No order
-                     @endisset 
+                     @endisset
                      </button>
-@php
-    $route = request();
-    $routeParameters = $route->query();
-   
-    $routeAsc = $routeParameters;
-    $routeAsc['order'] = 'asc';
-    $queryString0 = http_build_query($routeAsc);
-    $fullLink1 = url()->current() . '?' . $queryString0;
 
-    $routeOG = $routeParameters;
-    $queryString1 = http_build_query($routeOG);
-    $fullLink0 = url()->current().'?' . $queryString1;
-    
 
-    $routeDesc = $routeParameters;
-    $routeDesc['order'] = 'desc';
-    $queryString2 = http_build_query($routeDesc);
-    $fullLink2 = url()->current() . '?' . $queryString2;
-@endphp
-                     
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- <a class="dropdown-item" href="{{$fullLink0}}">No Price Order</a> -->
                <a class="dropdown-item" href="{{$fullLink1}}">Low to High</a>
@@ -151,10 +152,26 @@
                   <div class="header_box">
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
+                        @if(Auth::check() && !is_null(Auth::id()))
+                           <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
                            </li>
+                           @else
+                           <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-heart" aria-hidden="true"></i>
+                              <span class="padding_10">Wishlist </span></a>
+                           </li>
+                           @endif
+                           @if(Auth::check() && !is_null(Auth::id()))
+                        <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @else
+                        <li style="padding-right:1vw"><a href="{{route('login')}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart </span></a>
+                        @endif
                            <li><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <span class="padding_10">Account</span></a>
@@ -177,12 +194,12 @@
             @endif
        <!-- fashion section start -->
        <div class="fashion_section">
-    
+
     <div id="main_slider" class="carousel slide" data-ride="carousel">
        <div class="carousel-inner">
           <div class="carousel-item active">
              <div class="container">
-             <h1 class="fashion_title">@isset($title) {{ $title }} @else 
+             <h1 class="fashion_title">@isset($title) {{ $title }} @else
              All Products
               @endisset
            </h1>
@@ -191,20 +208,20 @@
 @isset($objs)
 @foreach($objs as $obj)
             <div class="col-lg-4 col-sm-4">
-             
+
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
 <p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
-        <div class="tshirt_img"><img src="{{asset($obj->path1)}}"></div>
+        <div class="tshirt_img"><img src="{{asset('frontRessource/images/'.$obj->path1)}}"></div>
         <p class="prod_desc">{{$obj->description}}</p>
 <div class="btn_main">
-    <div class="buy_bt"><a href="#">Buy Now</a></div>
-    <div class="seemore_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
+    
+    <div class="buy_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
 </div>
 </div>
         </div>
-    
+
 
         @endforeach
         @else
@@ -215,8 +232,8 @@
 </div>
 </div>
         </div>
-        @endisset 
-       
+        @endisset
+
         </div>
                    </div>
                 </div>
@@ -228,30 +245,30 @@
        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
        <i class="fa fa-angle-right"></i>
        </a> -->
-       </div> 
+       </div>
    </div>
 </div>
 </div>
        </div>
-      
+
     </div>
     @isset($objs)
     <div class="pages">{{$objs->links()}}</div>
     @endisset
- </div>  
- 
+ </div>
+
   <!-- fashion section end -->
-  
+
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
-            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('/')}}"><img src="{{asset('frontRessource/images/logo4.svg')}}"></a></div>
             <form action="{{route('/')}}" class="form-inline" method="get">
             <div class="input_bt">
-            
+
                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-            
+
             </div>
          </form>
             <div class="footer_menu">
@@ -287,7 +304,7 @@
          function openNav() {
            document.getElementById("mySidenav").style.width = "250px";
          }
-         
+
          function closeNav() {
            document.getElementById("mySidenav").style.width = "0";
          }
