@@ -36,7 +36,7 @@ class ProductController extends Controller
 
         $itemAddedToCart=collect();
         //retrieving if its added to users current active cart
-        if(Auth::check()){
+        if(Auth::check() && !is_null(Auth::id())){
         $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
         $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
     }

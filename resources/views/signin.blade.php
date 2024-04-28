@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sign In</title>
+    <title>Sign In | Icom</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/style.css') }}">
 </head>
 <body>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\WishlistController;
@@ -32,3 +33,5 @@ Route::put('stores/{id}/updateStatus', [StoreController::class, 'updateStoreStat
 
 // Delete Route
 Route::delete('stores/{id}', [StoreController::class, 'deleteStore']); // Delete a specific store
+
+Route::post('payment/process', [PaymentController::class, 'processPayment'])->name('payment/process');

@@ -1,6 +1,6 @@
 @extends('master2')
 @section('title')
-<title>My Wishlist</title>
+<title>My Wishlist | Icom</title>
 @endsection
 @section('content')
 

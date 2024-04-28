@@ -21,7 +21,7 @@
     <!-- Responsive-->
     <link rel="stylesheet" href="{{asset('frontRessource/css/responsive.css')}}">
     <!-- fevicon -->
-    <link rel="icon" href="{{asset('frontRessource/images/fevicon.png')}}" type="image/gif" />
+    <link rel="icon" href="{{asset('frontRessource/images/favicon.ico')}}" type="image/gif" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="{{asset('frontRessource/css/jquery.mCustomScrollbar.min.css')}}">
     <!-- Tweaks for older IEs-->
@@ -64,7 +64,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/logo.png')}}"></a></div>
+                    <div class="logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/logo3.svg')}}"></a></div>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
                 <div class="header_box">
                     <div class="login_menu">
                     <ul>
-                    @if(Auth::check())
+                    @if(Auth::check() && !is_null(Auth::id()))
                            <li style="padding-right:1vw"><a href="{{route('getWishlist', ['user_id' => Auth::id()])}}">
                               <i class="fa fa-heart" aria-hidden="true"></i>
                               <span class="padding_10">Wishlist </span></a>
@@ -111,7 +111,7 @@
                            </li>
 
                            @endif
-                        @if(Auth::check())
+                        @if(Auth::check() && !is_null(Auth::id()))
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
@@ -146,7 +146,7 @@
     <!-- footer section start -->
     <div class="footer_section layout_padding">
         <div class="container">
-            <div class="footer_logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/footer-logo.png')}}"></a></div>
+            <div class="footer_logo"><a href="{{route('home')}}"><img src="{{asset('frontRessource/images/logo4.svg')}}"></a></div>
             <div class="input_bt">
                 <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
                 <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>

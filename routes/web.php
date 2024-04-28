@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StoreController;
@@ -189,3 +190,6 @@ Route::middleware('auth')->group(function() {
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
+Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
+Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
+Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
