@@ -163,12 +163,23 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/static-sign-up', [SellerController::class, 'staticSignUp'])->name('seller-static-sign-up');
     Route::get('seller/static-sign-in', [SellerController::class, 'staticSignIn'])->name('seller-static-sign-in');
 
+    //routes for stores views
     Route::get('seller/createStore', [SellerController::class, 'createStoreViewRedirect'])->name('redirect-create-store');
     Route::get('seller/editStoreOptions', [SellerController::class, 'editStoreViewRedirect'])->name('redirect-edit-store');
-    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
-    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('seller-edit-store');
+    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('view-edit-store');
 
+    //routes for stores logic
+    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
+    Route::post('seller/addCategoryToStore', [StoreController::class, 'addStoreCategory'])->name('seller-add-store-category');
+    Route::post('seller/editStore', [StoreController::class, 'updateStore'])->name('seller-edit-store');
+
+
+
+    //products routes for views (logic routes are at the begining of this file)
     Route::get('seller/createProduct', [SellerController::class, 'createProductView'])->name('redirect-create-product');
+    Route::get('seller/editProductView', [SellerController::class, 'editProductView'])->name('view-edit-product');
+
+    Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
 });
 
