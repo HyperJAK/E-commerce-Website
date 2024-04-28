@@ -8,7 +8,7 @@
     <div class="center">
         <h1>Sign In</h1>
         
-        <form action="{{ route('signin') }}" method="POST">
+        <form action="{{ route('signin.process') }}" method="POST">
             @csrf
             
             <div class="txt_field username">
@@ -24,7 +24,15 @@
             </div>
 
             <input type="submit" value="Sign In" class="btn">
-
+            @if ($errors->any())
+        <div class="alert alert-danger" style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
             <div class="external-links">
     <h2>Or sign in using:</h2>
     <div class="logos-container">

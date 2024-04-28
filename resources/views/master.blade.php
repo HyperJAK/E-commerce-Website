@@ -52,6 +52,12 @@
                             <li><a href="#">Events</a></li>
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
+                            <li>
+        <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </li>
                         </ul>
                     </div>
                 </div>
@@ -122,10 +128,10 @@
                         @endif
                            </li>
 
-                           <li style="padding-right:1vw"><a href="#">
-                              <i class="fa fa-user" aria-hidden="true"></i>
-                              <span class="padding_10">Account</span></a>
-                           </li>
+                            <li><a href=" {{ route('myaccount') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Account</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -189,5 +195,14 @@
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
+    <script>
+    function logout() {
+        @auth
+            document.getElementById('logout-form').submit(); 
+        @else
+            alert("You are not logged in!"); 
+        @endauth
+    }
+</script>
 </body>
 </html>
