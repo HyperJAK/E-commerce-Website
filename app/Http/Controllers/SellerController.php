@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -103,15 +104,16 @@ class SellerController extends Controller
     public function userProfile(Request $request)
     {
 
-        $user = User::where('email', 'admin@example.com')->first();
-
+        $user = User::where('user_id', $request->seller_id)->first();
 
         return view('/seller/pages/laravel-examples/user-profile')->with('user', $user);
     }
 
-    public function profile()
+    public function profile(Request $request)
     {
-        return view('/seller/pages/profile');
+        $user = User::where('user_id', $request->seller_id)->first();
+
+        return view('/seller/pages/profile')->with('user', $user);
     }
 
     public function userManagement()
