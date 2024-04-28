@@ -46,11 +46,13 @@
                     @isset($store)
                     <div class="card-body p-3">
 
-                        <form method='POST' action='{{--{{ route('seller-add-product') }}--}}' enctype="multipart/form-data">
+                        <form method='POST' action='{{ route('seller-add-store-category') }}' enctype="multipart/form-data">
                             @csrf
 
                             <!-- Hidden input field for user ID -->
                             <input type="hidden" name="store_id" value="{{ $store[0]->store_id }}">
+
+                            <input type="hidden" name="seller_id" value="{{ Auth::id() }}">
 
                             <div class="row">
 
@@ -67,11 +69,13 @@
                             <button type="submit" class="btn bg-gradient-danger">Submit</button>
                         </form>
 
-                        <form method='POST' action='{{--{{ route('seller-add-product') }}--}}' enctype="multipart/form-data">
+                        <form method='POST' action='{{ route('seller-edit-store') }}' enctype="multipart/form-data">
                             @csrf
 
                             <!-- Hidden input field for user ID -->
                             <input type="hidden" name="store_id" value="{{ $store[0]->store_id }}">
+
+                            <input type="hidden" name="seller_id" value="{{ Auth::id() }}">
 
                             <div class="row">
 
@@ -117,7 +121,7 @@
 
                                     <div class="mb-3 col-md-12 d-flex flex-column">
                                         <label for="image">Image:</label>
-                                        <input type="file" name="image" id="image" value="{{$store[0]->image}}">
+                                        <input type="file" name="image" id="image" value="{{$store[0]->image}}" placeholder="{{$store[0]->image}}">
                                     </div>
                                 </div>
 

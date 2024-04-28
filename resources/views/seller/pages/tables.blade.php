@@ -92,7 +92,7 @@
                                                         class="text-secondary text-xs font-weight-bold">{{$store->created_at}}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('seller-edit-store', ['store_id'=>$store->store_id]) }}"
+                                                    <a href="{{ route('view-edit-store', ['store_id'=>$store->store_id]) }}"
                                                        class="text-secondary font-weight-bold text-xs"
                                                        data-toggle="tooltip" data-original-title="Edit user">
                                                         Edit
