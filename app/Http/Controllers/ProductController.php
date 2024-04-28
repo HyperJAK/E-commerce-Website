@@ -49,7 +49,7 @@ class ProductController extends Controller
         }
 
         if($itemAddedToCart->isNotEmpty()){
-            
+
                 if ($obj && in_array($obj->store_id,$storeCheck)) {
                     $obj->category_id = $obj->getCatName();
                     $obj->store_name = $obj->getStoreName();
@@ -323,7 +323,7 @@ class ProductController extends Controller
             'name'=>'required|min:3',
             'description'=>'required|min:3',
             'price'=>'required|numeric',
-           'category_id' => 'required|exists:categories,category_id|numeric',
+           'category' => 'required|exists:categories,name',
            'quantity'=>'required|numeric',
            'path1'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
            'path2'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
@@ -331,31 +331,67 @@ class ProductController extends Controller
            'path4'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
            'store_id'=>'required|exists:stores,store_id|numeric',
             ]);
+
             $newPath1= time(). "-" . $request->file('path1')->getClientOriginalName();
-            $request->file('path1')->move('frontRessource/images',$newPath1);
+            $request->file('path1')->move('images/productImages/store/'.$request->store_id.'/'.$request->seller_id, $newPath1);
 
             $newPath2= time(). "-" . $request->file('path2')->getClientOriginalName();
-            $request->file('path2')->move('frontRessource/images',$newPath2);
+        $request->file('path2')->move('images/productImages/store/'.$request->store_id.'/'.$request->seller_id, $newPath2);
 
             $newPath3= time(). "-" . $request->file('path3')->getClientOriginalName();
-            $request->file('path3')->move('frontRessource/images',$newPath3);
+        $request->file('path3')->move('images/productImages/store/'.$request->store_id.'/'.$request->seller_id, $newPath3);
 
             $newPath4= time(). "-" . $request->file('path4')->getClientOriginalName();
-            $request->file('path4')->move('frontRessource/images',$newPath4);
+        $request->file('path4')->move('images/productImages/store/'.$request->store_id.'/'.$request->seller_id, $newPath4);
 
-        Product::create([
-            'name'=> $request->name,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'category_id'=>$request->category_id,
-            'quantity'=>$request->quantity,
-            'path1'=>$newPath1,
-            'path2'=>$newPath2,
-            'path3'=>$newPath3,
-            'path4'=>$newPath4,
-            'store_id'=>$request->store_id,
-        ]);
-        return response()->json(["message"=>"Product added successfully"]);
+        $storeExists = Store::where('store_id', $request->store_id)->get();
+        $storeCategory = strtolower($request->category);
+
+        //checks if store exists and skips creation
+        if(count($storeExists) > 0) {
+
+            $checkDuplicateCategory = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if (count($checkDuplicateCategory) == 0) {
+                $category = new Category();
+                $category->name = $storeCategory;
+                $category->store_id = $storeExists[0]->store_id;
+
+                $category->save();
+
+
+                Product::create([
+                    'name'=> $request->name,
+                    'description'=>$request->description,
+                    'price'=>$request->price,
+                    'category_id'=>$category->category_id,
+                    'quantity'=>$request->quantity,
+                    'path1'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath1,
+                    'path2'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath2,
+                    'path3'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath3,
+                    'path4'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath4,
+                    'store_id'=>$request->store_id,
+                ]);
+            } else {
+                Product::create([
+                    'name'=> $request->name,
+                    'description'=>$request->description,
+                    'price'=>$request->price,
+                    'category_id'=>$checkDuplicateCategory[0]->category_id,
+                    'quantity'=>$request->quantity,
+                    'path1'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath1,
+                    'path2'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath2,
+                    'path3'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath3,
+                    'path4'=>'images/productImages/store/'.$request->store_id.'/'.$request->seller_id.'/'.$newPath4,
+                    'store_id'=>$request->store_id,
+                ]);
+
+            }
+
+        }
+
+
+        return redirect()->route('view-edit-store', ['store_id' => $request->store_id]);
 }
     public function EditProd(Request $request){
         $request->validate([
@@ -382,7 +418,7 @@ class ProductController extends Controller
             $newPath1= time(). "-" . $request->file('path1')->getClientOriginalName();
             $request->file('path1')->move('frontRessource/images',$newPath1);
             $obj->path1 = $newPath1;
-        } 
+        }
         if ($request->hasFile('path2')) {
             $newPath2= time(). "-" . $request->file('path2')->getClientOriginalName();
             $request->file('path2')->move('frontRessource/images',$newPath2);
@@ -397,7 +433,7 @@ class ProductController extends Controller
             $newPath4= time(). "-" . $request->file('path4')->getClientOriginalName();
             $request->file('path4')->move('frontRessource/images',$newPath4);
             $obj->path4 = $newPath4;
-        }    
+        }
             $obj->store_id = $request->store_id;
             $obj->save();
         return response()->json(["message"=>"Product edited successfully"]);
