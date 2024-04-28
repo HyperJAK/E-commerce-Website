@@ -38,7 +38,10 @@ class ProductController extends Controller
         //retrieving if its added to users current active cart
         if(Auth::check() && !is_null(Auth::id())){
         $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
-        $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+
+        if(count($activeCart) > 0){
+            $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+        }
     }
 
 
@@ -428,6 +431,7 @@ class ProductController extends Controller
              $request->file('path4')->move('images/productImages/store/'.$obj->store_id.'/'.$request->seller_id, $newPath4);
             $obj->path4 = $newPath4;
         }
+
             $obj->save();
 
         return redirect()->route('view-edit-product', ['product_id' => $obj->product_id]);
