@@ -22,23 +22,23 @@
                            
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="expiration_month">Expiration Month</label>
-                                    <input type="text" class="form-control" id="expiration_month" placeholder="MM" required>
+                                    <label for="expiration_month">Expiration Date</label>
+                                    <div id="expiration_month" class="form-control"></div>
+                                    <!-- <input type="text" class="form-control" id="expiration_month" placeholder="MM" required> -->
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="expiration_year">Expiration Year</label>
-                                    <input type="text" class="form-control" id="expiration_year" placeholder="YYYY" required>
-                                </div>
-                            </div>
 
                          
                             <div class="form-group">
                                 <label for="cvc">CVC</label>
-                                <input type="text" class="form-control" id="cvc" placeholder="CVC" required>
+                                <div id="cvc" class="form-control" style="width:200px"></div>
+                                <!-- <input type="text" class="form-control" id="cvc" placeholder="CVC" required> -->
+                                 
                             </div>
 
-                           
+                            <div class="form-group col-md-6">
                             <button type="submit" class="btn btn-outline-dark" id="pay-btn">Submit Payment</button>
+                            </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -52,10 +52,15 @@
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
         const elements = stripe.elements();
-        const cardElement = elements.create('card', {
-            hidePostalCode: true,
-        });
+        const cardElement = elements.create('cardNumber');
         cardElement.mount('#card_number');
+
+        const cardExp = elements.create('cardExpiry');
+        cardExp.mount('#expiration_month');
+        
+        const cardCvc = elements.create('cardCvc');
+        cardCvc.mount('#cvc');
+
         const form = document.getElementById('payment-form');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
