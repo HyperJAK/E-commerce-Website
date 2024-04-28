@@ -83,6 +83,22 @@ class SellerController extends Controller
 
         return view('/seller/functionalities/createProduct')->with('store', $store[0]);
     }
+    public function editProductView(Request $request){
+        $product = Product::where('product_id', $request->product_id)->get();
+
+        if(count($product) > 0){
+            $category = Category::select('name')->where('category_id', $product[0]->category_id)->get();
+
+            return view('/seller/functionalities/editProductOptions')->with('product', $product[0])->with('category', $category[0]);
+
+        }
+        else{
+            return view('/seller/functionalities/editProductOptions')->with('product', $product[0]);
+        }
+
+    }
+
+
 
     public function userProfile(Request $request)
     {

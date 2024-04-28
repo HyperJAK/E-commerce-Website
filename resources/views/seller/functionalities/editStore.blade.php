@@ -99,7 +99,7 @@
                                                         class="text-secondary text-xs font-weight-bold">{{$product->created_at}}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="javascript:;"
+                                                    <a href="{{ route('view-edit-product', ['product_id'=>$product->product_id]) }}"
                                                        class="text-secondary font-weight-bold text-xs"
                                                        data-toggle="tooltip" data-original-title="Edit user">
                                                         Edit

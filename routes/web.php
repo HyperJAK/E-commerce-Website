@@ -187,7 +187,11 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
 
 
 
+    //products routes for views (logic routes are at the begining of this file)
     Route::get('seller/createProduct', [SellerController::class, 'createProductView'])->name('redirect-create-product');
+    Route::get('seller/editProductView', [SellerController::class, 'editProductView'])->name('view-edit-product');
+
+    Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
 });
 
