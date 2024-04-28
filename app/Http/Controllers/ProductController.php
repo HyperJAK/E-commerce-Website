@@ -38,7 +38,10 @@ class ProductController extends Controller
         //retrieving if its added to users current active cart
         if(Auth::check() && !is_null(Auth::id())){
         $activeCart = Cart::select('cart_id')->where('status', 0)->where('buyer_id',Auth::id())->get();
-        $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+
+        if(count($activeCart) > 0){
+            $itemAddedToCart = CartItem::select('quantity', 'cartItem_id', 'product_id')->where('cart_id', $activeCart[0]->cart_id)->where('product_id', $id)->get();
+        }
     }
 
 
@@ -49,7 +52,7 @@ class ProductController extends Controller
         }
 
         if($itemAddedToCart->isNotEmpty()){
-            
+
                 if ($obj && in_array($obj->store_id,$storeCheck)) {
                     $obj->category_id = $obj->getCatName();
                     $obj->store_name = $obj->getStoreName();
@@ -382,7 +385,7 @@ class ProductController extends Controller
             $newPath1= time(). "-" . $request->file('path1')->getClientOriginalName();
             $request->file('path1')->move('frontRessource/images',$newPath1);
             $obj->path1 = $newPath1;
-        } 
+        }
         if ($request->hasFile('path2')) {
             $newPath2= time(). "-" . $request->file('path2')->getClientOriginalName();
             $request->file('path2')->move('frontRessource/images',$newPath2);
@@ -397,7 +400,7 @@ class ProductController extends Controller
             $newPath4= time(). "-" . $request->file('path4')->getClientOriginalName();
             $request->file('path4')->move('frontRessource/images',$newPath4);
             $obj->path4 = $newPath4;
-        }    
+        }
             $obj->store_id = $request->store_id;
             $obj->save();
         return response()->json(["message"=>"Product edited successfully"]);
