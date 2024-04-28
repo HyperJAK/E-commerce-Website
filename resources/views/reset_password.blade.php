@@ -40,6 +40,15 @@
             <div style="margin-bottom: 20px;"> 
                 <input type="submit" value="Reset Password" class="btn">
             </div>
+            @if ($errors->any())
+        <div class="alert alert-danger" style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         </form>
     </div>
 </body>

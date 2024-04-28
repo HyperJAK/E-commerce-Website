@@ -15,6 +15,8 @@ use App\Http\Controllers\MicrosoftAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\UserAccountController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -93,20 +95,19 @@ Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orde
 
 
 
-
-
 //Sign up routes
-Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
 Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
-Route::post('/signup', [UserController::class, 'signup'])->name('signup');
+Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
+Route::post('/signup', [UserController::class, 'signup'])->name('signup.process');
+
 
 
 
 Route::get('/auth/google/redirect', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
 
-Route::get('/auth/facebook/redirect', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
-Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+// Route::get('/auth/facebook/redirect', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+// Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
 
 // Route::get('/auth/microsoft/redirect', [MicrosoftAuthController::class, 'redirectToMicrosoft'])->name('auth.microsoft');
 // Route::get('/auth/microsoft/callback', [MicrosoftAuthController::class, 'handleMicrosoftCallback']);
@@ -115,10 +116,9 @@ Route::get('/auth/microsoft-graph', [MicrosoftAuthController::class, 'redirectTo
 Route::get('/auth/microsoft-graph/callback', [MicrosoftAuthController::class, 'handleMicrosoftGraphCallback'])->name('auth.microsoft-graph.callback');
 
 
-
-Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
 Route::get('/login', [UserController::class, 'showSignInForm'])->name('login');
-Route::post('/signin', [UserController::class, 'signin'])->name('signin');
+Route::get('/signin', [UserController::class, 'showSignInForm'])->name('signin');
+Route::post('/signin', [UserController::class, 'signin'])->name('signin.process');
 
 Route::get('/verify-email', [UserController::class, 'verifyEmail'])->name('verify.email');
 
@@ -190,6 +190,13 @@ Route::middleware('auth')->group(function() {
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
+
+Route::post('/logout',  [UserController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::get('/account', [UserAccountController::class, 'show'])->name('myaccount')->middleware('auth');
+Route::post('/account/update', [UserAccountController::class, 'update'])->name('updatemyaccount')->middleware('auth');
+
 Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
+
