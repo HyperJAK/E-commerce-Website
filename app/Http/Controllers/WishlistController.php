@@ -37,7 +37,7 @@ class WishlistController extends Controller
 }
 }
 public function getWishlist($user_id) {
-    $wishlist = Wishlist::where('user_id',$user_id)->get();
+    $wishlist = Wishlist::where('user_id',Auth::id())->get();
     if ($wishlist->isNotEmpty()) {
     
     foreach ($wishlist as $key) {

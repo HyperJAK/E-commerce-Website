@@ -78,21 +78,7 @@ Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortS
 
 
 //Orders routes
-// Routes for Order management
-Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
-
-//Post doesnt work here, put in api.php
-Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
-
-Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-Route::get('orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.update');
-
-//Delete doesnt work here, put in api.php
-Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
-
-
+Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
 
 
 
@@ -176,12 +162,23 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/static-sign-up', [SellerController::class, 'staticSignUp'])->name('seller-static-sign-up');
     Route::get('seller/static-sign-in', [SellerController::class, 'staticSignIn'])->name('seller-static-sign-in');
 
+    //routes for stores views
     Route::get('seller/createStore', [SellerController::class, 'createStoreViewRedirect'])->name('redirect-create-store');
     Route::get('seller/editStoreOptions', [SellerController::class, 'editStoreViewRedirect'])->name('redirect-edit-store');
-    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
-    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('seller-edit-store');
+    Route::get('seller/editStore', [SellerController::class, 'editStoreView'])->name('view-edit-store');
 
+    //routes for stores logic
+    Route::post('seller/createNewStore', [StoreController::class, 'addStore'])->name('seller-create-store');
+    Route::post('seller/addCategoryToStore', [StoreController::class, 'addStoreCategory'])->name('seller-add-store-category');
+    Route::post('seller/editStore', [StoreController::class, 'updateStore'])->name('seller-edit-store');
+
+
+
+    //products routes for views (logic routes are at the begining of this file)
     Route::get('seller/createProduct', [SellerController::class, 'createProductView'])->name('redirect-create-product');
+    Route::get('seller/editProductView', [SellerController::class, 'editProductView'])->name('view-edit-product');
+
+    Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
 });
 
@@ -201,8 +198,6 @@ Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
-
-
-
 Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+

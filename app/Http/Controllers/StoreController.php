@@ -162,6 +162,87 @@ class StoreController extends Controller
         }
     }
 
+    public function addStoreCategory(Request $request){
+        $request->validate([
+            'category' => 'required',
+        ]);
+
+        $storeExists = Store::where('store_id', $request->store_id)->get();
+        $storeCategory = strtolower($request->category);
+
+        //checks if store exists and skips creation
+        if(count($storeExists) > 0){
+
+            $checkDuplicateCategory = Category::select('category_id')->where('name', $storeCategory)->get();
+
+            if(count($checkDuplicateCategory) == 0){
+                $category = new Category();
+                $category->name = $storeCategory;
+                $category->store_id = $storeExists[0]->store_id;
+
+                $category->save();
+
+                $recheckDuplicate = Category::select('category_id')->where('name', $storeCategory)->get();
+
+                if(count($recheckDuplicate) > 0) {
+                    $categoryForStore = new CategoryForStores();
+                    $categoryForStore->category_id = $recheckDuplicate[0]->category_id;
+                    $categoryForStore->store_id = $storeExists[0]->store_id;
+
+                    $categoryForStore->save();
+                }
+            }
+            else{
+                $recheckDuplicate2 = CategoryForStores::select('category_id')->where('category_id', $checkDuplicateCategory[0]->category_id)->where('store_id', $storeExists[0]->store_id)->get();
+
+                if(count($recheckDuplicate2) == 0){
+                    $categoryForStore = new CategoryForStores();
+                    $categoryForStore->category_id = $checkDuplicateCategory[0]->category_id;
+                    $categoryForStore->store_id = $storeExists[0]->store_id;
+
+                    $categoryForStore->save();
+                }
+
+            }
+
+            return redirect()->route('redirect-edit-store', ['store_id' => $storeExists[0]->store_id]);
+
+        }
+
+    }
+
+    public function updateStore(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $duplicateStore = Store::where('store_id', $request->store_id)->get();
+
+        if(count($duplicateStore) > 0){
+            //only fills image if there is a new one provided
+            if ($request->hasFile('image')) {
+                $request->validate([
+                    'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                ]);
+                $imageName = time().'.'.$request->image->extension();
+                $request->image->move(public_path('images/storeImages/').$request->seller_id, $imageName);
+                $duplicateStore[0]->image = 'images/storeImages/'.$request->seller_id.'/'.$imageName;
+            }
+
+            $duplicateStore[0]->name = $request->name;
+            $duplicateStore[0]->description = $request->description;
+
+
+            $duplicateStore[0]->update();
+            
+
+            return redirect()->route('seller-tables', ['seller_id' => $request->seller_id]);
+
+        }
+
+    }
+
     public function addStore(Request $request)
     {
 
@@ -174,17 +255,17 @@ class StoreController extends Controller
 
         $storeCategory = strtolower($request->category);
 
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images/storeImages/').$request->seller_id, $imageName);
-        $store = new Store();
-        $store->name = $request->name;
-        $store->description = $request->description;
-        $store->status = 0;
-        $store->user_id = $request->seller_id;
-        $store->image = 'images/storeImages/'.$request->seller_id.'/'.$imageName;
 
-        $store->save();
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/storeImages/').$request->seller_id, $imageName);
+            $store = new Store();
+            $store->name = $request->name;
+            $store->description = $request->description;
+            $store->status = 0;
+            $store->user_id = $request->seller_id;
+            $store->image = 'images/storeImages/'.$request->seller_id.'/'.$imageName;
 
+            $store->save();
 
 
         $checkDuplicateCategory = Category::select('category_id')->where('name', $storeCategory)->get();
@@ -219,29 +300,10 @@ class StoreController extends Controller
 
         }
 
-
-        $allUserStores = Store::where('user_id', $request->seller_id)->get();
-
-        if ($allUserStores) {
-            foreach ($allUserStores as $store) {
-                $categoriesIds = CategoryForStores::select('category_id')->where('store_id', $store->store_id)->distinct()->get();
-                $storeCategories = [];
-
-                foreach ($categoriesIds as $categoryId) {
-                    $category = Category::select('name')->where('category_id', $categoryId->category_id)->first();
-                    if ($category) {
-                        $storeCategories[] = $category->name;
-                    }
-                }
-
-                $store['categories'] = $storeCategories;
-            }
-        }
-
         return redirect()->route('seller-tables', ['seller_id' => $request->seller_id]);
     }
 
-    public function updateStore(Request $request, $id): JsonResponse
+   /* public function updateStore(Request $request, $id): JsonResponse
     {
         $store = Store::find($id);
         if ($store) {
@@ -255,7 +317,7 @@ class StoreController extends Controller
         } else {
             return response()->json(['message'=>'Store not found']);
         }
-    }
+    }*/
 
     public function updateStoreName(Request $request, $id): JsonResponse
     {
