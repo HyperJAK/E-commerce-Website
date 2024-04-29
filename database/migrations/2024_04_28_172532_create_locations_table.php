@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
-            $table->bigIncrements('store_id');
-            $table->string('name')->unique();
-            $table->string('description');
-            $table->boolean('status')->default(0);
+        Schema::create('locations', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('image')->nullable();
+            $table->double('latitude', 10, 6);
+            $table->double('longitude', 10, 6);
             $table->timestamps();
-
         });
 
+            Schema::table('locations', function (Blueprint $table) {
+                $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
 
+        });
     }
 
     /**
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('locations');
     }
 };

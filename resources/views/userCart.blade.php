@@ -4,7 +4,11 @@
     <div class="fashion_section">
         @isset($userCartItems)
             <div class="container">
-                <h1 class="fashion_title">Your Cart</h1>
+                <div class="d-flex flex-column gap-2 align-items-center">
+                    <h1 class="fashion_title">Your Cart</h1>
+                    <a href="{{route('createOrderView')}}" class="btn btn-outline-dark btn-dark">Buy All Cart Items</a>
+                </div>
+
                 <div class="fashion_section_2">
                     <div class="col"> <!-- Top div is a column -->
                         @foreach($userCartItems as $cartItem)

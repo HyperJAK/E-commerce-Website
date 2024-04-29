@@ -66,8 +66,9 @@
                     </div>
                     <div class="card-body p-3">
 
-                        <form method='POST' action='{{ route('user-profile') }}'>
+                        <form method='POST' action='{{ route('seller-user-profile') }}'>
                             @csrf
+
                             <div class="row">
 
                                 <div class="mb-3 col-md-6">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -64,13 +65,18 @@ public function getCarts($buyer_id) {
 
     public function getActiveCart($buyer_id) {
         $cart = Cart::where('buyer_id',$buyer_id)->where('status', 0)->get();
-        $allCartItems = CartItem::where('cart_id', $cart[0]->cart_id)->get();
-        if ($allCartItems->isNotEmpty()) {
-            return view('userCart',['userCartItems'=>$allCartItems]);
-        }else{
-            // return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
-            return view('userCart');
+        if(count($cart) > 0){
+            $allCartItems = CartItem::where('cart_id', $cart[0]->cart_id)->get();
+            if ($allCartItems->isNotEmpty()) {
+                //saving the info in the session (potentially session storage) to access them in OrderController createOrder function
+                Session::put('userCart', $allCartItems);
+                return view('userCart',['userCartItems'=>$allCartItems]);
+            }else{
+                // return response()->json(['message' => 'cart not found or this user has no items in his cart'], 404);
+                return view('userCart');
+            }
         }
+
     }
 
 public function getCartItemsBuyerId($buyer_id) {
