@@ -31,7 +31,7 @@ class WishlistController extends Controller
             'product_id'=> $request->product_id,
             'store_id'=>$request->store_id,
         ]);
-        return redirect()->route('getProd',['id'=>$request->product_id]);
+        return redirect()->route('getProd',['id'=>$request->product_id])->with('status', 'Wishlist updated successfully.');
     //else{
     //     return response()->json(['message'=>'Store or product does not exist!'],404);}
 }
@@ -73,7 +73,7 @@ public function DeleteWishlist(Request $request){
         $list=Wishlist::find($obj->wishlist_id);
         $list->delete();        
     // return response()->json(["message"=>"wishlist deleted successfully"]);
-    return back()->withSuccess(['Product removed from wishlist!']);
+    return back()->with('status', 'Wishlist updated successfully.');
     } else {
     // return response()->json(['message'=>'wishlist does not exist or delete wishlist failed']);
     return redirect()->route('getProd',['id'=>$request->product_id])->withErrors(['Error Removing from wishlist']);

@@ -214,7 +214,8 @@
 var botmanWidget = {
     frameEndpoint: 'viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
-    chatServer : 'api/botman', 
+    chatServer : 'api/botman',
+    userId:'{{Auth::id()?Auth::id():0}}', 
     title: 'Icom Bot', 
     mainColor: '#d5c9ff',
     bubbleBackground: '#ae9afa',

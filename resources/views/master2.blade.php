@@ -204,18 +204,10 @@
                     </ul>
                 </div>
             @endif 
-            @if (session()->has('success'))
-<div class="alert alert-success" style="margin-top:2%;width:60%;margin-left:8%">
-    @if(is_array(session('success')))
-        <ul>
-            @foreach (session('success') as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
-    @else
-        {{ session('success') }}
-    @endif
-</div>
+            @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
 @endif
    @yield('content')
       <!-- footer section start -->
@@ -273,13 +265,14 @@ var botmanWidget = {
     frameEndpoint: 'viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
     chatServer : 'api/botman', 
+    userId:'{{Auth::id()?Auth::id():0}}',
     title: 'Icom Bot', 
     mainColor: '#d5c9ff',
     bubbleBackground: '#ae9afa',
     aboutText: '',
     bubbleAvatarUrl: '',
     desktopHeight:500,
-    desktopWidth:400,    
+    desktopWidth:400,
 };
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
