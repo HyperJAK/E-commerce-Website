@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\MapsController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -78,8 +79,6 @@ Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortS
 
 //Orders routes
 Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
-
-
 
 
 
@@ -198,4 +197,7 @@ Route::post('/account/update', [UserAccountController::class, 'update'])->name('
 Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
+
+Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
 
