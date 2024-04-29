@@ -62,7 +62,14 @@ html, body {
     order: 1;
     border-top-left-radius: 2px;
 }
-
+.msg a {
+   color:#7f69ce;
+   font-weight:600;
+}
+.msg a:visited {
+   color:#7f69ce;
+   font-weight:500;
+}
 .msg {
     word-wrap: break-word;
     min-width: 50px;

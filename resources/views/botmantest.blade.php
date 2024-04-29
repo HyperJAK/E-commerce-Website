@@ -101,5 +101,10 @@
 <body>
     <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
 </body>
-   
+<script>
+    // const botmanChatWidget=document.getElementById('botmanWidget');
+        function handleButtonClick() {
+            botmanChatWidget.sendMessage("start");
+        }
+    </script>
 </html>

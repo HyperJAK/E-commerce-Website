@@ -213,7 +213,7 @@
 <script>
 var botmanWidget = {
     frameEndpoint: 'viewbot',
-    introMessage: 'Hello, I am Icom Bot, How may I help you today',
+    introMessage: 'I am Icom Bot, wanna say hi?',
     chatServer : 'api/botman', 
     title: 'Icom Bot', 
     mainColor: '#d5c9ff',
