@@ -202,7 +202,4 @@ Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->nam
 Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
 
-Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
-Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
-
 Route::get('viewbot', [BotmanController::class, 'Botmanview']);
