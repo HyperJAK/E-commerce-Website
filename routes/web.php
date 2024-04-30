@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
@@ -218,3 +219,4 @@ Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer
 Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
 
 
+Route::get('viewbot', [BotmanController::class, 'Botmanview']);

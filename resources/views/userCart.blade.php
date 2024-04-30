@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+<title>My Cart | Icom</title>
+@endsection
 @section('content')
 
     <div class="fashion_section">

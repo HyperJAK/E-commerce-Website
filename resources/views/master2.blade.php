@@ -59,12 +59,14 @@
                             <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}" style="color:#6754ab">Message Buyers</a></li>
                             @endif
                             @endif
+                           @if(Auth::check() && !is_null(Auth::id()))
                            <li>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit">Logout</button>
         </form>
     </li>
+    @endif
                         </ul>
                      </div>
                   </div>
@@ -178,15 +180,21 @@
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
+                           </li>
+                           <li><a href=" {{ route('myaccount') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Account</span></a>
+                            </li>
                         @else
                         <li style="padding-right:1vw"><a href="{{route('login')}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
-                        @endif
-                           <li style="padding-right:1vw"><a href="#">
-                              <i class="fa fa-user" aria-hidden="true"></i>
-                              <span class="padding_10">Account</span></a>
                            </li>
+                           <li><a href=" {{ route('login') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Account</span></a>
+                            </li>
+                        @endif
                         </ul>
                      </div>
                   </div>
@@ -203,18 +211,10 @@
                     </ul>
                 </div>
             @endif 
-            @if (session()->has('success'))
-<div class="alert alert-success" style="margin-top:2%;width:60%;margin-left:8%">
-    @if(is_array(session('success')))
-        <ul>
-            @foreach (session('success') as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
-    @else
-        {{ session('success') }}
-    @endif
-</div>
+            @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
 @endif
    @yield('content')
       <!-- footer section start -->
@@ -267,6 +267,22 @@
            document.getElementById("mySidenav").style.width = "0";
          }
       </script>
+      <script>
+var botmanWidget = {
+    frameEndpoint: 'viewbot',
+    introMessage: 'I am Icom Bot, wanna say hi?',
+    chatServer : 'api/botman', 
+    userId:'{{Auth::id()?Auth::id():0}}',
+    title: 'Icom Bot', 
+    mainColor: '#d5c9ff',
+    bubbleBackground: '#ae9afa',
+    aboutText: '',
+    bubbleAvatarUrl: '',
+    desktopHeight:500,
+    desktopWidth:400,
+};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
    </body>
    @yield('scripts')
 </html>
