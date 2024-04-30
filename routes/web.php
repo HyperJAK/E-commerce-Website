@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\MapsController;
-
+use App\Http\Controllers\CurrencyConverterController;
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
@@ -206,3 +206,7 @@ Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->nam
 
 Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
+Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
+Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
