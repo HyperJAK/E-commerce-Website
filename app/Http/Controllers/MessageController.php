@@ -13,6 +13,7 @@ class MessageController extends Controller
                  $users = User::where('is_seller', 0)
                                 ->where('is_admin',0)->get();
 
+                 
                 return view("messages.MessagesSeller",["id"=>$id,"users"=>$users]);
 
     }
