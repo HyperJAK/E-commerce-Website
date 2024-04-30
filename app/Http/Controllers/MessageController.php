@@ -13,7 +13,7 @@ class MessageController extends Controller
                  $users = User::where('is_seller', 0)
                                 ->where('is_admin',0)->get();
 
-                 
+
                 return view("messages.MessagesSeller",["id"=>$id,"users"=>$users]);
 
     }
@@ -37,12 +37,7 @@ class MessageController extends Controller
                 })
                 ->orderBy('created_at', 'asc')
                 ->get();
-                foreach ($messages as $message) {
-                    if ($message->receiverid == $sellerid) {
-                        $message->is_read = true;
-                        $message->save();
-                    }
-                }
+
                 $buyer=User::find($buyerid);
                 return view('messages.ChatSeller',["messages"=>$messages,"id"=>$sellerid,"buyer"=>$buyer]);
 
@@ -59,12 +54,7 @@ class MessageController extends Controller
                 })
                 ->orderBy('created_at', 'asc')
                 ->get();
-                foreach ($messages as $message) {
-                    if ($message->receiverid == $buyerid) {
-                        $message->is_read = true;
-                        $message->save();
-                    }
-                }
+
                 $seller=User::find($sellerid);
                 return view('messages.ChatBuyer',["messages"=>$messages,"id"=>$buyerid,"seller"=>$seller]);
 
