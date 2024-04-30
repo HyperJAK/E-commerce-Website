@@ -10,6 +10,7 @@
         "laravel/socialite": "^5.13",
         "laravel/tinker": "^2.9",
         "mailgun/mailgun-php": "^4.2",
+        "pusher/pusher-php-server": "^7.2",
         "socialiteproviders/manager": "^4.5",
         "socialiteproviders/microsoft": "^4.2",
         "socialiteproviders/microsoft-azure": "^5.2",

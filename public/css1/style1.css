@@ -1,0 +1,83 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#messages {
+    width: 90%;
+    height: 300px;
+    border: 1px solid #ddd;
+    background-color: white;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#message_form {
+    width: 90%;
+    display: flex;
+}
+
+#message_input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-right: none; /* Removes the border between the input and the button */
+}
+
+#message_send {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#message_send:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
