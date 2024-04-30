@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -42,8 +43,10 @@ class SellerController extends Controller
 
         }
 
+/*        return $store;*/
 
-        return view('/seller/functionalities/editStoreOptions')->with('store', $store[0]);
+
+        return view('/seller/functionalities/editStoreOptions')->with('store', $store);
     }
 
     //this is similar to the table function that opens page where it shows all products of our store
@@ -81,19 +84,36 @@ class SellerController extends Controller
 
         return view('/seller/functionalities/createProduct')->with('store', $store[0]);
     }
+    public function editProductView(Request $request){
+        $product = Product::where('product_id', $request->product_id)->get();
+
+        if(count($product) > 0){
+            $category = Category::select('name')->where('category_id', $product[0]->category_id)->get();
+
+            return view('/seller/functionalities/editProductOptions')->with('product', $product[0])->with('category', $category[0]);
+
+        }
+        else{
+            return view('/seller/functionalities/editProductOptions')->with('product', $product[0]);
+        }
+
+    }
+
+
 
     public function userProfile(Request $request)
     {
 
-        $user = User::where('email', 'admin@example.com')->first();
-
+        $user = User::where('user_id', $request->seller_id)->first();
 
         return view('/seller/pages/laravel-examples/user-profile')->with('user', $user);
     }
 
-    public function profile()
+    public function profile(Request $request)
     {
-        return view('/seller/pages/profile');
+        $user = User::where('user_id', $request->seller_id)->first();
+
+        return view('/seller/pages/profile')->with('user', $user);
     }
 
     public function userManagement()

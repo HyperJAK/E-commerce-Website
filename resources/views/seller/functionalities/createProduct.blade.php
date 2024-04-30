@@ -50,6 +50,7 @@
 
                             <!-- Hidden input field for user ID -->
                             <input type="hidden" name="store_id" value="{{ $store->store_id }}">
+                            <input type="hidden" name="seller_id" value="{{ Auth::id() }}">
 
                             <div class="row">
                                 <div class="d-flex flex-row justify-content-center gap-2">

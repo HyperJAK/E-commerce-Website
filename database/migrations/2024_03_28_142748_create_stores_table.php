@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->bigIncrements('store_id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('description');
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('user_id');
