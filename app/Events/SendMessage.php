@@ -23,6 +23,7 @@ class SendMessage implements ShouldBroadcast
         $this->event = $event;
     }
 
+
     public function broadcastOn()
     {
         return [$this->channel];

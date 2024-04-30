@@ -16,6 +16,7 @@ class MessageController extends Controller
                 return view("messages.MessagesSeller",["id"=>$id,"users"=>$users]);
 
     }
+
     public function indexBuyer($id){
 
                 $users = User::where('is_seller', 1)
