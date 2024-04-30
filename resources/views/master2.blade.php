@@ -54,9 +54,9 @@
                            <li><a href="#">Customer Service</a></li>
                            @if(Auth::check() && !is_null(Auth::id()))
                             @if(Auth::user()->is_seller==1)
-                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}">Messages </a></li>
+                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li>
                             @else
-                            <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}">Messages Buyer</a></li>
+                            <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}" style="color:#6754ab">Message Buyers</a></li>
                             @endif
                             @endif
                            <li>
