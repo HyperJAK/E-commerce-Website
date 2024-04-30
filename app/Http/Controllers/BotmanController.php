@@ -60,6 +60,16 @@ $botman->hears('my cart', function ($botman) {
 $botman->hears('logout', function ($botman) {
     $botman->reply("<a href='/login' target='blank'>Logout Here</a>");
 });
+$botman->hears('live chat with a seller', function ($botman) {
+    $user = $botman->getUser();
+    $userId = $user->getId();
+    $botman->reply("<a href='/messages/$userId' target='blank'>Chat With Sellers!</a>");
+});
+$botman->hears('live chat with a buyer', function ($botman) {
+    $user = $botman->getUser();
+    $userId = $user->getId();
+    $botman->reply("<a href='/messagesbuyer/$userId' target='blank'>Chat With Buyers!</a>");
+});
 $botman->hears('my categs', function ($botman) {
     $this->goCategs($botman);
 });
@@ -67,7 +77,7 @@ $botman->hears('What is your name?', function (BotMan $bot) {
     $bot->reply('I am Carty your personnal bot! how may I help you today? ;)');
 });
 $botman->hears('best dr', function (BotMan $bot) {
-    $bot->typesAndWaits(3);
+    $bot->typesAndWaits(2);
     $bot->reply("I've searched the whole web , I found that our Dr. is the best<br/> #team Ali ;)");
 });
 $botman->hears('creator', function (BotMan $bot) {
@@ -102,6 +112,7 @@ public function askLogin($botman)
     $options = [
     "dashboard",
     "my categs",
+    "live chat with a buyer",
     "logout"
 ];
 
@@ -116,6 +127,7 @@ $botman->ask($question, function ($answer,$botman) {
         $commands = [
     "my wishlist",
     "my cart",
+    "live chat with a seller",
     "logout"
 ];
 
