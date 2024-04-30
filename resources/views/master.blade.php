@@ -52,6 +52,8 @@
                             <li><a href="#">Events</a></li>
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
+                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}">Messages </a></li>
+                            <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}">Messages Buyer</a></li>
                             <li>
         <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
             @csrf
@@ -198,9 +200,9 @@
     <script>
     function logout() {
         @auth
-            document.getElementById('logout-form').submit(); 
+            document.getElementById('logout-form').submit();
         @else
-            alert("You are not logged in!"); 
+            alert("You are not logged in!");
         @endauth
     }
 </script>

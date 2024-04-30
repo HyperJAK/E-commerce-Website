@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
-
+use App\Http\Controllers\MessageController;
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
@@ -198,4 +198,20 @@ Route::post('/account/update', [UserAccountController::class, 'update'])->name('
 Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
+
+
+
+
+
+//messages seller routes
+Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
+Route::get('chat/{sellerid}/{buyerid}',[MessageController::class,'chat'])->name('chat');
+Route::post('selleraddmsg',[MessageController::class,'selleraddmsg'])->name('selleraddmsg');
+
+
+//messages buyer routes
+Route::get('messagesbuyer/{id}',[MessageController::class,'indexBuyer'])->name('messagesBuyer');
+Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer'])->name('chatBuyer');
+Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
+
 
