@@ -20,6 +20,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\MapsController;
 
+use App\Http\Controllers\MessageController;
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
@@ -201,5 +202,21 @@ Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->nam
 
 Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
+
+
+
+//messages seller routes
+Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
+Route::get('chat/{sellerid}/{buyerid}',[MessageController::class,'chat'])->name('chat');
+Route::post('selleraddmsg',[MessageController::class,'selleraddmsg'])->name('selleraddmsg');
+
+
+//messages buyer routes
+Route::get('messagesbuyer/{id}',[MessageController::class,'indexBuyer'])->name('messagesBuyer');
+Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer'])->name('chatBuyer');
+Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
+
 
 Route::get('viewbot', [BotmanController::class, 'Botmanview']);
