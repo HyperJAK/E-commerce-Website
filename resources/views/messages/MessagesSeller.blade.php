@@ -35,6 +35,7 @@
     </style>
 </head>
 <body>
+
 <h1>Messages:</h1>
 <ul class="user-list" >
     @foreach ($users as $user)

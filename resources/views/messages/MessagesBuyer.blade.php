@@ -41,6 +41,7 @@
             margin-top: -2px;
         }
     </style>
+
 </head>
 <body>
 <h1>Messages:</h1>
