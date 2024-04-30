@@ -112,10 +112,6 @@
     });
 </script>
 
-<script>
-    window.onload = function() {
-        document.getElementById('messageContainer').scrollTop = document.getElementById('messageContainer').scrollHeight;
-    };
-</script>
+
 </body>
 </html>
