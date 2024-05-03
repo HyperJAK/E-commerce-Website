@@ -222,6 +222,7 @@ Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyer
 //admin routes
 
 
+
 Route::get('homeAdmin/{id}',[AdminController::class,'homeAdmin'])->name('homeAdmin');
 Route::get('infosAdmin/{id}',[AdminController::class,'infosAdmin'])->name('infosAdmin');
 Route::post('updateInfoAdmin/{id}',[AdminController::class,'UpdateInfoAdmin'])->name('updateInfoAdmin');

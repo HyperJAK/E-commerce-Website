@@ -57,6 +57,7 @@ class AdminStoreController extends Controller
     }
 
 
+
     public function saveActivation(Request $request, $id,$idStore){
         $store=Store::find($idStore);
         if($request->has('status')){

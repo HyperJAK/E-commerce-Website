@@ -13,6 +13,7 @@ class AdminController extends Controller
                 return view('admin.HomeAdmin')->with('id',$id);
 
     }
+
    public function infosAdmin($id){
 
                 $admin=User::find($id);
