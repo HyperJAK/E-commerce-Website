@@ -94,6 +94,7 @@
     </style>
 
 
+
     @if(isset($admin))
         <div class="form-container">
             <h2>Update Infos Admin</h2>

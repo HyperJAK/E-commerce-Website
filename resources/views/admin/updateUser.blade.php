@@ -17,6 +17,7 @@
             text-align: center;
         }
 
+        
         h2 {
             color: #333;
             margin-bottom: 30px;

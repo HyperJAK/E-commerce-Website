@@ -116,6 +116,7 @@
                     @foreach($sellers as $seller)
                         <tbody>
                         <tr>
+
                             <td>{{ $seller->username }}</td>
                             <td>{{ $seller->email }}</td>
                             <td>{{ $seller->address }}</td>

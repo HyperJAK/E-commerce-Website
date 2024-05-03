@@ -9,6 +9,7 @@
             padding: 20px;
         }
 
+
         .main-content {
             background: white;
             padding: 20px;

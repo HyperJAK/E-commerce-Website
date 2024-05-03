@@ -45,6 +45,7 @@
             overflow-x: auto;
         }
 
+
         table {
             width: 100%;
             border-collapse: collapse;
