@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\MapsController;
-
+use App\Http\Controllers\CurrencyConverterController;
 use App\Http\Controllers\MessageController;
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -204,6 +204,14 @@ Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
 
 
+Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
+Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
+
+
+Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
 
 
 
@@ -219,4 +227,4 @@ Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer
 Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
 
 
-Route::get('viewbot', [BotmanController::class, 'Botmanview'])->name('viewbot');
+Route::get('viewbot', [BotmanController::class, 'Botmanview']);
