@@ -37,4 +37,4 @@ Route::delete('stores/{id}', [StoreController::class, 'deleteStore']); // Delete
 
 Route::post('payment/process', [PaymentController::class, 'processPayment'])->name('payment/process');
 
-Route::post('botman', [BotmanController::class, 'BotmanTest']);
+Route::post('botman', [BotmanController::class, 'BotmanTest'])->name('api/botman');
