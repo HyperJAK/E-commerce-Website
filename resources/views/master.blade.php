@@ -52,12 +52,21 @@
                             <li><a href="#">Events</a></li>
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
+                            @if(Auth::check() && !is_null(Auth::id()))
+                            @if(Auth::user()->is_seller==1)
+                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li>
+                            @else
+                            <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}" style="color:#6754ab">Message Buyers</a></li>
+                            @endif
+                            @endif
+                            @if(Auth::check() && !is_null(Auth::id()))
                             <li>
         <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
             @csrf
             <button type="submit">Logout</button>
         </form>
     </li>
+    @endif
                         </ul>
                     </div>
                 </div>
@@ -121,17 +130,20 @@
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
+                              <li><a href=" {{ route('myaccount') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Account</span></a>
+                            </li>
                         @else
                         <li style="padding-right:1vw"><a href="{{route('login')}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
-                        @endif
-                           </li>
-
-                            <li><a href=" {{ route('myaccount') }}">
+                              <li><a href=" {{ route('login') }}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <span class="padding_10">Account</span></a>
                             </li>
+                            </li>
+                        @endif
                         </ul>
                     </div>
                 </div>
@@ -187,6 +199,7 @@
     <script src="{{asset('frontRessource/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <script src="{{asset('frontRessource/js/custom.js')}}"></script>
     <script>
+
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
         }
@@ -198,11 +211,27 @@
     <script>
     function logout() {
         @auth
-            document.getElementById('logout-form').submit(); 
+            document.getElementById('logout-form').submit();
         @else
-            alert("You are not logged in!"); 
+            alert("You are not logged in!");
         @endauth
     }
 </script>
+<script>
+var botmanWidget = {
+    frameEndpoint: 'viewbot',
+    introMessage: 'I am Icom Bot, wanna say hi?',
+    chatServer : 'api/botman',
+    userId:'{{Auth::id()?Auth::id():0}}', 
+    title: 'Icom Bot', 
+    mainColor: '#d5c9ff',
+    bubbleBackground: '#ae9afa',
+    aboutText: '',
+    bubbleAvatarUrl: '',
+    desktopHeight:500,
+    desktopWidth:400,    
+};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </body>
 </html>
