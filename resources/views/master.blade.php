@@ -219,7 +219,7 @@
 </script>
 <script>
 var botmanWidget = {
-    frameEndpoint: 'viewbot',
+    frameEndpoint: '/viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
     chatServer : 'api/botman',
     userId:'{{Auth::id()?Auth::id():0}}', 

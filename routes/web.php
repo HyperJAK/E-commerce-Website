@@ -219,4 +219,4 @@ Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer
 Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
 
 
-Route::get('viewbot', [BotmanController::class, 'Botmanview']);
+Route::get('viewbot', [BotmanController::class, 'Botmanview'])->name('viewbot');
