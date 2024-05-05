@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             PaymentMethodsTableSeeder::class,
             PaymentStatusesTableSeeder::class,
             OrderStatusesTableSeeder::class,
+            LocationSeeder::class,
             OrdersTableSeeder::class,
             PaymentsTableSeeder::class,
             EventsTableSeeder::class,

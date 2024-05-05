@@ -23,15 +23,18 @@ class MapsController extends Controller
 
         $user = Auth::user();
         $location = new Location();
-    
+
         $location->user_id = $user->user_id ;
         $location->latitude = $request->latitude;
         $location->longitude = $request->longitude;
-        
+
+        $loc = $location;
+
         $location->save();
 
-        return redirect()->back()->with('success', 'Location saved successfully');
+        return redirect()->route('createOrderView', ['locationId' => $location->id]);
+
     }
-    
-    
+
+
 }
