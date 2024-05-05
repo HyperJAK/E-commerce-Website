@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Location;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -51,6 +52,10 @@ class OrderController extends Controller
 
         foreach ($cartItems as $item){
             $totalPrice += ($item->price * $item->quantity);
+
+            //then we remove the bought product amount of each
+            $product = Product::where('product_id', $item->product_id)->first();
+            $product->subtractQuantity($item->quantity);
         }
         $orderStatus = 1;
 
