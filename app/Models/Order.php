@@ -19,16 +19,12 @@ class Order extends Model
         'order_placement_date',
         'total_price',
         'buyer_id',
-        'seller_id',
         'cart_id'
     ];
 
 
     public function buyer(){
         return $this->belongsTo(User::class,'buyer_id','user_id');
-    }
-    public function seller(){
-        return $this->belongsTo(User::class,'seller_id','user_id');
     }
 
     //Make sure to add the correct primary and foreign keys (as reference):

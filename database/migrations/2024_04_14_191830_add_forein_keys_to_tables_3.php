@@ -26,7 +26,6 @@ return new class extends Migration
 
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('buyer_id')->references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('seller_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
         });
 

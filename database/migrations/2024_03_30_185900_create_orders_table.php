@@ -28,7 +28,6 @@ Image
             $table->dateTime('order_placement_date');
             $table->double('total_price');
             $table->unsignedBigInteger('buyer_id');
-            $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('cart_id');
             // ma tnsa to un-comment the next 2 lines after creating
 
