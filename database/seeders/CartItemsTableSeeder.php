@@ -20,7 +20,7 @@ class CartItemsTableSeeder extends Seeder
         $cartIds = DB::table('carts')->pluck('cart_id');
 
         //getting seller id for cartItem
-        $store_id= Product::select('store_id')->where('product_id',$productIds->random())->get();
+        $store_id= Product::select('store_id')->where('product_id',$productIds->random())->first();
         $seller_id = Store::select('user_id')->where('store_id', $store_id->store_id)->first();
 
         // Create cart items
@@ -31,7 +31,7 @@ class CartItemsTableSeeder extends Seeder
                 'cart_id' => $cartIds->random(),
                 'quantity' => rand(1, 10), // Sample quantity
                 'price' => rand(10, 100), // Sample price
-                'seller_id'=>$seller_id->user_id,
+                'seller_id'=>$seller_id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
