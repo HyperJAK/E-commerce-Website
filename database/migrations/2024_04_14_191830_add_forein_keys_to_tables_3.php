@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
         });
 
-        Schema::table('chats', function (Blueprint $table) {
+        /*Schema::table('chats', function (Blueprint $table) {
             $table->foreign('user_initiator_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('user_target_id')->references('user_id')->on('users')->onDelete('cascade');
         });
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->foreign('chat_id')->references('chat_id')->on('chats')->onDelete('cascade');
             $table->foreign('sender_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('recipient_id')->references('user_id')->on('users')->onDelete('cascade');
-        });
+        });*/
 
         Schema::table('stores', function (Blueprint $table) {
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');

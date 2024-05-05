@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             CartsTableSeeder::class,
             CartItemsTableSeeder::class,
             ReviewsTableSeeder::class,
-            ChatsTableSeeder::class,
-            ChatMessagesTableSeeder::class,
+            /*ChatsTableSeeder::class,
+            ChatMessagesTableSeeder::class,*/
             PaymentMethodsTableSeeder::class,
             PaymentStatusesTableSeeder::class,
             OrderStatusesTableSeeder::class,
