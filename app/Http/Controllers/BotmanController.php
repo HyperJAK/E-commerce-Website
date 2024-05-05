@@ -63,12 +63,12 @@ $botman->hears('logout', function ($botman) {
 $botman->hears('live chat with a seller', function ($botman) {
     $user = $botman->getUser();
     $userId = $user->getId();
-    $botman->reply("<a href='/messages/$userId' target='blank'>Chat With Sellers!</a>");
+    $botman->reply("<a href='/messagesbuyer/$userId' target='blank'>Chat With Sellers!</a>");
 });
 $botman->hears('live chat with a buyer', function ($botman) {
     $user = $botman->getUser();
     $userId = $user->getId();
-    $botman->reply("<a href='/messagesbuyer/$userId' target='blank'>Chat With Buyers!</a>");
+    $botman->reply("<a href='/messages/$userId' target='blank'>Chat With Buyers!</a>");
 });
 $botman->hears('my categs', function ($botman) {
     $this->goCategs($botman);
