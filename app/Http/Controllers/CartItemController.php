@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\Cast\Double;
@@ -20,6 +21,10 @@ class CartItemController extends Controller
                 'exists'=>'Cart Id or Product Id do not exist',
             ]);
             $price= Product::select('price')->where('product_id',$request->product_id)->get();
+
+            //getting seller id for cartItem
+            $store_id= Product::select('store_id')->where('product_id',$request->product_id)->first();
+            $seller_id = Store::select('user_id')->where('store_id', $store_id->store_id)->first();
 
             //to test if theres an open cart
             $availableCartTest = Cart::select('cart_id')->where('status', 0)->where('buyer_id', $request->buyer_id)->get();
@@ -38,6 +43,7 @@ class CartItemController extends Controller
                     'quantity'=> $request->quantity,
                     'product_id'=> $request->product_id,
                     'cart_id'=>$availableCart[0]->cart_id,
+                    'seller_id'=>$seller_id->user_id,
                 ]);
             }
 
