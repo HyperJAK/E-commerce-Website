@@ -215,3 +215,7 @@ Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('
 
 //Route to place an order for user from his cart
 Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('place-order');
+
+//route to update user selected currency
+Route::post('user/updateCurrency',[UserController::class,'updatePreferredCurrency'])->name('update-preferred-currency');
+

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('is_verified')->default(false);
             $table->boolean('is_deleted')->default(false);
             $table->string('preferred_currency')->default('USD')->nullable();
+            $table->string('currency_symbol')->default('$')->nullable();
             /*$table->unsignedBigInteger('store_id');*/
 /*            $table->unsignedBigInteger('cart_id');*/
 

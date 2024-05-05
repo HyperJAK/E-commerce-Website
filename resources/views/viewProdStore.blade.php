@@ -172,6 +172,23 @@
                            </li>
                            @endif
                            @if(Auth::check() && !is_null(Auth::id()))
+                               <li>
+                                   <form method="POST" action="{{ route('update-preferred-currency') }}">
+                                       @csrf
+                                       <input type="hidden" name="redirection_route" id="redirection_route" value="getByStore">
+                                       <input type="hidden" name="store_id" id="store_id" value="{{$store_id}}">
+                                       <li>
+                                           <select name="preferred_currency" id="preferred_currency" class="form-control border border-2 p-2" onchange="this.form.submit()">
+                                               <option value="{{$currency}}">{{$currency_symbol}}{{$currency}}</option>
+                                               <option value="USD">USD</option>
+                                               <option value="EUR">EUR</option>
+                                               <option value="GBP">GBP</option>
+                                               <option value="LBP">LBP</option>
+                                               <option value="KWD">KWD</option>
+                                           </select>
+                                       </li>
+                                   </form>
+                               </li>
                         <li style="padding-right:1vw"><a href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart </span></a>
@@ -225,11 +242,11 @@
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
-<p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
+<p class="price_text">Price  <span style="color: #262626;">{{$currency_symbol}}{{$obj->price}}</span></p>
         <div class="tshirt_img"><img src="{{asset('frontRessource/images/'.$obj->path1)}}"></div>
         <p class="prod_desc">{{$obj->description}}</p>
 <div class="btn_main">
-    
+
     <div class="buy_bt"><a href="{{route('getProd',['id'=>$obj->product_id])}}">See More</a></div>
 </div>
 </div>

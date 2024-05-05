@@ -58,6 +58,32 @@ class UserController extends Controller
         return view('signin');
     }
 
+    public function updatePreferredCurrency(Request $request){
+
+        $user = User::where('user_id', Auth::id())->first();
+
+        $user->preferred_currency = $request->preferred_currency;
+
+        $user->currency_symbol = match ($request->preferred_currency) {
+            'USD' => '$',
+            'EUR' => '€',
+            'GBP' => '£',
+            'LBP' => 'ل.ل',
+            'KWD' => 'د.ك',
+            default => '',
+        };
+
+        $user->save();
+
+        if($request->store_id !== null){
+            return redirect()->route($request->redirection_route, ['store_id'=>$request->store_id]);
+        }
+        else{
+            return redirect()->route($request->redirection_route);
+        }
+
+    }
+
     public function signin(Request $request)
 {
     $request->validate([
@@ -287,12 +313,12 @@ public function logout(Request $request)
 //     DB::table('sessions')
 //         ->where('id' , $sessions->id)
 //         ->delete();
-    
+
 
 
    Auth::logout();
     $request->session()->invalidate();
-    
+
 
     $request->session()->regenerateToken();
 
