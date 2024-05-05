@@ -25,6 +25,16 @@ class Cart extends Model
         ];
     }
 
+    public function getCartItems(){
+        $cartItems = CartItem::where('cart_id', $this->cart_id)->get();
+        return $cartItems;
+    }
+
+    public function disableCart(){
+        $this->status = 1;
+        $this->save();
+    }
+
 
     public function getBuyer(){
         return $this->belongsTo(User::class,'buyer_id','user_id');
