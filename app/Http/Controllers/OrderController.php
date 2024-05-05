@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Location;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -25,6 +26,11 @@ class OrderController extends Controller
         foreach ($data as $item){
             $totalPrice += ($item->price * $item->quantity);
         }
+
+        //here we are getting and converting the total price using the currency change
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency')->where('user_id', Auth::id())->first();
+        $totalPrice = $totalPrice * $cur->getCurrencyRate($userPreferedCurrency->preferred_currency);
 
         if ($request->locationId) {
             $location = Location::findOrFail($request->locationId);
