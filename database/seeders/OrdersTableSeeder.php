@@ -29,7 +29,8 @@ class OrdersTableSeeder extends Seeder
                 'order_placement_date' => now(), // Current date and time
                 'total_price' => rand(100, 1000), // Sample total price
                 'buyer_id' => $buyerIds->random(),
-                'cart_id' => $carts->random()
+                'cart_id' => $carts->random(),
+                'location_id' => 1,
             ];
 
             // Insert order into the database

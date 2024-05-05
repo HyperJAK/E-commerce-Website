@@ -78,12 +78,6 @@ Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']
 Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortStoresByCategory'])->name('SortStoresByCategory');
 
 
-
-//Orders routes
-Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
-
-
-
 //Sign up routes
 Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
@@ -200,8 +194,8 @@ Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
-Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
-Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+/*Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');*/
 
 
 Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
@@ -228,3 +222,10 @@ Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyer
 
 
 Route::get('viewbot', [BotmanController::class, 'Botmanview']);
+
+
+//Orders routes
+Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
+
+//Route to place an order for user from his cart
+Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('place-order');

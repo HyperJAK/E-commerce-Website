@@ -19,7 +19,8 @@ class Order extends Model
         'order_placement_date',
         'total_price',
         'buyer_id',
-        'cart_id'
+        'cart_id',
+        'location_id'
     ];
 
 
