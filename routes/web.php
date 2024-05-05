@@ -133,20 +133,6 @@ Route::get('/password/reset/{token}', [UserController::class, 'showResetPassword
 Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
-    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
-});
-
-
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
     Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
