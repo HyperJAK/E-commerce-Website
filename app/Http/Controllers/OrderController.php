@@ -42,6 +42,7 @@ class OrderController extends Controller
             'description' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'shipping_method' => 'required|string'
         ]);
 
         $cart = Cart::where('cart_id', $request->cart_id)->first();
@@ -64,7 +65,7 @@ class OrderController extends Controller
                 'address' => $request->address,
                 'description' => $request->description,
                 'location_id' => $request->location_id,
-                'shipping_method' => 'by air',
+                'shipping_method' => $request->shipping_method,
                 'order_placement_date' => now(),
                 'total_price' => $totalPrice,
                 'buyer_id' => Auth::id(),

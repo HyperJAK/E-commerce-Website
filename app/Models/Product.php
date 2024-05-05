@@ -33,8 +33,8 @@ class Product extends Model
         return $this->getWish()->where('user_id',$user_id)->get();
        }
 
-       public function subtractQuantity($nb){
-        $this->quantity -= $nb;
-        $this->save();
-       }
+   public function subtractQuantity($nb){
+    $this->quantity -= $nb;
+    $this->save();
+   }
 }

@@ -49,6 +49,13 @@
                     <input type="hidden" name="location_id" id="location_id" value="{{$location->id}}">
 
                 @endisset
+                    <label for="shipping_method" class="form-label">Method of Shipping</label>
+                    <select name="shipping_method" id="shipping_method" class="form-control border border-2 p-2">
+                        <option value="by air">By Air</option>
+                        <option value="by sea">By Sea</option>
+                        <option value="local">Local</option>
+                    </select>
+
             <a type="button" href="{{route('myMap')}}" class="btn bg-info text-white">Choose location</a>
             <button type="submit" class="btn bg-danger text-white">Submit</button>
             </div>
