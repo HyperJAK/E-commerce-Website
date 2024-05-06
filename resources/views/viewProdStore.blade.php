@@ -376,5 +376,21 @@
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
+    <script>
+var botmanWidget = {
+    frameEndpoint: '/viewbot',
+    introMessage: 'I am Icom Bot, wanna say hi?',
+    chatServer : 'api/botman',
+    userId:'{{Auth::id()?Auth::id():0}}', 
+    title: 'Icom Bot', 
+    mainColor: '#d5c9ff',
+    bubbleBackground: '#ae9afa',
+    aboutText: '',
+    bubbleAvatarUrl: '',
+    desktopHeight:500,
+    desktopWidth:400,    
+};
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </body>
 </html>

@@ -28,7 +28,7 @@
                                                           <div class="tshirt_img"><img src="{{ asset('frontRessource/images/tshirt-img.png') }}" alt="T-Shirt pic"></div>
                                                           <div class="btn_main">
                                                               <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$store->store_id])}}">Visit Now</a></div>
-                                                              <div class="seemore_bt"><a href="#">Message Us</a></div>
+                                                              <div class="seemore_bt"><a href="{{route('chatBuyer',['sellerid'=>$store->user_id,'buyerid'=>Auth::id()])}}">Message Us</a></div>
                                                           </div>
                                                       </div>
                                                   </div>
