@@ -121,7 +121,16 @@ class OrderController extends Controller
     }
 
     public function getTodayClients(){
+        $clients = new Order();
 
+        return $clients->getTodayClients();
+
+    }
+
+    public function getTodaySpecificStoreClients(Request $request){
+        $clients = new Order();
+
+        return $clients->getTodaySpecificStoreClients($request->store_id);
 
     }
 

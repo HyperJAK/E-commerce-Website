@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
@@ -112,7 +113,67 @@ class Order extends Model
     }
 
     public function getTodayClients(){
+        $today = \Carbon\Carbon::now()->toDateString();
+        $todayOrders = Order::select('buyer_id')->whereDate('order_placement_date', $today)->distinct()->get();
 
+        $clients = [];
+
+        foreach ($todayOrders as $order){
+            $user = User::where('user_id', $order->buyer_id)->first();
+
+            if ($user && !in_array($user, $clients, true)) {
+                $clients[] = $user;
+            }
+
+        }
+
+        return $clients;
+
+    }
+
+
+    public function getTodaySpecificStoreClients($storeId){
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()){
+            $today = \Carbon\Carbon::now()->toDateString();
+
+            $todayOrders = Order::whereDate('order_placement_date', $today)->get();
+
+            $clients = new Collection();
+
+            foreach ($todayOrders as $order){
+                //getting the cartId
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getCartItems();
+
+                foreach ($cartItems as $item){
+                    //here when we fill the user we can break since all of these items would belong to the same user
+                    //but we needed to check for the store_id which is why we entered this foreach
+                    if($item->store_id == $storeId){
+
+                        $user = User::where('user_id', $order->buyer_id)->first();
+
+                        if ($user && !$clients->contains('user_id', $user->user_id)) {
+                            $clients[] = $user;
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+            return $clients->toArray();
+        }
+        else{
+            return null;
+        }
 
     }
 

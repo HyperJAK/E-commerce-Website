@@ -168,6 +168,9 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
     Route::get('seller/getTodayIncomeSpecificStore', [OrderController::class, 'getTodayIncomeSpecificStore'])->name('getTodayIncomeSpecificStore');
 
+    Route::get('seller/getTodayClients', [OrderController::class, 'getTodayClients'])->name('getTodayClients');
+    Route::get('seller/getTodaySpecificStoreClients', [OrderController::class, 'getTodaySpecificStoreClients'])->name('getTodaySpecificStoreClients');
+
 });
 
 
