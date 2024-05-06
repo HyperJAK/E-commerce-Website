@@ -43,15 +43,36 @@ class Order extends Model
 
 
     public function getTodayIncome(){
+
         $today = \Carbon\Carbon::now()->toDateString();
-        $todayOrders = Order::select('total_price')->whereDate('order_placement_date', $today)->get();
+
+        $todayOrders = Order::select('total_price', 'cart_id')->whereDate('order_placement_date', $today)->get();
 
         //now we calculate the profit
         $totalTodayProfit = 0;
-        foreach ($todayOrders as $order){
 
-            $totalTodayProfit +=  $order->total_price;
+        foreach ($todayOrders as $order){
+            //getting the cartId
+            $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+            if($cartInfo){
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+                    if ($item->seller_id == Auth::id()) {
+                        $totalTodayProfit +=  $order->total_price;
+                        break;
+                    }
+                }
+            }
+
+
         }
+
         return $totalTodayProfit;
 
     }
@@ -113,21 +134,39 @@ class Order extends Model
     }
 
     public function getTodayClients(){
-        $today = \Carbon\Carbon::now()->toDateString();
-        $todayOrders = Order::select('buyer_id')->whereDate('order_placement_date', $today)->distinct()->get();
 
-        $clients = [];
+        $today = \Carbon\Carbon::now()->toDateString();
+
+        $todayOrders = Order::select('cart_id')->whereDate('order_placement_date', $today)->distinct()->get();
+
+        $clients = new Collection();
+
 
         foreach ($todayOrders as $order){
-            $user = User::where('user_id', $order->buyer_id)->first();
+            //getting the cartId
+            $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
 
-            if ($user && !in_array($user, $clients, true)) {
-                $clients[] = $user;
+            if($cartInfo){
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+
+                    $user = User::where('user_id', $cartInfo->buyer_id)->first();
+
+                    if ($user && !$clients->contains('user_id', $user->user_id) && $item->seller_id == Auth::id()) {
+                        $clients[] = $user;
+                    }
+                }
             }
+
 
         }
 
-        return $clients;
+        return $clients->toArray();
 
     }
 
@@ -178,15 +217,28 @@ class Order extends Model
     }
 
     public function getTotalSales(){
-        $todayOrders = Order::select('total_price')->get();
+            $orders = Order::select('cart_id')->distinct()->get();
 
-        //now we calculate the profit
-        $totalProfit = 0;
-        foreach ($todayOrders as $order){
+            $totalProfit = 0;
 
-            $totalProfit +=  $order->total_price;
-        }
-        return $totalProfit;
+            foreach ($orders as $order){
+                //getting the cartId
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+                    //next we calculate price only where storeId is equal to cartItem storeid
+                    $totalProfit += $item->price;
+                }
+            }
+
+            return $totalProfit;
+
 
     }
 
