@@ -94,8 +94,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 ">Website Views</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
+                            <h6 class="mb-0 ">Daily Sales</h6>
+                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today's
+                                sales. </p>
                             <hr class="dark horizontal">
                             <div class="d-flex ">
                                 <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -114,8 +115,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 "> Daily Sales </h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today
+                            <h6 class="mb-0 "> Monthly Sales </h6>
+                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in this month's
                                 sales. </p>
                             <hr class="dark horizontal">
                             <div class="d-flex ">
