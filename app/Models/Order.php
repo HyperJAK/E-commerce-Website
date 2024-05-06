@@ -38,4 +38,50 @@ class Order extends Model
     public function getOrderDate(){
         return Carbon::parse($this->order_placement_date);
 }
+
+
+    public function getTodayIncome(){
+        $today = \Carbon\Carbon::now()->toDateString();
+        $todayOrders = Order::select('total_price')->whereDate('order_placement_date', $today)->get();
+
+        //now we calculate the profit
+        $totalTodayProfit = 0;
+        foreach ($todayOrders as $order){
+
+            $totalTodayProfit +=  $order->total_price;
+        }
+        return $totalTodayProfit;
+
+    }
+
+    public function getOrdersSortedByMonth(){
+
+
+    }
+
+
+    public function getOrdersSortedByDay(){
+
+
+    }
+
+    public function getTodayNewCLients(){
+
+
+    }
+
+    public function getTodayClients(){
+
+
+    }
+
+    public function getTotalSales(){
+
+
+    }
+
+    public function getBestSellingProductsThisMonth(){
+
+
+    }
 }

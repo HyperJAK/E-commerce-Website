@@ -162,6 +162,11 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
 
     Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
+
+
+    //seller reports functions are here:
+    Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
+
 });
 
 

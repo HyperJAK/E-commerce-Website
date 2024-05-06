@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -83,6 +84,45 @@ class OrderController extends Controller
 
 
         return redirect()->route('home');
+
+
+    }
+
+
+    public function getOrdersSortedByMonth(){
+
+
+    }
+
+
+    public function getOrdersSortedByDay(){
+
+
+    }
+
+    public function getTodayIncome(){
+        $profit = new Order();
+
+        return $profit->getTodayIncome();
+
+    }
+
+    public function getTodayNewCLients(){
+
+
+    }
+
+    public function getTodayClients(){
+
+
+    }
+
+    public function getTotalSales(){
+
+
+    }
+
+    public function getBestSellingProductsThisMonth(){
 
 
     }
