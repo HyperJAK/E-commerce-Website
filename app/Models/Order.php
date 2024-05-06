@@ -178,7 +178,50 @@ class Order extends Model
     }
 
     public function getTotalSales(){
+        $todayOrders = Order::select('total_price')->get();
 
+        //now we calculate the profit
+        $totalProfit = 0;
+        foreach ($todayOrders as $order){
+
+            $totalProfit +=  $order->total_price;
+        }
+        return $totalProfit;
+
+    }
+
+    public function getTotalSalesSpecificStore($storeId){
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()){
+            $orders = Order::get();
+
+            $totalProfit = 0;
+
+            foreach ($orders as $order){
+                //getting the cartId
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getCartItems();
+
+                foreach ($cartItems as $item){
+                    //next we calculate price only where storeId is equal to cartItem storeid
+                    if($item->store_id == $storeId){
+                        $totalProfit += $item->price;
+                    }
+                }
+            }
+
+            return $totalProfit;
+        }
+        else{
+            return null;
+        }
 
     }
 

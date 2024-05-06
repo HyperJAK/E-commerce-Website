@@ -135,8 +135,16 @@ class OrderController extends Controller
     }
 
     public function getTotalSales(){
+        $sales = new Order();
 
+        return $sales->getTotalSales();
 
+    }
+
+    public function getTotalSalesSpecificStore(Request $request){
+        $sales = new Order();
+
+        return $sales->getTotalSalesSpecificStore($request->store_id);
     }
 
     public function getBestSellingProductsThisMonth(){
