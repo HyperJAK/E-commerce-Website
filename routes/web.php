@@ -78,12 +78,6 @@ Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']
 Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortStoresByCategory'])->name('SortStoresByCategory');
 
 
-
-//Orders routes
-Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
-
-
-
 //Sign up routes
 Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
@@ -139,20 +133,6 @@ Route::get('/password/reset/{token}', [UserController::class, 'showResetPassword
 Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
-    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
-});
-
-
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
     Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
@@ -200,8 +180,8 @@ Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
-Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
-Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+/*Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');*/
 
 
 Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
@@ -228,3 +208,14 @@ Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyer
 
 
 Route::get('viewbot', [BotmanController::class, 'Botmanview']);
+
+
+//Orders routes
+Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
+
+//Route to place an order for user from his cart
+Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('place-order');
+
+//route to update user selected currency
+Route::post('user/updateCurrency',[UserController::class,'updatePreferredCurrency'])->name('update-preferred-currency');
+
