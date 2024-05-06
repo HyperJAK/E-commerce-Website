@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -51,6 +52,46 @@ class Order extends Model
             $totalTodayProfit +=  $order->total_price;
         }
         return $totalTodayProfit;
+
+    }
+
+    public function getTodayIncomeSpecificStore($storeId){
+
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()){
+            $today = \Carbon\Carbon::now()->toDateString();
+
+            $todayOrders = Order::whereDate('order_placement_date', $today)->get();
+
+            $totalTodayProfit = 0;
+
+            foreach ($todayOrders as $order){
+                //getting the cartId
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getCartItems();
+
+                foreach ($cartItems as $item){
+                    //next we calculate price only where storeId is equal to cartItem storeid
+                    if($item->store_id == $storeId){
+                        $totalTodayProfit += ($item->price * $item->quantity);
+                    }
+                }
+            }
+
+            return $totalTodayProfit;
+        }
+        else{
+            return null;
+        }
+
+
 
     }
 

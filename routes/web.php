@@ -166,6 +166,7 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
 
     //seller reports functions are here:
     Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
+    Route::get('seller/getTodayIncomeSpecificStore', [OrderController::class, 'getTodayIncomeSpecificStore'])->name('getTodayIncomeSpecificStore');
 
 });
 

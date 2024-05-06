@@ -44,6 +44,7 @@ class CartItemController extends Controller
                     'product_id'=> $request->product_id,
                     'cart_id'=>$availableCart[0]->cart_id,
                     'seller_id'=>$seller_id->user_id,
+                    'store_id' => $store_id->store_id,
                 ]);
             }
 

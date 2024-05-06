@@ -107,6 +107,14 @@ class OrderController extends Controller
 
     }
 
+
+    public function getTodayIncomeSpecificStore(Request $request){
+        $profit = new Order();
+
+        return $profit->getTodayIncomeSpecificStore($request->store_id);
+
+    }
+
     public function getTodayNewCLients(){
 
 
