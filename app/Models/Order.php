@@ -209,9 +209,7 @@ class Order extends Model
             $endDate = \Carbon\Carbon::now()->endOfWeek();
 
 
-            $weeklyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')
-                ->whereBetween('order_placement_date', [$startDate, $endDate])
-                ->get();
+            $weeklyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereBetween('order_placement_date', [$startDate, $endDate])->get();
 
         //this represents array of arrays where first layer has dayas and each day has orders
             $ordersByDay = [];
@@ -293,7 +291,109 @@ class Order extends Model
         }
     }
 
-    public function getTodayNewCLients(){
+    public function getTodayNewClients(){
+        $today = \Carbon\Carbon::now()->toDateString();
+
+        $todayOrders = Order::select('cart_id')->whereDate('order_placement_date', $today)->distinct()->get();
+
+        $clients = new Collection();
+
+        foreach ($todayOrders as $order){
+            //getting the cartId
+            $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+            if($cartInfo){
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                //getting the products
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+
+                    $user = User::where('user_id', $cartInfo->buyer_id)->first();
+
+                    if ($user && $item->seller_id == Auth::id()) {
+                        //here we are checking to see if this user has already bought somnething from us before meaning he is kinda new
+                        //then we check to see if the item he bought was today
+
+                        if (!$clients->contains('user_id', $user->user_id)) {
+                                $clients[] = $user;
+                                break;
+
+                        }
+                        else {
+                            //method to iterate over all clients and remove the one we want
+                            $clients = $clients->reject(function ($client) use ($user) {
+                                return $client->user_id === $user->user_id;
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        return $clients->toArray();
+
+    }
+
+    public function getTodaySpecificStoreNewClients($storeId){
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()) {
+            $today = \Carbon\Carbon::now()->toDateString();
+
+            $todayOrders = Order::select('cart_id')->whereDate('order_placement_date', $today)->distinct()->get();
+
+            $clients = new Collection();
+
+            foreach ($todayOrders as $order){
+                //getting the cartId
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                if($cartInfo){
+                    $cart = new Cart();
+                    $cart->cart_id = $cartInfo->cart_id;
+
+                    //getting the products
+                    $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                    foreach ($cartItems as $item){
+
+                        $user = User::where('user_id', $cartInfo->buyer_id)->first();
+
+                        if ($user && $item->seller_id == Auth::id() && $item->store_id == $storeId) {
+                            //here we are checking to see if this user has already bought somnething from us before meaning he is kinda new
+                            //then we check to see if the item he bought was today
+
+                            if (!$clients->contains('user_id', $user->user_id)) {
+                                $clients[] = $user;
+                                break;
+
+                            }
+                            else {
+                                //method to iterate over all clients and remove the one we want
+                                $clients = $clients->reject(function ($client) use ($user) {
+                                    return $client->user_id === $user->user_id;
+                                });
+                                break;
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            return $clients->toArray();
+        }
+        else{
+            return null;
+        }
 
 
     }

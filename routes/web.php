@@ -174,6 +174,10 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/getTodayClients', [OrderController::class, 'getTodayClients'])->name('getTodayClients');
     Route::get('seller/getTodaySpecificStoreClients', [OrderController::class, 'getTodaySpecificStoreClients'])->name('getTodaySpecificStoreClients');
 
+    //these routes to get today NEW clients
+    Route::get('seller/getTodayNewClients', [OrderController::class, 'getTodayNewClients'])->name('getTodayNewClients');
+    Route::get('seller/getTodaySpecificStoreNewClients', [OrderController::class, 'getTodaySpecificStoreNewClients'])->name('getTodaySpecificStoreNewClients');
+
     //these routes to get total sales
     Route::get('seller/getTotalSales', [OrderController::class, 'getTotalSales'])->name('getTotalSales');
     Route::get('seller/getTotalSalesSpecificStore', [OrderController::class, 'getTotalSalesSpecificStore'])->name('getTotalSalesSpecificStore');
