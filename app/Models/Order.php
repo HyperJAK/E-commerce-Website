@@ -119,7 +119,7 @@ class Order extends Model
 
     public function getOrdersSortedByMonth(){
         $currentYear = \Carbon\Carbon::now()->year;
-        $yearlyOrders = Order::select('total_price', 'cart_id')->whereYear('order_placement_date', $currentYear)->get();
+        $yearlyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereYear('order_placement_date', $currentYear)->get();
 
         //this represents array of arrays where first layer has months and each month has orders
         $ordersByMonth = [];
@@ -158,8 +158,44 @@ class Order extends Model
 
 
     public function getOrdersSortedByDay(){
+            $startDate = \Carbon\Carbon::now()->startOfWeek();
+            $endDate = \Carbon\Carbon::now()->endOfWeek();
 
 
+            $weeklyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')
+                ->whereBetween('order_placement_date', [$startDate, $endDate])
+                ->get();
+
+        //this represents array of arrays where first layer has dayas and each day has orders
+            $ordersByDay = [];
+
+            foreach ($weeklyOrders as $order) {
+                //the cart things are done to check if this order belongs to this seller's store
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                if($cartInfo){
+                    $cart = new Cart();
+                    $cart->cart_id = $cartInfo->cart_id;
+
+                    $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                    foreach ($cartItems as $item){
+                        if ($item->seller_id == Auth::id()) {
+                            $orderDay = Carbon::parse($order->order_placement_date)->day;
+
+                            //here we are initialising the array if its not already done
+                            if (!isset($ordersByDay[$orderDay])) {
+                                $ordersByDay[$orderDay] = [];
+                            }
+                            //and then we put the order in the array of arrays
+                            $ordersByDay[$orderDay][] = $order;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            return $ordersByDay;
     }
 
     public function getTodayNewCLients(){

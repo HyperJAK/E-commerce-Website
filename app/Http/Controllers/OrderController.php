@@ -98,7 +98,9 @@ class OrderController extends Controller
 
 
     public function getOrdersSortedByDay(){
+        $profit = new Order();
 
+        return $profit->getOrdersSortedByDay();
 
     }
 
