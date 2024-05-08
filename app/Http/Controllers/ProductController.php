@@ -326,7 +326,7 @@ class ProductController extends Controller
             'name'=>'required|min:3',
             'description'=>'required|min:3',
             'price'=>'required|numeric',
-           'category' => 'required|exists:categories,name',
+           'category' => 'required',
            'quantity'=>'required|numeric',
            'path1'=>'required|mimes:jpeg,png,jpg,gif|max:10000',
            'path2'=>'required|mimes:jpeg,png,jpg,gif|max:10000',

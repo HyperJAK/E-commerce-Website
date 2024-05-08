@@ -134,7 +134,10 @@ Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('
 
 
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    //routes for dashboards
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
+    Route::get('seller/specificStoreDashboard', [SellerController::class, 'specificStoreDashboard'])->name('specificStoreDashboard');
+
     Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
     Route::get('seller/user-management', [SellerController::class, 'userManagement'])->name('seller-user-management');
     Route::get('seller/tables', [SellerController::class, 'tables'])->name('seller-tables');
@@ -161,6 +164,38 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/editProductView', [SellerController::class, 'editProductView'])->name('view-edit-product');
 
     Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
+
+
+
+    //seller reports functions are here:
+
+    //these routes to get today income
+    Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
+    Route::get('seller/getTodayIncomeSpecificStore', [OrderController::class, 'getTodayIncomeSpecificStore'])->name('getTodayIncomeSpecificStore');
+
+    //these routes to get today clients (general so doesnt have to be new)
+    Route::get('seller/getTodayClients', [OrderController::class, 'getTodayClients'])->name('getTodayClients');
+    Route::get('seller/getTodaySpecificStoreClients', [OrderController::class, 'getTodaySpecificStoreClients'])->name('getTodaySpecificStoreClients');
+
+    //these routes to get today NEW clients
+    Route::get('seller/getTodayNewClients', [OrderController::class, 'getTodayNewClients'])->name('getTodayNewClients');
+    Route::get('seller/getTodaySpecificStoreNewClients', [OrderController::class, 'getTodaySpecificStoreNewClients'])->name('getTodaySpecificStoreNewClients');
+
+    //these routes to get total sales
+    Route::get('seller/getTotalSales', [OrderController::class, 'getTotalSales'])->name('getTotalSales');
+    Route::get('seller/getTotalSalesSpecificStore', [OrderController::class, 'getTotalSalesSpecificStore'])->name('getTotalSalesSpecificStore');
+
+    //these routes to get sorted orders by month
+    Route::get('seller/getOrdersSortedByMonth', [OrderController::class, 'getOrdersSortedByMonth'])->name('getOrdersSortedByMonth');
+    Route::get('seller/getOrdersSpecificStoreSortedByMonth', [OrderController::class, 'getOrdersSpecificStoreSortedByMonth'])->name('getOrdersSpecificStoreSortedByMonth');
+
+    //these routes to get sorted orders by day
+    Route::get('seller/getOrdersSortedByDay', [OrderController::class, 'getOrdersSortedByDay'])->name('getOrdersSortedByDay');
+    Route::get('seller/getOrdersSpecificStoreSortedByDay', [OrderController::class, 'getOrdersSpecificStoreSortedByDay'])->name('getOrdersSpecificStoreSortedByDay');
+
+    //routes for best selling products
+    Route::get('seller/getBestSellingProductsThisMonth', [OrderController::class, 'getBestSellingProductsThisMonth'])->name('getBestSellingProductsThisMonth');
+    Route::get('seller/getSpecificStoreBestSellingProductsThisMonth', [OrderController::class, 'getSpecificStoreBestSellingProductsThisMonth'])->name('getSpecificStoreBestSellingProductsThisMonth');
 
 });
 

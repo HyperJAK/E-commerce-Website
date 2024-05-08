@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -84,6 +85,105 @@ class OrderController extends Controller
 
         return redirect()->route('home');
 
+
+    }
+
+
+    public function getOrdersSortedByMonth(){
+
+        $profit = new Order();
+
+        return $profit->getOrdersSortedByMonth();
+    }
+
+    public function getOrdersSpecificStoreSortedByMonth(Request $request){
+        $profit = new Order();
+
+        return $profit->getOrdersSpecificStoreSortedByMonth($request->store_id);
+
+    }
+
+
+    public function getOrdersSortedByDay(){
+        $profit = new Order();
+
+        return $profit->getOrdersSortedByDay();
+
+    }
+
+    public function getOrdersSpecificStoreSortedByDay(Request $request){
+        $profit = new Order();
+
+        return $profit->getOrdersSpecificStoreSortedByDay($request->store_id);
+
+    }
+
+    public function getTodayIncome(){
+        $profit = new Order();
+
+        return $profit->getTodayIncome();
+
+    }
+
+
+    public function getTodayIncomeSpecificStore(Request $request){
+        $profit = new Order();
+
+        return $profit->getTodayIncomeSpecificStore($request->store_id);
+
+    }
+
+    public function getTodayNewClients(){
+        $clients = new Order();
+
+        return $clients->getTodayNewClients();
+
+    }
+
+    public function getTodaySpecificStoreNewClients(Request $request){
+        $clients = new Order();
+
+        return $clients->getTodaySpecificStoreNewClients($request->store_id);
+    }
+
+    public function getTodayClients(){
+        $clients = new Order();
+
+        return $clients->getTodayClients();
+
+    }
+
+    public function getTodaySpecificStoreClients(Request $request){
+        $clients = new Order();
+
+        return $clients->getTodaySpecificStoreClients($request->store_id);
+
+    }
+
+    public function getTotalSales(){
+        $sales = new Order();
+
+        return $sales->getTotalSales();
+
+    }
+
+    public function getTotalSalesSpecificStore(Request $request){
+        $sales = new Order();
+
+        return $sales->getTotalSalesSpecificStore($request->store_id);
+    }
+
+    public function getBestSellingProductsThisMonth(){
+        $sales = new Order();
+
+        return $sales->getBestSellingProductsThisMonth();
+
+    }
+
+    public function getSpecificStoreBestSellingProductsThisMonth(Request $request){
+        $sales = new Order();
+
+        return $sales->getSpecificStoreBestSellingProductsThisMonth($request->store_id);
 
     }
 }

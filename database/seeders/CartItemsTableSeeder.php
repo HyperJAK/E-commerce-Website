@@ -32,6 +32,7 @@ class CartItemsTableSeeder extends Seeder
                 'quantity' => rand(1, 10), // Sample quantity
                 'price' => rand(10, 100), // Sample price
                 'seller_id'=>$seller_id,
+                'store_id'=>$store_id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

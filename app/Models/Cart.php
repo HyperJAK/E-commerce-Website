@@ -30,6 +30,11 @@ class Cart extends Model
         return $cartItems;
     }
 
+    public function getSpecificSellerCartItems($seller_id){
+        $cartItems = CartItem::where('cart_id', $this->cart_id)->where('seller_id', $seller_id)->get();
+        return $cartItems;
+    }
+
     public function disableCart(){
         $this->status = 1;
         $this->save();
