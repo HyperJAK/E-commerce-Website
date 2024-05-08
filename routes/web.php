@@ -134,7 +134,10 @@ Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('
 
 
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    //routes for dashboards
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
+    Route::get('seller/specificStoreDashboard', [SellerController::class, 'specificStoreDashboard'])->name('specificStoreDashboard');
+
     Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
     Route::get('seller/user-management', [SellerController::class, 'userManagement'])->name('seller-user-management');
     Route::get('seller/tables', [SellerController::class, 'tables'])->name('seller-tables');

@@ -22,6 +22,13 @@ class SellerController extends Controller
         return view('/seller/dashboard/index')->with('dailyOrders', $dailyOrders->getOrdersSortedByDay())->with('monthlyOrders', $dailyOrders->getOrdersSortedByMonth())->with('dailyIncome', $dailyOrders->getTodayIncome())->with('todayClients', $dailyOrders->getTodayClients())->with('todayNewClients', $dailyOrders->getTodayNewClients())->with('totalSales', $dailyOrders->getTotalSales());
     }
 
+    public function specificStoreDashboard(Request $request)
+    {
+        $dailyOrders = new Order();
+
+        return view('/seller/dashboard/specificStoreDashboard')->with('dailyOrders', $dailyOrders->getOrdersSpecificStoreSortedByDay($request->store_id))->with('monthlyOrders', $dailyOrders->getOrdersSpecificStoreSortedByMonth($request->store_id))->with('dailyIncome', $dailyOrders->getTodayIncomeSpecificStore($request->store_id))->with('todayClients', $dailyOrders->getTodaySpecificStoreClients($request->store_id))->with('todayNewClients', $dailyOrders->getTodaySpecificStoreNewClients($request->store_id))->with('totalSales', $dailyOrders->getTotalSalesSpecificStore($request->store_id));
+    }
+
     //This function takes us to the page where we add a store to our seller
     public function createStoreViewRedirect(){
         return view('/seller/functionalities/createStore');
