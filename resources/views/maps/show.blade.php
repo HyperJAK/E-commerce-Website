@@ -16,7 +16,7 @@
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 16,
     center: { lat: 33.83750, lng: 35.53639 },
-    disableDefaultUI: true, 
+    disableDefaultUI: true,
   });
   geocoder = new google.maps.Geocoder();
   infowindow = new google.maps.InfoWindow();
@@ -42,7 +42,7 @@
   marker = new google.maps.Marker({
     position: location,
     map: map,
-    draggable: true, 
+    draggable: true,
   });
 
   google.maps.event.addListener(marker, 'dragend', function() {
@@ -89,7 +89,7 @@
   </script>
   <style>
     #map {
-      height: 100%; 
+      height: 100%;
       width: 100%;
     }
 
@@ -102,6 +102,7 @@
     #floating-panel {
   display: flex;
   flex-direction: column;
+        flex-wrap: nowrap;
   align-items: center;
   position: absolute;
   top: 5px;
@@ -122,6 +123,7 @@
 </head>
 <body>
 <div id="floating-panel">
+    <label for="address">Search an address</label>
     <input id="address" type="text" placeholder="Enter address">
     <button onclick="geocodeAddress()">Search</button>
     <form action="{{ route('savemyLocation') }}" method="POST">
@@ -129,11 +131,12 @@
     <input type="hidden" name="latitude" id="latitude">
     <input type="hidden" name="longitude" id="longitude">
     <button type="submit">Save Location</button>
+        <a type="button" href="{{route('createOrderView')}}" class="btn bg-info text-white">Go back</a>
 </form>
   </div>
-  
+
   <div id="map">
-    
+
 </div>
    <!-- <p>Latitude: <span id="latitude"></span>, Longitude: <span id="longitude"></span></p> -->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDizYBmc_zcbULStgC3Z4UJHf_Pw-k8-dA&libraries=places&callback=initMap" async defer></script>

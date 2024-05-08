@@ -65,7 +65,13 @@
             @csrf
             <button type="submit">Logout</button>
         </form>
+
+
+
     </li>
+        <li>
+            <a href="{{route('seller-dashboard')}}" class="btn btn-outline-dark btn-dark">Open my Dashboard</a>
+        </li>
     @endif
                         </ul>
                     </div>
@@ -219,17 +225,17 @@
 </script>
 <script>
 var botmanWidget = {
-    frameEndpoint: 'viewbot',
+    frameEndpoint: '/viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
     chatServer : 'api/botman',
-    userId:'{{Auth::id()?Auth::id():0}}', 
-    title: 'Icom Bot', 
+    userId:'{{Auth::id()?Auth::id():0}}',
+    title: 'Icom Bot',
     mainColor: '#d5c9ff',
     bubbleBackground: '#ae9afa',
     aboutText: '',
     bubbleAvatarUrl: '',
     desktopHeight:500,
-    desktopWidth:400,    
+    desktopWidth:400,
 };
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>

@@ -15,7 +15,6 @@ class OrdersTableSeeder extends Seeder
     {
         // Get all user IDs for buyers and sellers
         $buyerIds = DB::table('users')->pluck('user_id');
-        $sellerIds = DB::table('users')->pluck('user_id');
         $orderStatuses = DB::table('order_statuses')->pluck('order_status_id');
         $carts = DB::table('carts')->pluck('cart_id');
 
@@ -30,8 +29,8 @@ class OrdersTableSeeder extends Seeder
                 'order_placement_date' => now(), // Current date and time
                 'total_price' => rand(100, 1000), // Sample total price
                 'buyer_id' => $buyerIds->random(),
-                'seller_id' => $sellerIds->random(),
-                'cart_id' => $carts->random()
+                'cart_id' => $carts->random(),
+                'location_id' => 1,
             ];
 
             // Insert order into the database

@@ -66,6 +66,9 @@
             <button type="submit">Logout</button>
         </form>
     </li>
+    <li>
+        <a href="{{route('seller-dashboard')}}" class="btn btn-outline-dark btn-dark">Open my Dashboard</a>
+    </li>
     @endif
                         </ul>
                      </div>
@@ -210,7 +213,7 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif 
+            @endif
             @if (session('status'))
     <div class="alert alert-success">
         {{ session('status') }}
@@ -269,11 +272,11 @@
       </script>
       <script>
 var botmanWidget = {
-    frameEndpoint: 'viewbot',
+    frameEndpoint: '/viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
-    chatServer : 'api/botman', 
+    chatServer : 'api/botman',
     userId:'{{Auth::id()?Auth::id():0}}',
-    title: 'Icom Bot', 
+    title: 'Icom Bot',
     mainColor: '#d5c9ff',
     bubbleBackground: '#ae9afa',
     aboutText: '',

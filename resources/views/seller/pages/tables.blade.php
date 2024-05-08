@@ -92,6 +92,12 @@
                                                         class="text-secondary text-xs font-weight-bold">{{$store->created_at}}</span>
                                                 </td>
                                                 <td class="align-middle">
+                                                    <a href="{{ route('specificStoreDashboard', ['store_id'=>$store->store_id]) }}"
+                                                       class="text-white rounded-3 btn bg-gradient-dark">
+                                                        Open Dashboard
+                                                    </a>
+                                                </td>
+                                                <td class="align-middle">
                                                     <a href="{{ route('view-edit-store', ['store_id'=>$store->store_id]) }}"
                                                        class="text-secondary font-weight-bold text-xs"
                                                        data-toggle="tooltip" data-original-title="Edit user">

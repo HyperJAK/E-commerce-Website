@@ -15,6 +15,8 @@ return new class extends Migration
             $table->bigIncrements('cartItem_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('cart_id');
+            $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('store_id');
             $table->integer('quantity');
             $table->double('price');
 

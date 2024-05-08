@@ -15,7 +15,9 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                                <h4 class="mb-0">$53k</h4>
+                                @isset($dailyIncome)
+                                <h4 class="mb-0">${{number_format($dailyIncome)}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -34,7 +36,10 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                                <h4 class="mb-0">2,300</h4>
+
+                                @isset($todayClients)
+                                <h4 class="mb-0">{{number_format(count($todayClients))}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -53,7 +58,10 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                <h4 class="mb-0">3,462</h4>
+
+                                @isset($todayNewClients)
+                                <h4 class="mb-0">{{number_format(count($todayNewClients))}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -72,7 +80,9 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                <h4 class="mb-0">$103,430</h4>
+                                @isset($totalSales)
+                                <h4 class="mb-0">${{number_format($totalSales)}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -94,8 +104,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 ">Website Views</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
+                            <h6 class="mb-0 ">Daily Sales</h6>
+                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today's
+                                sales. </p>
                             <hr class="dark horizontal">
                             <div class="d-flex ">
                                 <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -114,8 +125,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 "> Daily Sales </h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today
+                            <h6 class="mb-0 "> Monthly Sales </h6>
+                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in this month's
                                 sales. </p>
                             <hr class="dark horizontal">
                             <div class="d-flex ">
@@ -152,7 +163,7 @@
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-lg-6 col-7">
-                                    <h6>Projects</h6>
+                                    <h6>Events</h6>
                                     <p class="text-sm mb-0">
                                         <i class="fa fa-check text-info" aria-hidden="true"></i>
                                         <span class="font-weight-bold ms-1">30 done</span> this month
@@ -184,16 +195,16 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Companies</th>
+                                                Names</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Members</th>
+                                                Participants</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Budget</th>
+                                                Profit</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Completion</th>
+                                                Goal reached</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -485,7 +496,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
-                            <h6>Orders overview</h6>
+                            <h6>Best Selling Products</h6>
                             <p class="text-sm">
                                 <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
                                 <span class="font-weight-bold">24%</span> this month
@@ -493,69 +504,24 @@
                         </div>
                         <div class="card-body p-3">
                             <div class="timeline timeline-one-side">
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-success text-gradient">notifications</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes
-                                        </h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-danger text-gradient">code</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-info text-gradient">shopping_cart</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for
-                                            April</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-warning text-gradient">credit_card</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order
-                                            #4395133</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-primary text-gradient">key</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for
-                                            development</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-dark text-gradient">payments</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
-                                    </div>
-                                </div>
+                                @isset($bestSelling)
+                                    @foreach($bestSelling as $product)
+                                        <div class="timeline-block mb-3">
+                                            <span class="timeline-step">
+                                                <img src="{{ asset($product->path1) }}" alt="product picture" style="width: 100%;">
+                                            </span>
+                                            <div class="timeline-content">
+                                                <h6 class="text-dark text-sm font-weight-bold mb-0">{{$product->name}}
+                                                </h6>
+                                                <div class="d-flex flex-row gap-2"></div>
+                                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${{number_format($product->price)}}
+                                                </p>
+                                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Quantity: {{number_format($product->quantity)}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endisset
                             </div>
                         </div>
                     </div>
@@ -569,6 +535,7 @@
     @push('js')
     <script src="{{ asset('material/assets') }}/js/plugins/chartjs.min.js"></script>
     <script>
+        @isset($dailyOrders)
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
         new Chart(ctx, {
@@ -582,7 +549,7 @@
                     borderRadius: 4,
                     borderSkipped: false,
                     backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: [50, 20, 10, 22, 50, 10, 40],
+                    data: [{{count($dailyOrders[0])}}, {{count($dailyOrders[1])}}, {{count($dailyOrders[2])}}, {{count($dailyOrders[3])}}, {{count($dailyOrders[4])}}, {{count($dailyOrders[5])}}, {{count($dailyOrders[6])}}],
                     maxBarThickness: 6
                 }, ],
             },
@@ -648,16 +615,17 @@
                 },
             },
         });
+        @endisset
 
-
+        @isset($monthlyOrders)
         var ctx2 = document.getElementById("chart-line").getContext("2d");
 
         new Chart(ctx2, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Sales",
                     tension: 0,
                     borderWidth: 0,
                     pointRadius: 5,
@@ -668,7 +636,7 @@
                     borderWidth: 4,
                     backgroundColor: "transparent",
                     fill: true,
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+                    data: [{{count($monthlyOrders[0])}}, {{count($monthlyOrders[1])}}, {{count($monthlyOrders[2])}}, {{count($monthlyOrders[3])}}, {{count($monthlyOrders[4])}}, {{count($monthlyOrders[5])}}, {{count($monthlyOrders[6])}}, {{count($monthlyOrders[7])}}, {{count($monthlyOrders[8])}}, {{count($monthlyOrders[9])}}, {{count($monthlyOrders[10])}}, {{count($monthlyOrders[11])}}],
                     maxBarThickness: 6
 
                 }],
@@ -733,7 +701,9 @@
             },
         });
 
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+        @endisset
+
+        /*var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
 
         new Chart(ctx3, {
             type: "line",
@@ -813,7 +783,9 @@
                     },
                 },
             },
-        });
+        });*/
+
+
 
     </script>
     @endpush
