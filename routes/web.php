@@ -24,7 +24,6 @@ use App\Http\Controllers\AdminStoreController;
 
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\CurrencyConverterController;
-use App\Http\Controllers\MessageController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -285,24 +284,25 @@ Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyer
 //admin routes
 
 
+Route::middleware('auth')->group(function() {
+    Route::get('homeAdmin/{id}', [AdminController::class, 'homeAdmin'])->name('homeAdmin');
+    Route::get('infosAdmin/{id}', [AdminController::class, 'infosAdmin'])->name('infosAdmin');
+    Route::post('updateInfoAdmin/{id}', [AdminController::class, 'UpdateInfoAdmin'])->name('updateInfoAdmin');
+    Route::get('allUsers/{id}', [AdminController::class, 'findallUsers'])->name('allUsers');
 
-Route::get('homeAdmin/{id}',[AdminController::class,'homeAdmin'])->name('homeAdmin');
-Route::get('infosAdmin/{id}',[AdminController::class,'infosAdmin'])->name('infosAdmin');
-Route::post('updateInfoAdmin/{id}',[AdminController::class,'UpdateInfoAdmin'])->name('updateInfoAdmin');
-Route::get('allUsers/{id}',[AdminController::class,'findallUsers'])->name('allUsers');
+    Route::get('updateUser/{id}/{idUser}', [AdminController::class, 'updateUser'])->name('updateUser');
+    Route::post('saveUpdateUser/{id}/{idUser}', [AdminController::class, 'saveUpdateUser'])->name('saveUpdateUser');
 
-Route::get('updateUser/{id}/{idUser}',[AdminController::class,'updateUser'])->name('updateUser');
-Route::post('saveUpdateUser/{id}/{idUser}',[AdminController::class,'saveUpdateUser'])->name('saveUpdateUser');
+    Route::get('deleteUser/{id}/{idUser}', [AdminController::class, 'deleteUser'])->name('deleteUser');
 
-Route::get('deleteUser/{id}/{idUser}',[AdminController::class,'deleteUser'])->name('deleteUser');
-
-Route::get('AllStores/{id}',[AdminStoreController::class,'allStore'])->name('AllStores');
-Route::get('searchStores/{id}',[AdminStoreController::class,'searchStores'])->name('searchStores');
-Route::post('searchStores/{id}',[AdminStoreController::class,'searchByName'])->name('searchStores');
+    Route::get('AllStores/{id}', [AdminStoreController::class, 'allStore'])->name('AllStores');
+    Route::get('searchStores/{id}', [AdminStoreController::class, 'searchStores'])->name('searchStores');
+    Route::post('searchStores/{id}', [AdminStoreController::class, 'searchByName'])->name('searchStores');
 
 
-Route::get('deleteStore/{id}/{idStore}',[AdminStoreController::class,'deleteStore'])->name('deleteStore');
-Route::get('storeActivate/{id}/{idStore}',[AdminStoreController::class,'storeActivate'])->name('storeActivate');
+    Route::get('deleteStore/{id}/{idStore}', [AdminStoreController::class, 'deleteStore'])->name('deleteStore');
+    Route::get('storeActivate/{id}/{idStore}', [AdminStoreController::class, 'storeActivate'])->name('storeActivate');
 
-Route::post('saveActivation/{id}/{idStore}',[AdminStoreController::class,'saveActivation'])->name('saveActivation');
+    Route::post('saveActivation/{id}/{idStore}', [AdminStoreController::class, 'saveActivation'])->name('saveActivation');
 
+});
