@@ -52,6 +52,9 @@
                             <li><a href="#">Events</a></li>
                             <li><a href="#">Today's Deals</a></li>
                             <li><a href="#">Customer Service</a></li>
+
+
+
                             @if(Auth::check() && !is_null(Auth::id()))
                             @if(Auth::user()->is_seller==1)
                             <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li>
@@ -60,6 +63,7 @@
                             @endif
                             @endif
                             @if(Auth::check() && !is_null(Auth::id()))
+
                             <li>
         <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
             @csrf

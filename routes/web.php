@@ -18,9 +18,14 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
+
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AdminStoreController;
+
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\CurrencyConverterController;
 use App\Http\Controllers\MessageController;
+
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
 Route::get('home', [StoreController::class, 'getStoresByCategory'])->name('home')->middleware('auth');
@@ -215,6 +220,7 @@ Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
+
 /*Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');*/
 
@@ -261,4 +267,42 @@ Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('pla
 
 //route to update user selected currency
 Route::post('user/updateCurrency',[UserController::class,'updatePreferredCurrency'])->name('update-preferred-currency');
+
+//messages seller routes
+Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
+Route::get('chat/{sellerid}/{buyerid}',[MessageController::class,'chat'])->name('chat');
+Route::post('selleraddmsg',[MessageController::class,'selleraddmsg'])->name('selleraddmsg');
+
+
+//messages buyer routes
+Route::get('messagesbuyer/{id}',[MessageController::class,'indexBuyer'])->name('messagesBuyer');
+Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer'])->name('chatBuyer');
+Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
+
+
+
+
+//admin routes
+
+
+
+Route::get('homeAdmin/{id}',[AdminController::class,'homeAdmin'])->name('homeAdmin');
+Route::get('infosAdmin/{id}',[AdminController::class,'infosAdmin'])->name('infosAdmin');
+Route::post('updateInfoAdmin/{id}',[AdminController::class,'UpdateInfoAdmin'])->name('updateInfoAdmin');
+Route::get('allUsers/{id}',[AdminController::class,'findallUsers'])->name('allUsers');
+
+Route::get('updateUser/{id}/{idUser}',[AdminController::class,'updateUser'])->name('updateUser');
+Route::post('saveUpdateUser/{id}/{idUser}',[AdminController::class,'saveUpdateUser'])->name('saveUpdateUser');
+
+Route::get('deleteUser/{id}/{idUser}',[AdminController::class,'deleteUser'])->name('deleteUser');
+
+Route::get('AllStores/{id}',[AdminStoreController::class,'allStore'])->name('AllStores');
+Route::get('searchStores/{id}',[AdminStoreController::class,'searchStores'])->name('searchStores');
+Route::post('searchStores/{id}',[AdminStoreController::class,'searchByName'])->name('searchStores');
+
+
+Route::get('deleteStore/{id}/{idStore}',[AdminStoreController::class,'deleteStore'])->name('deleteStore');
+Route::get('storeActivate/{id}/{idStore}',[AdminStoreController::class,'storeActivate'])->name('storeActivate');
+
+Route::post('saveActivation/{id}/{idStore}',[AdminStoreController::class,'saveActivation'])->name('saveActivation');
 
