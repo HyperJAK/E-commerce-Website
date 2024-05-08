@@ -208,11 +208,15 @@ class Order extends Model
             $startDate = \Carbon\Carbon::now()->startOfWeek();
             $endDate = \Carbon\Carbon::now()->endOfWeek();
 
-
             $weeklyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereBetween('order_placement_date', [$startDate, $endDate])->get();
 
         //this represents array of arrays where first layer has dayas and each day has orders
             $ordersByDay = [];
+
+        //here we are initialising the array if its not already done
+        for ($i = 0; $i < 7; $i++) {
+            $ordersByDay[$i] = [];
+        }
 
             foreach ($weeklyOrders as $order) {
                 //the cart things are done to check if this order belongs to this seller's store
@@ -228,18 +232,57 @@ class Order extends Model
                         if ($item->seller_id == Auth::id()) {
                             $orderDay = Carbon::parse($order->order_placement_date)->day;
 
-                            //here we are initialising the array if its not already done
-                            if (!isset($ordersByDay[$orderDay])) {
-                                $ordersByDay[$orderDay] = [];
+                            //here we are mapping each order to the corresponding day of the week monday to sunday
+                            switch ($orderDay){
+                                case $startDate->day:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[0][] = $order;
+                                }
+                                break;
+
+                                case $startDate->day + 1:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[1][] = $order;
+                                }
+                                    break;
+
+                                case $startDate->day + 2:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[2][] = $order;
+                                }
+                                    break;
+
+                                case $startDate->day + 3:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[3][] = $order;
+                                }
+                                    break;
+
+                                case $startDate->day + 4:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[4][] = $order;
+                                }
+                                    break;
+
+                                case $startDate->day + 5:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[5][] = $order;
+                                }
+                                    break;
+
+                                case $startDate->day + 6:{
+                                    //and then we put the order in the array of arrays
+                                    $ordersByDay[6][] = $order;
+                                }
+                                    break;
                             }
-                            //and then we put the order in the array of arrays
-                            $ordersByDay[$orderDay][] = $order;
 
                             break;
                         }
                     }
                 }
             }
+
             return $ordersByDay;
     }
 
@@ -498,7 +541,7 @@ class Order extends Model
 
                 foreach ($cartItems as $item){
                     //next we calculate price only where storeId is equal to cartItem storeid
-                    $totalProfit += $item->price;
+                    $totalProfit += ($item->price * $item->quantity);
                 }
             }
 

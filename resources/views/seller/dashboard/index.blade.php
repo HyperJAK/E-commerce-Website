@@ -570,6 +570,7 @@
     @push('js')
     <script src="{{ asset('material/assets') }}/js/plugins/chartjs.min.js"></script>
     <script>
+        @isset($dailyOrders)
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
         new Chart(ctx, {
@@ -583,7 +584,7 @@
                     borderRadius: 4,
                     borderSkipped: false,
                     backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: [50, 20, 10, 22, 50, 10, 40],
+                    data: [{{count($dailyOrders[0])}}, {{count($dailyOrders[1])}}, {{count($dailyOrders[2])}}, {{count($dailyOrders[3])}}, {{count($dailyOrders[4])}}, {{count($dailyOrders[5])}}, {{count($dailyOrders[6])}}],
                     maxBarThickness: 6
                 }, ],
             },
@@ -649,8 +650,9 @@
                 },
             },
         });
+        @endisset
 
-
+        @isset($monthlyOrders)
         var ctx2 = document.getElementById("chart-line").getContext("2d");
 
         new Chart(ctx2, {
@@ -734,7 +736,9 @@
             },
         });
 
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+        @endisset
+
+        /*var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
 
         new Chart(ctx3, {
             type: "line",
@@ -814,7 +818,9 @@
                     },
                 },
             },
-        });
+        });*/
+
+
 
     </script>
     @endpush

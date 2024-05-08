@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CategoryForStores;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
@@ -16,7 +17,10 @@ class SellerController extends Controller
 {
     public function index()
     {
-        return view('/seller/dashboard/index');
+
+        $dailyOrders = new Order();
+
+        return view('/seller/dashboard/index')->with('dailyOrders', $dailyOrders->getOrdersSortedByDay())->with('monthlyOrders', $dailyOrders->getOrdersSortedByMonth());
     }
 
     //This function takes us to the page where we add a store to our seller
