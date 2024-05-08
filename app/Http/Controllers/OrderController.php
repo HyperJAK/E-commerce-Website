@@ -96,6 +96,13 @@ class OrderController extends Controller
         return $profit->getOrdersSortedByMonth();
     }
 
+    public function getOrdersSpecificStoreSortedByMonth(Request $request){
+        $profit = new Order();
+
+        return $profit->getOrdersSpecificStoreSortedByMonth($request->store_id);
+
+    }
+
 
     public function getOrdersSortedByDay(){
         $profit = new Order();

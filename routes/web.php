@@ -165,19 +165,24 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
 
 
     //seller reports functions are here:
+
+    //these routes to get today income
     Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
     Route::get('seller/getTodayIncomeSpecificStore', [OrderController::class, 'getTodayIncomeSpecificStore'])->name('getTodayIncomeSpecificStore');
 
+    //these routes to get today clients (general so doesnt have to be new)
     Route::get('seller/getTodayClients', [OrderController::class, 'getTodayClients'])->name('getTodayClients');
     Route::get('seller/getTodaySpecificStoreClients', [OrderController::class, 'getTodaySpecificStoreClients'])->name('getTodaySpecificStoreClients');
 
+    //these routes to get total sales
     Route::get('seller/getTotalSales', [OrderController::class, 'getTotalSales'])->name('getTotalSales');
     Route::get('seller/getTotalSalesSpecificStore', [OrderController::class, 'getTotalSalesSpecificStore'])->name('getTotalSalesSpecificStore');
 
+    //these routes to get sorted orders by month
     Route::get('seller/getOrdersSortedByMonth', [OrderController::class, 'getOrdersSortedByMonth'])->name('getOrdersSortedByMonth');
-    //Route::get('seller/getOrdersSortedByMonth', [OrderController::class, 'getOrdersSortedByMonth'])->name('getOrdersSortedByMonth');
+    Route::get('seller/getOrdersSpecificStoreSortedByMonth', [OrderController::class, 'getOrdersSpecificStoreSortedByMonth'])->name('getOrdersSpecificStoreSortedByMonth');
 
-
+    //these routes to get sorted orders by day
     Route::get('seller/getOrdersSortedByDay', [OrderController::class, 'getOrdersSortedByDay'])->name('getOrdersSortedByDay');
     Route::get('seller/getOrdersSpecificStoreSortedByDay', [OrderController::class, 'getOrdersSpecificStoreSortedByDay'])->name('getOrdersSpecificStoreSortedByDay');
 

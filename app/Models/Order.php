@@ -155,6 +155,53 @@ class Order extends Model
         return $ordersByMonth;
     }
 
+    public function getOrdersSpecificStoreSortedByMonth($storeId){
+
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()) {
+
+            $currentYear = \Carbon\Carbon::now()->year;
+            $yearlyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereYear('order_placement_date', $currentYear)->get();
+
+            //this represents array of arrays where first layer has dayas and each day has orders
+            $ordersByMonth = [];
+
+            foreach ($yearlyOrders as $order) {
+                //the cart things are done to check if this order belongs to this seller's store
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                if ($cartInfo) {
+                    $cart = new Cart();
+                    $cart->cart_id = $cartInfo->cart_id;
+
+                    $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                    foreach ($cartItems as $item) {
+                        if ($item->seller_id == Auth::id() && $item->store_id == $storeId) {
+                            $orderMonth = Carbon::parse($order->order_placement_date)->month;
+
+                            //here we are initialising the array if its not already done
+                            if (!isset($ordersByMonth[$orderMonth])) {
+                                $ordersByMonth[$orderMonth] = [];
+                            }
+
+                            //and then we put the order in the array of arrays
+                            $ordersByMonth[$orderMonth][] = $order;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            return $ordersByMonth;
+        }
+        else{
+            return null;
+        }
+    }
+
 
 
     public function getOrdersSortedByDay(){
