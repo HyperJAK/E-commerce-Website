@@ -198,6 +198,54 @@ class Order extends Model
             return $ordersByDay;
     }
 
+    public function getOrdersSpecificStoreSortedByDay($storeId){
+
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()) {
+            $startDate = \Carbon\Carbon::now()->startOfWeek();
+            $endDate = \Carbon\Carbon::now()->endOfWeek();
+
+
+            $weeklyOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereBetween('order_placement_date', [$startDate, $endDate])->get();
+
+            //this represents array of arrays where first layer has dayas and each day has orders
+            $ordersByDay = [];
+
+            foreach ($weeklyOrders as $order) {
+                //the cart things are done to check if this order belongs to this seller's store
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                if ($cartInfo) {
+                    $cart = new Cart();
+                    $cart->cart_id = $cartInfo->cart_id;
+
+                    $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                    foreach ($cartItems as $item) {
+                        if ($item->seller_id == Auth::id() && $item->store_id == $storeId) {
+                            $orderDay = Carbon::parse($order->order_placement_date)->day;
+
+                            //here we are initialising the array if its not already done
+                            if (!isset($ordersByDay[$orderDay])) {
+                                $ordersByDay[$orderDay] = [];
+                            }
+                            //and then we put the order in the array of arrays
+                            $ordersByDay[$orderDay][] = $order;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            return $ordersByDay;
+        }
+        else{
+            return null;
+        }
+    }
+
     public function getTodayNewCLients(){
 
 
