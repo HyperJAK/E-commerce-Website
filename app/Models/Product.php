@@ -32,4 +32,9 @@ class Product extends Model
     public function getUserStatus($user_id){
         return $this->getWish()->where('user_id',$user_id)->get();
        }
+
+   public function subtractQuantity($nb){
+    $this->quantity -= $nb;
+    $this->save();
+   }
 }

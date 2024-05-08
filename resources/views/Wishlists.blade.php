@@ -18,15 +18,15 @@
                                     </div>
                                 </div>
                                 <div class="col" style="text-align:center;">
-                                    <h4 class="shirt_text"><a href="{{route('getProd',['id'=>$obj->product_id])}}">{{ $obj->product_name }}</a></h4> 
+                                    <h4 class="shirt_text"><a href="{{route('getProd',['id'=>$obj->product_id])}}">{{ $obj->product_name }}</a></h4>
                                     <h4>Wished on: {{$obj->created_at}}</h4>
                                 </div>
-                                <div class="col-lg-2 col-sm-2"> 
-                                <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Remove from Wishlist ❤</button>
-                    </form>
+                                <div class="col-lg-2 col-sm-2">
+                                    <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Remove from Wishlist ❤</button>
+                                    </form>
                                 </div>
                             </div>
                         @endforeach

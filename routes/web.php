@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
@@ -17,8 +18,13 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
+
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminStoreController;
+
+use App\Http\Controllers\MapsController;
+use App\Http\Controllers\CurrencyConverterController;
+use App\Http\Controllers\MessageController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -77,14 +83,6 @@ Route::get('stores/{id}/getCreator', [StoreController::class, 'getStoreCreator']
 Route::get('SortStoresByCategory/{category_id}', [StoreController::class, 'SortStoresByCategory'])->name('SortStoresByCategory');
 
 
-
-//Orders routes
-Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
-
-
-
-
-
 //Sign up routes
 Route::get('/register', [UserController::class, 'showSignUpForm'])->name('register');
 Route::get('/signup', [UserController::class, 'showSignUpForm'])->name('signup');
@@ -140,22 +138,11 @@ Route::get('/password/reset/{token}', [UserController::class, 'showResetPassword
 Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-
 Route::middleware(['auth'/*, 'admin'*/])->group(function () {
-    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('admin/user-profile', [AdminController::class, 'userProfile'])->name('user-profile');
-    Route::get('admin/user-management', [AdminController::class, 'userManagement'])->name('user-management');
-    Route::get('admin/tables', [AdminController::class, 'tables'])->name('tables');
-    Route::get('admin/billing', [AdminController::class, 'billing'])->name('billing');
-    Route::get('admin/notifications', [AdminController::class, 'notifications'])->name('notifications');
-    Route::get('admin/profile', [AdminController::class, 'profile'])->name('profile');
-    Route::get('admin/static-sign-up', [AdminController::class, 'staticSignUp'])->name('static-sign-up');
-    Route::get('admin/static-sign-in', [AdminController::class, 'staticSignIn'])->name('static-sign-in');
-});
-
-
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+    //routes for dashboards
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
+    Route::get('seller/specificStoreDashboard', [SellerController::class, 'specificStoreDashboard'])->name('specificStoreDashboard');
+
     Route::get('seller/user-profile', [SellerController::class, 'userProfile'])->name('seller-user-profile');
     Route::get('seller/user-management', [SellerController::class, 'userManagement'])->name('seller-user-management');
     Route::get('seller/tables', [SellerController::class, 'tables'])->name('seller-tables');
@@ -183,6 +170,38 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
 
     Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
+
+
+    //seller reports functions are here:
+
+    //these routes to get today income
+    Route::get('seller/getTodayIncome', [OrderController::class, 'getTodayIncome'])->name('getTodayIncome');
+    Route::get('seller/getTodayIncomeSpecificStore', [OrderController::class, 'getTodayIncomeSpecificStore'])->name('getTodayIncomeSpecificStore');
+
+    //these routes to get today clients (general so doesnt have to be new)
+    Route::get('seller/getTodayClients', [OrderController::class, 'getTodayClients'])->name('getTodayClients');
+    Route::get('seller/getTodaySpecificStoreClients', [OrderController::class, 'getTodaySpecificStoreClients'])->name('getTodaySpecificStoreClients');
+
+    //these routes to get today NEW clients
+    Route::get('seller/getTodayNewClients', [OrderController::class, 'getTodayNewClients'])->name('getTodayNewClients');
+    Route::get('seller/getTodaySpecificStoreNewClients', [OrderController::class, 'getTodaySpecificStoreNewClients'])->name('getTodaySpecificStoreNewClients');
+
+    //these routes to get total sales
+    Route::get('seller/getTotalSales', [OrderController::class, 'getTotalSales'])->name('getTotalSales');
+    Route::get('seller/getTotalSalesSpecificStore', [OrderController::class, 'getTotalSalesSpecificStore'])->name('getTotalSalesSpecificStore');
+
+    //these routes to get sorted orders by month
+    Route::get('seller/getOrdersSortedByMonth', [OrderController::class, 'getOrdersSortedByMonth'])->name('getOrdersSortedByMonth');
+    Route::get('seller/getOrdersSpecificStoreSortedByMonth', [OrderController::class, 'getOrdersSpecificStoreSortedByMonth'])->name('getOrdersSpecificStoreSortedByMonth');
+
+    //these routes to get sorted orders by day
+    Route::get('seller/getOrdersSortedByDay', [OrderController::class, 'getOrdersSortedByDay'])->name('getOrdersSortedByDay');
+    Route::get('seller/getOrdersSpecificStoreSortedByDay', [OrderController::class, 'getOrdersSpecificStoreSortedByDay'])->name('getOrdersSpecificStoreSortedByDay');
+
+    //routes for best selling products
+    Route::get('seller/getBestSellingProductsThisMonth', [OrderController::class, 'getBestSellingProductsThisMonth'])->name('getBestSellingProductsThisMonth');
+    Route::get('seller/getSpecificStoreBestSellingProductsThisMonth', [OrderController::class, 'getSpecificStoreBestSellingProductsThisMonth'])->name('getSpecificStoreBestSellingProductsThisMonth');
+
 });
 
 
@@ -202,8 +221,52 @@ Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->nam
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
 
+/*Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');*/
 
 
+Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
+Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
+
+
+Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
+Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
+Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
+
+
+Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
+
+
+
+//messages seller routes
+Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
+Route::get('chat/{sellerid}/{buyerid}',[MessageController::class,'chat'])->name('chat');
+Route::post('selleraddmsg',[MessageController::class,'selleraddmsg'])->name('selleraddmsg');
+
+
+//messages buyer routes
+Route::get('messagesbuyer/{id}',[MessageController::class,'indexBuyer'])->name('messagesBuyer');
+Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer'])->name('chatBuyer');
+Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
+
+
+Route::get('viewbot', [BotmanController::class, 'Botmanview']);
+
+
+//Orders routes
+Route::get('/order/create', [OrderController::class, 'createOrderView'])->name('createOrderView');
+
+//Route to place an order for user from his cart
+Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('place-order');
+
+//route to update user selected currency
+Route::post('user/updateCurrency',[UserController::class,'updatePreferredCurrency'])->name('update-preferred-currency');
 
 //messages seller routes
 Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
@@ -242,5 +305,4 @@ Route::get('deleteStore/{id}/{idStore}',[AdminStoreController::class,'deleteStor
 Route::get('storeActivate/{id}/{idStore}',[AdminStoreController::class,'storeActivate'])->name('storeActivate');
 
 Route::post('saveActivation/{id}/{idStore}',[AdminStoreController::class,'saveActivation'])->name('saveActivation');
-
 

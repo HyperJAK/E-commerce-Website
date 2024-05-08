@@ -47,11 +47,13 @@ class PaymentController extends Controller
         // } catch (\Exception $e) {
         //     return response()->json(['error' => $e->getMessage()], 500);
         // }
-        
+
     }
 
     public function paymentSuccess(Request $request)
     {
+
+
         // return 'payment success';
         return view('payValid');
     }
