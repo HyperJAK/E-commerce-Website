@@ -91,7 +91,9 @@ class OrderController extends Controller
 
     public function getOrdersSortedByMonth(){
 
+        $profit = new Order();
 
+        return $profit->getOrdersSortedByMonth();
     }
 
 

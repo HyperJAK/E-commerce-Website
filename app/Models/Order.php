@@ -118,9 +118,43 @@ class Order extends Model
     }
 
     public function getOrdersSortedByMonth(){
+        $currentYear = \Carbon\Carbon::now()->year;
+        $yearlyOrders = Order::select('total_price', 'cart_id')->whereYear('order_placement_date', $currentYear)->get();
 
+        //this represents array of arrays where first layer has months and each month has orders
+        $ordersByMonth = [];
 
+        foreach ($yearlyOrders as $order) {
+
+            //the cart things are done to check if this order belongs to this seller's store
+            $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+            if($cartInfo){
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+                    if ($item->seller_id == Auth::id()) {
+                        $orderMonth = Carbon::parse($order->order_placement_date)->month;
+
+                        //here we are initialising the array if its not already done
+                        if (!isset($ordersByMonth[$orderMonth])) {
+                            $ordersByMonth[$orderMonth] = [];
+                        }
+
+                        //and then we put the order in the array of arrays
+                        $ordersByMonth[$orderMonth][] = $order;
+
+                        break;
+                    }
+                }
+            }
+        }
+        return $ordersByMonth;
     }
+
 
 
     public function getOrdersSortedByDay(){
