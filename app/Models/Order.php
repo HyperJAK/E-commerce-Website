@@ -73,7 +73,11 @@ class Order extends Model
 
         }
 
-        return $totalTodayProfit;
+        //We are basically doing this to return a value that is close to what we want and only 2 digits so instead opf writing: 50000 we write 50k
+        $roundedProfit = ceil($totalTodayProfit);
+        $firstTwoDigits = substr(strval($roundedProfit), 0, 2);
+
+        return $firstTwoDigits;
 
     }
 

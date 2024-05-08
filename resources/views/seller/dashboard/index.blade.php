@@ -15,7 +15,9 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                                <h4 class="mb-0">$53k</h4>
+                                @isset($dailyIncome)
+                                <h4 class="mb-0">${{$dailyIncome}}k</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
