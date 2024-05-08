@@ -193,6 +193,10 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/getOrdersSortedByDay', [OrderController::class, 'getOrdersSortedByDay'])->name('getOrdersSortedByDay');
     Route::get('seller/getOrdersSpecificStoreSortedByDay', [OrderController::class, 'getOrdersSpecificStoreSortedByDay'])->name('getOrdersSpecificStoreSortedByDay');
 
+    //routes for best selling products
+    Route::get('seller/getBestSellingProductsThisMonth', [OrderController::class, 'getBestSellingProductsThisMonth'])->name('getBestSellingProductsThisMonth');
+    Route::get('seller/getSpecificStoreBestSellingProductsThisMonth', [OrderController::class, 'getSpecificStoreBestSellingProductsThisMonth'])->name('getSpecificStoreBestSellingProductsThisMonth');
+
 });
 
 

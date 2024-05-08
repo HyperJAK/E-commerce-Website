@@ -774,6 +774,117 @@ class Order extends Model
 
     public function getBestSellingProductsThisMonth(){
 
+        $currentMonth = \Carbon\Carbon::now()->month;
+        $thisMonthOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereMonth('order_placement_date', $currentMonth)->get();
+
+        //this represents array of arrays where first layer has months and each month has orders
+        $bestSelling = new collection();
+
+
+
+        foreach ($thisMonthOrders as $order) {
+
+            //the cart things are done to check if this order belongs to this seller's store
+            $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+            if($cartInfo){
+                $cart = new Cart();
+                $cart->cart_id = $cartInfo->cart_id;
+
+                $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                foreach ($cartItems as $item){
+                    if ($item->seller_id == Auth::id()) {
+                        if($bestSelling->contains($item)){
+                            $key = $bestSelling->search($item);
+
+                            $bestSelling[$key]->quantity += $item->quantity;
+                        }
+                        else{
+                            $bestSelling->push($item);
+                        }
+                    }
+                }
+            }
+        }
+
+        $sortedBestSelling = $bestSelling->sortByDesc('quantity');
+        $top10Items = $sortedBestSelling->take(10);
+
+        //this is made to get the actual data of the products instead of cartItem
+        $finalProducts = new collection();
+        foreach ($top10Items as $item){
+
+            $product = Product::where('product_id', $item->product_id)->first();
+
+            if(!$finalProducts->contains($product)){
+                $finalProducts[] = $product;
+            }
+        }
+
+        return $finalProducts->reverse();
+
+    }
+
+    public function getSpecificStoreBestSellingProductsThisMonth($storeId){
+
+        //first of all we need to check if this store belongs truly to the signed in user
+        $storeInfo = Store::select('user_id')->where('store_id', $storeId)->first();
+
+        if($storeInfo->user_id == Auth::id()){
+            $currentMonth = \Carbon\Carbon::now()->month;
+            $thisMonthOrders = Order::select('total_price', 'cart_id', 'order_placement_date')->whereMonth('order_placement_date', $currentMonth)->get();
+
+            //this represents array of arrays where first layer has months and each month has orders
+            $bestSelling = new collection();
+
+
+
+            foreach ($thisMonthOrders as $order) {
+
+                //the cart things are done to check if this order belongs to this seller's store
+                $cartInfo = Cart::where('cart_id', $order->cart_id)->first();
+
+                if($cartInfo){
+                    $cart = new Cart();
+                    $cart->cart_id = $cartInfo->cart_id;
+
+                    $cartItems = $cart->getSpecificSellerCartItems(Auth::id());
+
+                    foreach ($cartItems as $item){
+                        if ($item->seller_id == Auth::id() && $item->store_id == $storeId) {
+                            if($bestSelling->contains($item)){
+                                $key = $bestSelling->search($item);
+
+                                $bestSelling[$key]->quantity += $item->quantity;
+                            }
+                            else{
+                                $bestSelling->push($item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            $sortedBestSelling = $bestSelling->sortByDesc('quantity');
+            $top10Items = $sortedBestSelling->take(10);
+
+            //this is made to get the actual data of the products instead of cartItem
+            $finalProducts = new collection();
+            foreach ($top10Items as $item){
+
+                $product = Product::where('product_id', $item->product_id)->first();
+
+                if(!$finalProducts->contains($product)){
+                    $finalProducts[] = $product;
+                }
+            }
+
+            return $finalProducts->reverse();
+        }
+        else{
+            return null;
+        }
 
     }
 }

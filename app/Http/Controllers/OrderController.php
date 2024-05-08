@@ -174,7 +174,16 @@ class OrderController extends Controller
     }
 
     public function getBestSellingProductsThisMonth(){
+        $sales = new Order();
 
+        return $sales->getBestSellingProductsThisMonth();
+
+    }
+
+    public function getSpecificStoreBestSellingProductsThisMonth(Request $request){
+        $sales = new Order();
+
+        return $sales->getSpecificStoreBestSellingProductsThisMonth($request->store_id);
 
     }
 }
