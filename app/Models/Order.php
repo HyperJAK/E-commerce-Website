@@ -124,6 +124,11 @@ class Order extends Model
         //this represents array of arrays where first layer has months and each month has orders
         $ordersByMonth = [];
 
+        //here we are initialising the array if its not already done
+        for ($i = 0; $i < 12; $i++) {
+            $ordersByMonth[$i] = [];
+        }
+
         foreach ($yearlyOrders as $order) {
 
             //the cart things are done to check if this order belongs to this seller's store
@@ -139,13 +144,80 @@ class Order extends Model
                     if ($item->seller_id == Auth::id()) {
                         $orderMonth = Carbon::parse($order->order_placement_date)->month;
 
-                        //here we are initialising the array if its not already done
-                        if (!isset($ordersByMonth[$orderMonth])) {
-                            $ordersByMonth[$orderMonth] = [];
-                        }
+                        //here we are mapping each order to the corresponding day of the week monday to sunday
+                        switch ($orderMonth){
+                            case 1:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[0][] = $order;
+                            }
+                                break;
 
-                        //and then we put the order in the array of arrays
-                        $ordersByMonth[$orderMonth][] = $order;
+                            case 2:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[1][] = $order;
+                            }
+                                break;
+
+                            case 3:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[2][] = $order;
+                            }
+                                break;
+
+                            case 4:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[3][] = $order;
+                            }
+                                break;
+
+                            case 5:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[4][] = $order;
+                            }
+                                break;
+
+                            case 6:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[5][] = $order;
+                            }
+                                break;
+
+                            case 7:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[6][] = $order;
+                            }
+                                break;
+
+                            case 8:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[7][] = $order;
+                            }
+                                break;
+
+                            case 9:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[8][] = $order;
+                            }
+                                break;
+
+                            case 10:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[9][] = $order;
+                            }
+                                break;
+
+                            case 11:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[10][] = $order;
+                            }
+                                break;
+
+                            case 12:{
+                                //and then we put the order in the array of arrays
+                                $ordersByMonth[11][] = $order;
+                            }
+                                break;
+                        }
 
                         break;
                     }

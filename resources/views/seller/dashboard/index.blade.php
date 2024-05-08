@@ -658,9 +658,9 @@
         new Chart(ctx2, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Sales",
                     tension: 0,
                     borderWidth: 0,
                     pointRadius: 5,
@@ -671,7 +671,7 @@
                     borderWidth: 4,
                     backgroundColor: "transparent",
                     fill: true,
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+                    data: [{{count($monthlyOrders[0])}}, {{count($monthlyOrders[1])}}, {{count($monthlyOrders[2])}}, {{count($monthlyOrders[3])}}, {{count($monthlyOrders[4])}}, {{count($monthlyOrders[5])}}, {{count($monthlyOrders[6])}}, {{count($monthlyOrders[7])}}, {{count($monthlyOrders[8])}}, {{count($monthlyOrders[9])}}, {{count($monthlyOrders[10])}}, {{count($monthlyOrders[11])}}],
                     maxBarThickness: 6
 
                 }],
