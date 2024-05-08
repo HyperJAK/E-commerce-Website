@@ -17,7 +17,6 @@ class SellerController extends Controller
 {
     public function index()
     {
-
         $dailyOrders = new Order();
 
         return view('/seller/dashboard/index')->with('dailyOrders', $dailyOrders->getOrdersSortedByDay())->with('monthlyOrders', $dailyOrders->getOrdersSortedByMonth());
