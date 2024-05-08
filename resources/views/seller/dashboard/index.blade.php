@@ -16,7 +16,7 @@
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Money</p>
                                 @isset($dailyIncome)
-                                <h4 class="mb-0">${{$dailyIncome}}k</h4>
+                                <h4 class="mb-0">${{number_format($dailyIncome)}}</h4>
                                 @endisset
                             </div>
                         </div>
@@ -36,7 +36,10 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                                <h4 class="mb-0">2,300</h4>
+
+                                @isset($todayClients)
+                                <h4 class="mb-0">{{number_format(count($todayClients))}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -55,7 +58,10 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                <h4 class="mb-0">3,462</h4>
+
+                                @isset($todayNewClients)
+                                <h4 class="mb-0">{{number_format(count($todayNewClients))}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -74,7 +80,9 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                <h4 class="mb-0">$103,430</h4>
+                                @isset($totalSales)
+                                <h4 class="mb-0">${{number_format($totalSales)}}</h4>
+                                @endisset
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">

@@ -19,7 +19,7 @@ class SellerController extends Controller
     {
         $dailyOrders = new Order();
 
-        return view('/seller/dashboard/index')->with('dailyOrders', $dailyOrders->getOrdersSortedByDay())->with('monthlyOrders', $dailyOrders->getOrdersSortedByMonth())->with('dailyIncome', $dailyOrders->getTodayIncome());
+        return view('/seller/dashboard/index')->with('dailyOrders', $dailyOrders->getOrdersSortedByDay())->with('monthlyOrders', $dailyOrders->getOrdersSortedByMonth())->with('dailyIncome', $dailyOrders->getTodayIncome())->with('todayClients', $dailyOrders->getTodayClients())->with('todayNewClients', $dailyOrders->getTodayNewClients())->with('totalSales', $dailyOrders->getTotalSales());
     }
 
     //This function takes us to the page where we add a store to our seller
