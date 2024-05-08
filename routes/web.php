@@ -227,6 +227,14 @@ Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
 
 
+Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
+Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
+
+
+Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
+Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
+
+
 
 
 
