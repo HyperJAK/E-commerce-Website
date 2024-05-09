@@ -9,7 +9,7 @@
           @isset($categories)
           @foreach($categories as $categoryId => $category)
 
-                  <div id="storeCarousel" class="carousel slide" data-ride="carousel">
+                  <div id="storeCarousel{{$category['category']->category_id}}" style="margin: 2% auto 5%;width: 90vw;" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
                           @php
                           $index = 0;
@@ -44,10 +44,10 @@
                               @endphp
                           @endforeach
                       </div>
-                      <a class="carousel-control-prev" href="{{ '#' . 'carousel-slide_' . $category['category']->category_id }}" role="button" data-slide="prev">
+                      <a class="carousel-control-prev" style="width: 35px;height: 35px;top:50%;background: var(--maincolor);opacity: 1;font-size: 20px;color: #ffffff;border-radius: 100px;" href="{{ '#' . 'storeCarousel' . $category['category']->category_id }}" role="button" data-slide="prev">
                           <i class="fa fa-angle-left"></i>
                       </a>
-                      <a class="carousel-control-next" href="{{ '#' . 'carousel-slide_' . $category['category']->category_id }}" role="button" data-slide="next">
+                      <a class="carousel-control-next" style="width: 35px;height: 35px;top:50%;background: var(--maincolor);opacity: 1;font-size: 20px;color: #ffffff;border-radius: 100px;" href="{{ '#' . 'storeCarousel' . $category['category']->category_id }}" role="button" data-slide="next">
                           <i class="fa fa-angle-right"></i>
                       </a>
                   </div>
