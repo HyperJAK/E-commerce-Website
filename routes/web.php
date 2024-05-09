@@ -32,7 +32,7 @@ Route::get('index', [StoreController::class, 'getIndex'])->name('index');
 Route::get('/',[StoreController::class,'getStoresByCategory'])->name('/');
 
 //Products routes
-Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
+
 Route::get('getAllProd',[ProductController::class,'getAllProd']);
 Route::get('getProdName/{name}',[ProductController::class,'getProdName']);
 Route::get('getProdCategory/{category_id}',[ProductController::class,'getProdCategory']);
@@ -45,9 +45,20 @@ Route::get('getByStoreCat',[ProductController::class,'getProdSmallStoreCat'])->n
 Route::get('prodSearch',[ProductController::class,'getProdSmallSearch'])->name('prodSearch');
 Route::get('prodSearchStore',[ProductController::class,'getProdSmallSearchStore'])->name('prodSearchStore');
 
+Route::middleware('regular_user')->group(function() {
+Route::get('getProd/{id}',[ProductController::class,'getProd'])->name('getProd');
 
+Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist');
+Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
+
+Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
+Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
+Route::get('getActiveCart/{buyer_id}',[CartController::class,'getActiveCart'])->name('getActiveCart');
+Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
+
+});
 //Manage products routes
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+Route::middleware(['is_seller'])->group(function () {
     Route::post('AddProd',[ProductController::class,'AddProd'])->name('seller-add-product');
     Route::post('EditProd',[ProductController::class,'EditProd'])->name('seller-edit-product');
     Route::delete('DeleteProd/{prod_id}',[ProductController::class,'DeleteProd'])->name('seller-delete-product');
@@ -59,13 +70,7 @@ Route::get('getProdSmallStore/{store_id}',[ProductController::class,'getProdSmal
 Route::get('getProdSmallSearch/{search}',[ProductController::class,'getProdSmallSearch']);*/
 
 
-Route::get('getWishlist/{user_id}',[WishlistController::class,'getWishlist'])->name('getWishlist')->middleware('auth');
-Route::get('getNumberWishlist/{product_id}',[WishlistController::class,'getNumberWishlist']);
 
-Route::get('getCartItem/{cart_id}',[CartItemController::class,'getCartItem']);
-Route::get('getCarts/{buyer_id}',[CartController::class,'getCarts']);
-Route::get('getActiveCart/{buyer_id}',[CartController::class,'getActiveCart'])->name('getActiveCart');
-Route::get('getCartItemsBuyerId/{buyer_id}',[CartController::class,'getCartItemsBuyerId']);
 
 //Stores routes
 // Read Routes
@@ -137,7 +142,7 @@ Route::get('/password/reset/{token}', [UserController::class, 'showResetPassword
 Route::post('/password/reset', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-Route::middleware(['auth'/*, 'admin'*/])->group(function () {
+Route::middleware(['is_seller'])->group(function () {
     //routes for dashboards
     Route::get('seller/dashboard', [SellerController::class, 'index'])->name('seller-dashboard');
     Route::get('seller/specificStoreDashboard', [SellerController::class, 'specificStoreDashboard'])->name('specificStoreDashboard');
@@ -215,7 +220,7 @@ Route::post('/logout',  [UserController::class, 'logout'])->name('logout')->midd
 Route::get('/account', [UserAccountController::class, 'show'])->name('myaccount')->middleware('auth');
 Route::post('/account/update', [UserAccountController::class, 'update'])->name('updatemyaccount')->middleware('auth');
 
-Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('auth');
+Route::get('payment', [PaymentController::class, 'createPayment'])->middleware('regular_user');
 Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment/success');
 Route::get('payment/failure', [PaymentController::class, 'paymentFailure'])->name('payment/failure');
 
@@ -230,16 +235,6 @@ Route::post('/currency-converter/convert', [CurrencyConverterController::class, 
 
 Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
 Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
-
-
-Route::get('/currency-converter', [CurrencyConverterController::class, 'index'])->name('currency_converter.index');
-Route::post('/currency-converter/convert', [CurrencyConverterController::class, 'convert'])->name('currency_converter.convert');
-
-
-Route::get('/maps', [MapsController::class, 'mapShow'])->name('myMap');
-Route::post('/save-location', [MapsController::class, 'saveLocation'])->name('savemyLocation')->middleware('auth');
-
-
 
 
 
@@ -267,24 +262,12 @@ Route::post('order/placeOrder',[OrderController::class,'placeOrder'])->name('pla
 //route to update user selected currency
 Route::post('user/updateCurrency',[UserController::class,'updatePreferredCurrency'])->name('update-preferred-currency');
 
-//messages seller routes
-Route::get('messages/{id}',[MessageController::class,'index'])->name('messages');
-Route::get('chat/{sellerid}/{buyerid}',[MessageController::class,'chat'])->name('chat');
-Route::post('selleraddmsg',[MessageController::class,'selleraddmsg'])->name('selleraddmsg');
-
-
-//messages buyer routes
-Route::get('messagesbuyer/{id}',[MessageController::class,'indexBuyer'])->name('messagesBuyer');
-Route::get('chatBuyer/{buyerid}/{sellerid}',[MessageController::class,'chatBuyer'])->name('chatBuyer');
-Route::post('buyeraddmsg',[MessageController::class,'buyeraddmsg'])->name('buyeraddmsg');
-
-
 
 
 //admin routes
 
 
-Route::middleware('auth')->group(function() {
+Route::middleware('is_admin')->group(function() {
     Route::get('homeAdmin/{id}', [AdminController::class, 'homeAdmin'])->name('homeAdmin');
     Route::get('infosAdmin/{id}', [AdminController::class, 'infosAdmin'])->name('infosAdmin');
     Route::post('updateInfoAdmin/{id}', [AdminController::class, 'UpdateInfoAdmin'])->name('updateInfoAdmin');
