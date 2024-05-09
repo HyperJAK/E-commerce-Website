@@ -67,7 +67,7 @@ class OrderController extends Controller
         }
         $orderStatus = 1;
 
-            Order::create([
+        $added=Order::create([
                 'order_status_id'=> $orderStatus, //by default we put 1 meaning pending in our db
                 'address' => $request->address,
                 'description' => $request->description,
@@ -82,8 +82,8 @@ class OrderController extends Controller
         //setting cart to disabled because user bought all its items
         $cart->disableCart();
 
-
-        return redirect()->route('home');
+        // return $added->order_id;
+        return redirect()->route('payment',['order_id'=>$added->order_id]);
 
 
     }
