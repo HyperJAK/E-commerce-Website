@@ -66,7 +66,7 @@ public function getCarts($buyer_id) {
     public function getActiveCart($buyer_id) {
         $cart = Cart::where('buyer_id',$buyer_id)->where('status', 0)->get();
         if(count($cart) > 0 && $cart[0]->status == 0){
-            $allCartItems = CartItem::where('cart_id', $cart[0]->cart_id)->get();
+            $allCartItems = CartItem::with('product')->where('cart_id', $cart[0]->cart_id)->get();
             if ($allCartItems->isNotEmpty()) {
                 //saving the info in the session (potentially session storage) to access them in OrderController createOrder function
                 Session::put('userCart', $allCartItems);

@@ -4,7 +4,7 @@
     @isset($totalPrice)
         <div class="d-flex flex-column gap-2 align-items-center">
             <h1 class="fashion_title bg-transparent text-white">Total price</h1>
-            <p class="btn btn-outline-dark btn-dark text-danger">{{$totalPrice}}</p>
+            <p class="btn btn-outline-dark btn-dark text-danger">${{number_format($totalPrice)}}</p>
         </div>
     @endisset
 
@@ -78,12 +78,13 @@
                             <div class="row" style="padding: 20px; border-bottom: 1px solid #ccc;">
                                 <div class="col-lg-2 col-sm-2">
                                     <div class="rounded-circle" style="width: 50px; height: 50px; overflow: hidden;">
-                                        <img src="{{ asset('frontRessource/images/tshirt-img.png') }}" alt="T-Shirt pic" style="width: 100%;">
+                                        <img src="{{ asset($cartItem->product->path1) }}" alt="T-Shirt pic" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="col"> <!-- Details -->
-                                    <h4 class="shirt_text">{{ $cartItem->product_id }}</h4>
-                                    <p class="price_text">{{ $cartItem->cart_id }}</p>
+                                    <h4 class="shirt_text">{{ $cartItem->product->name }}</h4>
+                                    <p class="price_text">Quantity: {{ $cartItem->product->quantity }}</p>
+                                    <p class="price_text">Price: ${{ number_format($cartItem->quantity *  $cartItem->price) }}</p>
                                 </div>
                                 <div class="col-lg-2 col-sm-2"> <!-- Button -->
                                     <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem->cartItem_id]) }}" method="POST">
