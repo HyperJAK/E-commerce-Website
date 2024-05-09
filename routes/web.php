@@ -297,7 +297,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('AllStores/{id}', [AdminStoreController::class, 'allStore'])->name('AllStores');
     Route::get('searchStores/{id}', [AdminStoreController::class, 'searchStores'])->name('searchStores');
-    Route::post('searchStores/{id}', [AdminStoreController::class, 'searchByName'])->name('searchStores');
+    Route::post('searchStores/{id}', [AdminStoreController::class, 'searchByName'])->name('searchStores1');
 
 
     Route::get('deleteStore/{id}/{idStore}', [AdminStoreController::class, 'deleteStore'])->name('deleteStore');
