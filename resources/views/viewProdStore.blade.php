@@ -58,7 +58,7 @@
 
                             @if(Auth::check() && !is_null(Auth::id()))
                             @if(Auth::user()->is_seller==1)
-                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li> 
+                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li>
                             <li>
                          <a href="{{route('seller-dashboard')}}" class="btn btn-outline-dark btn-dark" style="margin-top:-5px">Open my Dashboard</a>
                           </li>
@@ -74,7 +74,7 @@
             <button type="submit">Logout</button>
         </form>
     </li>
-       
+
     @endif
                         </ul>
                     </div>
@@ -199,7 +199,7 @@
                             </li>
                         @endif
                         @if(Auth::check() && !is_null(Auth::id()))
-                            @isset($currency)
+                            {{--@isset($currency)
                                 @isset($currency_symbol)
                                     <li>
                                         <form method="POST" action="{{ route('update-preferred-currency') }}">
@@ -223,7 +223,7 @@
                                         </form>
                                     </li>
                                 @endisset
-                            @endisset
+                            @endisset--}}
 
                             <li style="padding-right:1vw"><a
                                     href="{{route('getActiveCart', ['buyer_id' => Auth::id()])}}">
@@ -291,7 +291,9 @@
                                                 </p>
                                             @endisset
                                             <div class="tshirt_img"><img
-                                                    src="{{asset($obj->path1)}}"></div>
+
+                                                    src="{{asset($obj->path1)}}" style="border-radius: 20px"></div>
+
                                             <p class="prod_desc">{{$obj->description}}</p>
                                             <div class="btn_main">
 
@@ -394,14 +396,14 @@ var botmanWidget = {
     frameEndpoint: '/viewbot',
     introMessage: 'I am Icom Bot, wanna say hi?',
     chatServer : 'api/botman',
-    userId:'{{Auth::id()?Auth::id():0}}', 
-    title: 'Icom Bot', 
+    userId:'{{Auth::id()?Auth::id():0}}',
+    title: 'Icom Bot',
     mainColor: '#d5c9ff',
     bubbleBackground: '#ae9afa',
     aboutText: '',
     bubbleAvatarUrl: '',
     desktopHeight:500,
-    desktopWidth:400,    
+    desktopWidth:400,
 };
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>

@@ -11,16 +11,18 @@
             <div id="productCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset($obj->path1) }}" class="d-block" alt="Product Image 1">
+
+                        <img src="{{ asset($obj->path1) }}" style="border-radius: 20px; max-width: 400px" class="d-block" alt="Product Image 1">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path2) }}" class="d-block" alt="Product Image 2">
+                        <img src="{{ asset($obj->path2) }}" style="border-radius: 20px; max-width: 400px" class="d-block" alt="Product Image 2">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path3) }}" class="d-block" alt="Product Image 3">
+                        <img src="{{ asset($obj->path3) }}" style="border-radius: 20px; max-width: 400px" class="d-block" alt="Product Image 3">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset($obj->path4) }}" class="d-block" alt="Product Image 4">
+                        <img src="{{ asset($obj->path4) }}" style="border-radius: 20px; max-width: 400px" class="d-block" alt="Product Image 4">
+
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">

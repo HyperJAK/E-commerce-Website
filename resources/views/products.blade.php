@@ -6,12 +6,12 @@
 
       <!-- fashion section start -->
       <div class="fashion_section">
-    
+
         <div id="main_slider" class="carousel slide" data-ride="carousel">
            <div class="carousel-inner">
               <div class="carousel-item active">
                  <div class="container">
-                 <h1 class="fashion_title" style="text-transform: capitalize">@isset($title) {{ $title }} @else 
+                 <h1 class="fashion_title" style="text-transform: capitalize">@isset($title) {{ $title }} @else
                  All Products
                   @endisset
                </h1>
@@ -20,12 +20,14 @@
    @isset($objs)
     @foreach($objs as $obj)
                 <div class="col-lg-4 col-sm-4">
-                 
+
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
-    <p class="price_text">Price  <span style="color: #262626;">{{$obj->cur}} {{$obj->price}}</span></p>
-            <div class="tshirt_img"><img src="{{asset($obj->path1)}}"></div>
+
+    <p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
+            <div class="tshirt_img"><img src="{{asset($obj->path1)}}" style="border-radius: 20px"></div>
+
             <p class="prod_desc">{{$obj->description}}</p>
     <div class="btn_main">
         <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{$obj->store_name}}</a></div>
@@ -33,7 +35,7 @@
     </div>
 </div>
             </div>
-        
+
 
             @endforeach
             @else
@@ -44,8 +46,8 @@
     </div>
 </div>
             </div>
-            @endisset 
-           
+            @endisset
+
             </div>
                        </div>
                     </div>
@@ -57,18 +59,18 @@
            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
            <i class="fa fa-angle-right"></i>
            </a> -->
-           </div> 
+           </div>
        </div>
    </div>
    </div>
            </div>
-          
+
         </div>
         @isset($objs)
         <div class="pages">{{$objs->links()}}</div>
         @endisset
-     </div>  
-     
+     </div>
+
       <!-- fashion section end -->
-      
+
 @endsection

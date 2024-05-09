@@ -18,12 +18,13 @@
                             <div class="row" style="padding: 20px; border-bottom: 1px solid #ccc;"> <!-- Rows with padding and border -->
                                 <div class="col-lg-2 col-sm-2"> <!-- Small and rounded picture -->
                                     <div class="rounded-circle" style="width: 50px; height: 50px; overflow: hidden;">
-                                        <img src="{{ asset('frontRessource/images/tshirt-img.png') }}" alt="T-Shirt pic" style="width: 100%;">
+                                        <img src="{{ asset($cartItem->product->path1) }}" alt="T-Shirt pic" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="col"> <!-- Details -->
-                                    <h4 class="shirt_text">{{ $cartItem->product_id }}</h4> <!-- Adjusting to access product details -->
-                                    <p class="price_text">{{ $cartItem->cart_id }}</p> <!-- Adjusting to access cart details -->
+                                    <h4 class="shirt_text">{{ $cartItem->product->name }}</h4> <!-- Adjusting to access product details -->
+                                    <p class="price_text">Quantity: {{ $cartItem->quantity }}</p> <!-- Adjusting to access cart details -->
+                                    <p class="price_text">Price: ${{ number_format($cartItem->quantity *  $cartItem->price)}}</p> <!-- Adjusting to access cart details -->
                                 </div>
                                 <div class="col-lg-2 col-sm-2"> <!-- Button -->
                                     <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem->cartItem_id]) }}" method="POST">
