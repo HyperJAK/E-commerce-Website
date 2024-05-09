@@ -7,8 +7,10 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StoreReviewController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SocialAuthController;
@@ -303,3 +305,8 @@ Route::middleware('is_admin')->group(function() {
 Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('indexevent');
 
 Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
+
+
+//Routes to get reviews of a specific store / product
+Route::get('store/getReviews',[StoreReviewController::class,'getStoreReviews'])->name('getStoreReviews');
+Route::get('product/getReviews',[ProductReviewController::class,'getProductReviews'])->name('getProductReviews');

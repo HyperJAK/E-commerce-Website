@@ -32,7 +32,9 @@ class DatabaseSeeder extends Seeder
             PaymentsTableSeeder::class,
             EventsTableSeeder::class,
             WishlistsTableSeeder::class,
-            CategoryForStoresSeeder::class
+            CategoryForStoresSeeder::class,
+            ProductReviewSeeder::class,
+            StoreReviewSeeder::class
 
         ]);
     }
