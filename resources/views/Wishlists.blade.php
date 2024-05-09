@@ -14,7 +14,7 @@
                             <div class="row" style="padding: 10px; border-bottom: 2px solid #ccc;margin:auto;justify-content:center"> <!-- Rows with padding and border -->
                                 <div class="col-lg-2 col-sm-2"> <!-- Small and rounded picture -->
                                     <div class="rounded-circle" style="width: 80px; height: 80px; overflow: hidden;">
-                                        <img src="{{asset('frontRessource/images/'.$obj->path1)}}" alt="product picture" style="width: 100%;">
+                                        <img src="{{asset($obj->path1)}}" alt="product picture" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="col" style="text-align:center;">

@@ -291,7 +291,7 @@
                                                 </p>
                                             @endisset
                                             <div class="tshirt_img"><img
-                                                    src="{{asset('frontRessource/images/'.$obj->path1)}}"></div>
+                                                    src="{{asset($obj->path1)}}"></div>
                                             <p class="prod_desc">{{$obj->description}}</p>
                                             <div class="btn_main">
 
