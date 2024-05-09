@@ -85,7 +85,7 @@
                                                     <p class="text-xs text-secondary mb-0">Organization</p>
                                                 </td>--}}
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">{{$store->status == 1?'Open':'Pending approval'}}</span>
+                                                    <a href="{{route('store-status-change', ['store_id'=>$store->store_id])}}" class="btn badge badge-sm bg-gradient-success">{{$store->status == 1?'Open':'Pending approval'}}</a>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
