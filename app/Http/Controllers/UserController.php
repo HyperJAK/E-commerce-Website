@@ -98,7 +98,7 @@ class UserController extends Controller
 
         if ($user->is_admin) {
 
-            return redirect()->route('admin.dashboard')->with('status', 'Welcome to the Admin Dashboard');
+            return redirect()->route('homeAdmin',["id"=>Auth::id()])->with('status', 'Welcome to the Admin Dashboard');
         } else {
 
             return redirect()->route('home')->with('status', 'Welcome to Home');

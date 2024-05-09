@@ -47,28 +47,31 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-                           <li><a href="{{route('products')}}">Products</a></li>
-                           <li><a href="{{route('/')}}">Stores</a></li>
-                           <li><a href="#">Events</a></li>
-                           <li><a href="#">Today's Deals</a></li>
-                           <li><a href="#">Customer Service</a></li>
-                           @if(Auth::check() && !is_null(Auth::id()))
+                        <li><a href="{{route('products')}}">Products</a></li>
+                            <li><a href="{{route('/')}}">Stores</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Today's Deals</a></li>
+                            <!-- <li><a href="#">Customer Service</a></li> -->
+
+                            @if(Auth::check() && !is_null(Auth::id()))
                             @if(Auth::user()->is_seller==1)
-                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li>
+                            <li><a href="{{ route('messages', ['id' => Auth::id()]) }}" style="color:#6754ab">User Messages </a></li> 
+                            <li>
+                         <a href="{{route('seller-dashboard')}}" class="btn btn-outline-dark btn-dark" style="margin-top:-5px">Open my Dashboard</a>
+                          </li>
                             @else
                             <li><a href="{{ route('messagesBuyer', ['id' => Auth::id()]) }}" style="color:#6754ab">Message Buyers</a></li>
                             @endif
                             @endif
-                           @if(Auth::check() && !is_null(Auth::id()))
-                           <li>
-        <form action="{{ route('logout') }}" method="POST">
+                            @if(Auth::check() && !is_null(Auth::id()))
+
+                            <li>
+        <form action="{{ route('logout',['user_id'=>Auth::id()]) }}" method="POST">
             @csrf
             <button type="submit">Logout</button>
         </form>
     </li>
-    <li>
-        <a href="{{route('seller-dashboard')}}" class="btn btn-outline-dark btn-dark">Open my Dashboard</a>
-    </li>
+       
     @endif
                         </ul>
                      </div>
