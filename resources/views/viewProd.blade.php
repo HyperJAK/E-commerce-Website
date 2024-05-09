@@ -40,7 +40,7 @@
                     <h3>Category: {{ $obj->category_id[0] }}</h3>
                     <h4>⁕Store Name: <a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{ $obj->store_name[0] }}</a></h4>
                     <p>Description:<br/>{{ $obj->description }}</p>
-                    <h4>Price: ${{ $obj->price }}</h4>
+                    <h4>Price: {{$obj->cur}} {{ $obj->price }}</h4>
                     <p>Available Quantity: {{ $obj->quantity }}</p>
                     <p>Desired Quantity:
                     <input type="number" form="wlist" name="quantity" min="1" max="{{ $obj->quantity }}" value='1'/>
