@@ -287,7 +287,7 @@
                                                 </p>
                                             @else
                                                 <p class="price_text">Price <span
-                                                        style="color: #262626;">${{$obj->price}}</span>
+                                                        style="color: #262626;">{{$obj->cur}} {{$obj->price}}</span>
                                                 </p>
                                             @endisset
                                             <div class="tshirt_img"><img

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Wishlist;
 use Hamcrest\Text\IsEmptyString;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ use App\Models\Store;
 use App\Models\Category;
 use App\Models\CategoryForStores;
 use Illuminate\Http\Request;
+
 
 // As a buyer i want to be able to add a product to my cart, to my Wishlist or normally browse it
 // (Buyers can browse products, add to cart, and add to Wishlist.)
@@ -50,6 +52,8 @@ class ProductController extends Controller
         }else{
             $wished=false;
         }
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
 
         if($itemAddedToCart->isNotEmpty()){
 
@@ -57,6 +61,8 @@ class ProductController extends Controller
                     $obj->category_id = $obj->getCatName();
                     $obj->store_name = $obj->getStoreName();
                     $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
+                    $userPreferedCurrency!='USD'&&$obj->price=number_format($obj->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+                    $obj->cur=$userPreferedCurrency->currency_symbol;
                     // return $obj;
                     return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
                 } else {
@@ -71,6 +77,8 @@ class ProductController extends Controller
                 $obj->category_id = $obj->getCatName();
                 $obj->store_name = $obj->getStoreName();
                 $obj->wish=$wishlists>0?$wishlists." User(s) wished this product":"Be the first to add it to your wishlist!";
+                $userPreferedCurrency!='USD'&&$obj->price=number_format($obj->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+                $obj->cur=$userPreferedCurrency->currency_symbol;
                 // return $obj;
                 return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished)->with('quantity', 0);
             } else {
@@ -108,11 +116,16 @@ class ProductController extends Controller
          $obj= Product::select('product_id','name', 'description','price','category_id','path1','store_id')->whereIn('store_id', $storeCheck)->paginate(6);
 
         }
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
+
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
             $key->store_name = $key->getStoreName()[0];
+            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            $key->cur=$userPreferedCurrency->currency_symbol;
                 $fullAnswers[] = $key;
             }
             return $request->order? view('products')->with('objs',$obj)->with('cats',$cats)->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats);
@@ -140,11 +153,14 @@ class ProductController extends Controller
         } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->whereIn('category_id', $cat2)->whereIn('store_id', $storeCheck)->paginate(9);
         }
-
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
         if ($obj) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            $key->cur=$userPreferedCurrency->currency_symbol;
                 $fullAnswers[] = $key;
             }
          return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0])->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
@@ -168,10 +184,14 @@ class ProductController extends Controller
         } else{
              $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('name','like',"%$request->search%")->orWhere('description','like',"%$request->search%")->whereIn('store_id', $storeCheck)->paginate(9);
         }
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            $key->cur=$userPreferedCurrency->currency_symbol;
                 $fullAnswers[] = $key;
             }
             return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result')->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result');
@@ -203,10 +223,14 @@ class ProductController extends Controller
                        ->orWhere('description', 'like', "%$request->search%");
              })->paginate(9);
         }
+        $cur = new CurrencyConverterController();
+        $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            $key->cur=$userPreferedCurrency->currency_symbol;
                 $fullAnswers[] = $key;
             }
           return $request->order?view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title','Search Result');
@@ -243,11 +267,14 @@ class ProductController extends Controller
     } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->paginate(6);
     }
-
+    $cur = new CurrencyConverterController();
+    $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            $key->cur=$userPreferedCurrency->currency_symbol;
     // $storeCheck->first()->name;
                 $fullAnswers[] = $key;
             }
