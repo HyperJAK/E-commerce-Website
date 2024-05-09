@@ -19,6 +19,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminStoreController;
+use App\Http\Controllers\EventController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -243,4 +244,12 @@ Route::get('storeActivate/{id}/{idStore}',[AdminStoreController::class,'storeAct
 
 Route::post('saveActivation/{id}/{idStore}',[AdminStoreController::class,'saveActivation'])->name('saveActivation');
 
+
+
+//event routes
+
+
+Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('index');
+
+Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
 
