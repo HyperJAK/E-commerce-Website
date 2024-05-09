@@ -25,7 +25,7 @@
                                                       <div class="box_main">
                                                           <h4 class="shirt_text">{{ $store['name'] }}</h4>
                                                           <p class="price_text">{{ $store['description'] }}</p>
-                                                          <div class="tshirt_img"><img src="{{ asset('frontRessource/images/tshirt-img.png') }}" alt="T-Shirt pic"></div>
+                                                          <div class="tshirt_img"><img src="{{ asset($store->image) }}" style="border-radius: 20px" alt="T-Shirt pic"></div>
                                                           <div class="btn_main">
                                                               <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$store->store_id])}}">Visit Now</a></div>
                                                               @if(Auth::check() && !is_null(Auth::id()))
