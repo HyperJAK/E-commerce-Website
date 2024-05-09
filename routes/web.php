@@ -24,6 +24,7 @@ use App\Http\Controllers\AdminStoreController;
 
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\CurrencyConverterController;
+use App\Http\Controllers\EventController;
 
 
 // ->middleware('is_admin') to be added for routes l lezim tkun admin
@@ -291,3 +292,10 @@ Route::middleware('is_admin')->group(function() {
     Route::post('saveActivation/{id}/{idStore}', [AdminStoreController::class, 'saveActivation'])->name('saveActivation');
 
 });
+
+//event routes
+
+
+Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('indexevent');
+
+Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
