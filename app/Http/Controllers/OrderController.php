@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Location;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -165,6 +166,18 @@ class OrderController extends Controller
 
         return $sales->getTotalSales();
 
+    }
+
+    public function updateOrderStatus(Request $request)
+    {
+        $order = Order::where('order_id',$request->order_id)->first();
+
+        $order->update([
+            'status' => 0,
+        ]);
+
+
+        return redirect()->route('redirect-view-store-orders', ['store_id'=>$request->store_id]);
     }
 
     public function getTotalSalesSpecificStore(Request $request){

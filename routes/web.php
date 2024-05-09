@@ -176,6 +176,9 @@ Route::middleware(['is_seller'])->group(function () {
     Route::post('seller/updateCategoryToProduct', [ProductController::class, 'updateProductCategory'])->name('seller-update-product-category');
 
 
+    //Route to view the store placed orders
+    Route::get('seller/viewStoreOrders', [SellerController::class, 'storeOrdersViewRedirect'])->name('redirect-view-store-orders');
+
 
     //seller reports functions are here:
 
@@ -209,6 +212,7 @@ Route::middleware(['is_seller'])->group(function () {
 
     //Route for store to change status from open to closed
     Route::get('seller/store-status-change', [StoreController::class, 'updateStoreStatus'])->name('store-status-change');
+    Route::get('seller/order-status-change', [OrderController::class, 'updateOrderStatus'])->name('order-status-change');
 });
 
 
