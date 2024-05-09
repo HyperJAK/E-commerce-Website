@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('description');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('calendar_link');
-            $table->unsignedBigInteger('participant_id');
+            $table->float('starting_price');
+            $table->float('current_price');
+            $table->string('calendar_link')->nullable();
+            $table->unsignedBigInteger('participant_id')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('product_id');
 

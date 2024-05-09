@@ -24,8 +24,10 @@
 <div class="box_main">
 <h4 class="shirt_text">{{$obj->name}}</h4>
 <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
+
     <p class="price_text">Price  <span style="color: #262626;">$ {{$obj->price}}</span></p>
             <div class="tshirt_img"><img src="{{asset($obj->path1)}}" style="border-radius: 20px"></div>
+
             <p class="prod_desc">{{$obj->description}}</p>
     <div class="btn_main">
         <div class="buy_bt"><a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{$obj->store_name}}</a></div>

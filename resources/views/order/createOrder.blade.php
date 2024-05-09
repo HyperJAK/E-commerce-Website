@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+<title>Place Order | Icom</title>
+@endsection
 @section('content')
 
     @isset($totalPrice)

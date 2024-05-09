@@ -287,11 +287,13 @@
                                                 </p>
                                             @else
                                                 <p class="price_text">Price <span
-                                                        style="color: #262626;">${{$obj->price}}</span>
+                                                        style="color: #262626;">{{$obj->cur}} {{$obj->price}}</span>
                                                 </p>
                                             @endisset
                                             <div class="tshirt_img"><img
+
                                                     src="{{asset($obj->path1)}}" style="border-radius: 20px"></div>
+
                                             <p class="prod_desc">{{$obj->description}}</p>
                                             <div class="btn_main">
 

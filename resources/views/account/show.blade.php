@@ -1,5 +1,7 @@
 @extends('master2')
-
+@section('title')
+<title>My Account | Icom</title>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
