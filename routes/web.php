@@ -291,12 +291,11 @@ Route::middleware('is_admin')->group(function() {
 
     Route::post('saveActivation/{id}/{idStore}', [AdminStoreController::class, 'saveActivation'])->name('saveActivation');
 
-
+});
 
 //event routes
 
 
-Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('index');
+Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('indexevent');
 
 Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
-

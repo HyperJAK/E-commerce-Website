@@ -23,7 +23,7 @@ class EventController extends Controller
         $event->starting_price=$request->starting_price;
         $event->current_price=$request->starting_price;
         $event->save();
-        return redirect()->route('index', ['storeid' => $request->store_id]);
+        return redirect()->route('indexevent', ['storeid' => $request->store_id]);
 
     }
 }
