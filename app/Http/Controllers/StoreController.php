@@ -7,6 +7,7 @@ use App\Models\CategoryForStores;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use \Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class StoreController extends Controller
@@ -235,7 +236,7 @@ class StoreController extends Controller
 
 
             $duplicateStore[0]->update();
-            
+
 
             return redirect()->route('seller-tables', ['seller_id' => $request->seller_id]);
 
@@ -345,17 +346,16 @@ class StoreController extends Controller
         }
     }
 
-    public function updateStoreStatus(Request $request, $id): JsonResponse
+    public function updateStoreStatus(Request $request)
     {
-        $store = Store::find($id);
-        if ($store) {
+        $store = Store::where('store_id',$request->store_id)->first();
+        if ($store->status == 1) {
             $store->update([
-                'status' => $request->status,
+                'status' => 0,
             ]);
-            return response()->json(["message" => "Store updated successfully"]);
-        } else {
-            return response()->json(['message'=>'Store not found']);
+
         }
+        return redirect()->route('seller-tables', ['seller_id' => Auth::id()]);
     }
 
     public function deleteStore($id): JsonResponse
