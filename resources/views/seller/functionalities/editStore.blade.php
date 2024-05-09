@@ -19,8 +19,16 @@
 
                                 <div class="d-flex flex-row justify-content-center gap-2">
                                     <a class="nav-link text-white bg-gradient-dark rounded-2"
+                                       href="{{ route('redirect-view-store-orders', ['store_id'=>$store->store_id]) }}">
+                                        <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
+                                            <i class="material-icons opacity-10">receipt_long</i>
+                                        </div>
+                                        <span class="nav-link-text ms-1">View Orders</span>
+                                    </a>
+
+                                    <a class="nav-link text-white bg-gradient-dark rounded-2"
                                        href="{{ route('redirect-edit-store', ['store_id'=>$store->store_id]) }}">
-                                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                        <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
                                             <i class="material-icons opacity-10">receipt_long</i>
                                         </div>
                                         <span class="nav-link-text ms-1">Edit Store</span>
@@ -28,7 +36,7 @@
 
                                     <a class="nav-link text-white bg-gradient-dark rounded-2"
                                        href="{{ route('redirect-create-product', ['store_id'=>$store->store_id]) }}">
-                                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                        <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
                                             <i class="material-icons opacity-10">receipt_long</i>
                                         </div>
                                         <span class="nav-link-text ms-1">Create new</span>

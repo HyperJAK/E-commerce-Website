@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\CategoryForStores;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -58,6 +61,43 @@ class SellerController extends Controller
 
         return view('/seller/functionalities/editStoreOptions')->with('store', $store);
     }
+
+    public function storeOrdersViewRedirect(Request $request){
+        $store = Store::where('store_id', $request->store_id)->first();
+
+        $noDuplicatesOrders = new collection();
+        if ($store) {
+            //function to get all orders that belong to
+            $orders = Order::join('cart_items', 'orders.cart_id', '=', 'cart_items.cart_id')
+                ->where('cart_items.store_id', $request->store_id)
+                ->get();
+
+
+            //here we are filtering the duplicate orders that were retrieved because we are joining on cartItems
+            //and 1 order can have 2 cartItems with the same storeId
+
+
+            foreach ($orders as $order){
+                //getting the cartId
+
+                if(!$noDuplicatesOrders->contains('order_id', $order->order_id)){
+                    //we set the correct status label instead of a number
+                    $statusLabel = OrderStatus::select('name')->where('order_status_id', $order->order_status_id)->first();
+
+                    $order['order_status_id'] = $statusLabel->name;
+                    $order['price'] = $order['quantity'] * $order['price'];
+                    $noDuplicatesOrders->push($order);
+                }
+
+            }
+
+
+        }
+
+        return view('/seller/functionalities/viewStoreOrders')->with('store', $store)->with('orders', $noDuplicatesOrders);
+    }
+
+
 
     //this is similar to the table function that opens page where it shows all products of our store
     public function editStoreView(Request $request){
