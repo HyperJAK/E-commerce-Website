@@ -201,6 +201,8 @@ Route::middleware(['auth'/*, 'admin'*/])->group(function () {
     Route::get('seller/getBestSellingProductsThisMonth', [OrderController::class, 'getBestSellingProductsThisMonth'])->name('getBestSellingProductsThisMonth');
     Route::get('seller/getSpecificStoreBestSellingProductsThisMonth', [OrderController::class, 'getSpecificStoreBestSellingProductsThisMonth'])->name('getSpecificStoreBestSellingProductsThisMonth');
 
+    //Route for store to change status from open to closed
+    Route::get('seller/store-status-change', [StoreController::class, 'updateStoreStatus'])->name('store-status-change');
 });
 
 
