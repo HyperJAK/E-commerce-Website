@@ -110,7 +110,7 @@
         <div class="form-container">
             <h2>Search Stores</h2>
 
-            <form method="post" action="{{ route('searchStores', ['id' => $id]) }}">
+            <form method="post" action="{{ route('searchStores1', ['id' => $id]) }}">
                 @csrf
 
                 <div class="user-box">

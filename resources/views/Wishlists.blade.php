@@ -14,19 +14,19 @@
                             <div class="row" style="padding: 10px; border-bottom: 2px solid #ccc;margin:auto;justify-content:center"> <!-- Rows with padding and border -->
                                 <div class="col-lg-2 col-sm-2"> <!-- Small and rounded picture -->
                                     <div class="rounded-circle" style="width: 80px; height: 80px; overflow: hidden;">
-                                        <img src="{{asset('frontRessource/images/'.$obj->path1)}}" alt="product picture" style="width: 100%;">
+                                        <img src="{{asset($obj->path1)}}" alt="product picture" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="col" style="text-align:center;">
-                                    <h4 class="shirt_text"><a href="{{route('getProd',['id'=>$obj->product_id])}}">{{ $obj->product_name }}</a></h4> 
+                                    <h4 class="shirt_text"><a href="{{route('getProd',['id'=>$obj->product_id])}}">{{ $obj->product_name }}</a></h4>
                                     <h4>Wished on: {{$obj->created_at}}</h4>
                                 </div>
-                                <div class="col-lg-2 col-sm-2"> 
-                                <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Remove from Wishlist ❤</button>
-                    </form>
+                                <div class="col-lg-2 col-sm-2">
+                                    <form action="{{ route('DeleteWishlist', ['store_id' => $obj->store_id,'product_id'=>$obj->product_id,'user_id'=>Auth::id()]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Remove from Wishlist ❤</button>
+                                    </form>
                                 </div>
                             </div>
                         @endforeach

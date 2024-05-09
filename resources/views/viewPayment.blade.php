@@ -9,7 +9,11 @@
         
             <div class="col-md-10">
                 <div class="card" style="box-shadow: 0 0 2rem .2rem var(--maincolor);">
-                    <div class="card-header">Payment Details</div>
+                @isset($order_id)
+                    <div class="card-header">Payment Details: {{$order_id}}</div>
+                    @else
+                    <div class="card-header">Payment Details: no</div>
+                    @endisset
 
                     <div class="card-body">
                         <form id="payment-form" action="{{route('payment/process')}}" method="POST">
@@ -32,7 +36,8 @@
                                 <label for="cvc">CVC</label>
                                 <div id="cvc" class="form-control" style="width:200px"></div>
                                 <!-- <input type="text" class="form-control" id="cvc" placeholder="CVC" required> -->
-                                 
+                                
+                           
                             </div>
 
                             <div class="form-group col-md-6">
@@ -78,6 +83,12 @@
                 tokenInput.setAttribute('name', 'payment_method_id');
                 tokenInput.setAttribute('value', paymentMethod.id);
                 form.appendChild(tokenInput);
+                
+                const order_id_Input = document.createElement('input');
+                 order_id_Input.setAttribute('type', 'hidden');
+                 order_id_Input.setAttribute('name', 'order_id');
+                 order_id_Input.setAttribute('value',{{$order_id}});
+                form.appendChild(order_id_Input);
 
                 form.submit();
             }

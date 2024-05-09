@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\PaymentController;
@@ -35,3 +36,5 @@ Route::put('stores/{id}/updateStatus', [StoreController::class, 'updateStoreStat
 Route::delete('stores/{id}', [StoreController::class, 'deleteStore']); // Delete a specific store
 
 Route::post('payment/process', [PaymentController::class, 'processPayment'])->name('payment/process');
+
+Route::post('botman', [BotmanController::class, 'BotmanTest'])->name('api/botman');

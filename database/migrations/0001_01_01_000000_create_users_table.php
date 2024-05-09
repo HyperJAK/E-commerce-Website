@@ -26,6 +26,8 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_verified')->default(false);
             $table->boolean('is_deleted')->default(false);
+            $table->string('preferred_currency')->default('USD')->nullable();
+            $table->string('currency_symbol')->default('$')->nullable();
             /*$table->unsignedBigInteger('store_id');*/
 /*            $table->unsignedBigInteger('cart_id');*/
 
@@ -46,6 +48,12 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        /*Schema::create('cache', function ($table) {
+            $table->string('key')->unique();
+            $table->text('value');
+            $table->integer('expiration');
+        });*/
     }
 
     /**

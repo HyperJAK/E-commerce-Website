@@ -1,5 +1,7 @@
 @extends('master2')
-
+@section('title')
+<title>Place Order | Icom</title>
+@endsection
 @section('content')
     <div class="container">
         <h1>Orders</h1>

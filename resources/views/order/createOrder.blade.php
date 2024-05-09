@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+<title>Place Order | Icom</title>
+@endsection
 @section('content')
 
     @isset($totalPrice)
@@ -11,8 +14,11 @@
     @isset($userCartItems)
     <div class="card-body d-flex flex-column " style="padding: 0 200px 0 200px">
 
-        <form method='POST' action='{{ route('user-profile') }}'>
+        <form method='POST' action='{{ route('place-order') }}'>
             @csrf
+
+            <input type="hidden" name="cart_id" id="cart_id" value="{{$userCartItems[0]->cart_id}}">
+
             <div class="row">
 
                 <div class="mb-3 col-md-6">
@@ -33,7 +39,29 @@
                     @enderror
                 </div>
             </div>
+            <div class="d-flex flex-column justify-content-center" style="max-width: 30%; margin: 0 auto; gap: 5px">
+
+                @isset($location)
+
+                    <label class="form-label">Latitude</label>
+                    <input type="text" name="latitude" id="latitude" value="{{$location->latitude}}" readonly>
+
+                    <label class="form-label">Longitude</label>
+                    <input type="text" name="longitude" id="longitude" value="{{$location->longitude}}" readonly>
+
+                    <input type="hidden" name="location_id" id="location_id" value="{{$location->id}}">
+
+                @endisset
+                    <label for="shipping_method" class="form-label">Method of Shipping</label>
+                    <select name="shipping_method" id="shipping_method" class="form-control border border-2 p-2">
+                        <option value="by air">By Air</option>
+                        <option value="by sea">By Sea</option>
+                        <option value="local">Local</option>
+                    </select>
+
+            <a type="button" href="{{route('myMap')}}" class="btn bg-info text-white">Choose location</a>
             <button type="submit" class="btn bg-danger text-white">Submit</button>
+            </div>
         </form>
 
     </div>

@@ -85,11 +85,17 @@
                                                     <p class="text-xs text-secondary mb-0">Organization</p>
                                                 </td>--}}
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">{{$store->status == 1?'Open':'Pending approval'}}</span>
+                                                    <a href="{{route('store-status-change', ['store_id'=>$store->store_id])}}" class="btn badge badge-sm bg-gradient-success">{{$store->status == 1?'Open':'Pending approval'}}</a>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{$store->created_at}}</span>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <a href="{{ route('specificStoreDashboard', ['store_id'=>$store->store_id]) }}"
+                                                       class="text-white rounded-3 btn bg-gradient-dark">
+                                                        Open Dashboard
+                                                    </a>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a href="{{ route('view-edit-store', ['store_id'=>$store->store_id]) }}"

@@ -11,16 +11,16 @@
             <div id="productCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset('frontRessource/images/'.$obj->path1) }}" class="d-block" alt="Product Image 1">
+                        <img src="{{ asset($obj->path1) }}" class="d-block" alt="Product Image 1">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('frontRessource/images/'.$obj->path2) }}" class="d-block" alt="Product Image 2">
+                        <img src="{{ asset($obj->path2) }}" class="d-block" alt="Product Image 2">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('frontRessource/images/'.$obj->path3) }}" class="d-block" alt="Product Image 3">
+                        <img src="{{ asset($obj->path3) }}" class="d-block" alt="Product Image 3">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('frontRessource/images/'.$obj->path4) }}" class="d-block" alt="Product Image 4">
+                        <img src="{{ asset($obj->path4) }}" class="d-block" alt="Product Image 4">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
@@ -40,7 +40,7 @@
                     <h3>Category: {{ $obj->category_id[0] }}</h3>
                     <h4>⁕Store Name: <a href="{{route('getByStore',['store_id'=>$obj->store_id])}}">{{ $obj->store_name[0] }}</a></h4>
                     <p>Description:<br/>{{ $obj->description }}</p>
-                    <h4>Price: ${{ $obj->price }}</h4>
+                    <h4>Price: {{$obj->cur}} {{ $obj->price }}</h4>
                     <p>Available Quantity: {{ $obj->quantity }}</p>
                     <p>Desired Quantity:
                     <input type="number" form="wlist" name="quantity" min="1" max="{{ $obj->quantity }}" value='1'/>

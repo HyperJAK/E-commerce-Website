@@ -21,7 +21,7 @@
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                                {{ /*auth()->user()->getAuthIdentifierName()*/ 'Test Name' }}
+                                {{ $user?$user->username: 'Name' }}
                             </h5>
                             <p class="mb-0 font-weight-normal text-sm">
                                 CEO / Co-Founder
