@@ -24,7 +24,6 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             $table->longText('message');
-            $table->boolean('is_read')->default(0);
             $table->timestamps();
         });
     }
