@@ -277,7 +277,8 @@ class ProductController extends Controller
             foreach ($categories as $key) {
                 $key->name = $key->getCatNameStore();
                 }
-
+                $rev=new StoreReviewController();
+                $getrev=$rev->getStoreReviews($request->store_id);
         $storeCheck=Store::where('store_id',$request->store_id)->where('status','1')->get();
         // $cats=Category::where('store_id',$request->store_id)->get();
         if ($storeCheck->isNotEmpty()) {
@@ -301,7 +302,7 @@ class ProductController extends Controller
     // $storeCheck->first()->name;
                 $fullAnswers[] = $key;
             }
-            return $request->order? view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name);
+            return $request->order? view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('reviews',$getrev);
         } else {
            return response()->json(['message'=>'Products not found']);
         } }else {

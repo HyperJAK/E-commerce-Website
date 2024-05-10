@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StoreReviews;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StoreReviewController extends Controller
 {
@@ -32,7 +33,8 @@ class StoreReviewController extends Controller
 
     public function getStoreReviews($storeId)
     {
-        $storeReviews = StoreReviews::with('user')->where('store_id', $storeId)->get();
+        // $storeReviews = StoreReviews::with('user')->where('store_id', $storeId)->get();
+        $storeReviews = DB::table('store_reviews')->join('users', 'store_reviews.user_id', '=', 'users.user_id')->select('store_reviews.*', 'users.username as user_name', 'users.email as user_email')->where('store_reviews.store_id', $storeId)->get();
         // return response()->json(['store_reviews' => $storeReviews]);
         return $storeReviews;
     }
