@@ -21,19 +21,20 @@ class ProductReviewController extends Controller
         ]);
 
         $newProductRev = new ProductReviews();
-        $newProductRev->content = $request->reviewContent;
+        $newProductRev->content = $request->content;
         $newProductRev->rating = $request->rating;
         $newProductRev->user_id = $request->user_id;
         $newProductRev->product_id = $request->product_id;
 
         $newProductRev->save();
 
-        return response()->json(['product_reviews' => $newProductRev]);
-
+        // return response()->json(['product_reviews' => $newProductRev]);
+        return redirect()->back();
     }
-    public function getProductReviews(Request $request)
+    public function getProductReviews($productId)
     {
-        $productReviews = DB::table('product_reviews')->join('users', 'product_reviews.user_id', '=', 'users.user_id')->select('product_reviews.*', 'users.username as user_name', 'users.email as user_email')->where('product_reviews.product_id', $request->productId)->get();
-        return response()->json(['product_reviews' => $productReviews]);
+        $productReviews = DB::table('product_reviews')->join('users', 'product_reviews.user_id', '=', 'users.user_id')->select('product_reviews.*', 'users.username as user_name', 'users.email as user_email')->where('product_reviews.product_id', $productId)->get();
+        // return response()->json(['product_reviews' => $productReviews]);
+        return $productReviews;
     }
 }

@@ -82,6 +82,7 @@ class SellerController extends Controller
             //here we are filtering the duplicate orders that were retrieved because we are joining on cartItems
             //and 1 order can have 2 cartItems with the same storeId
 
+            $currencyRate = new CurrencyConverterController();
 
             foreach ($orders as $order){
                 //getting the cartId
@@ -92,6 +93,9 @@ class SellerController extends Controller
 
                     $order['order_status_id'] = $statusLabel->name;
                     $order['price'] = $order['quantity'] * $order['price'];
+
+                    //here we are converting the currency if needed
+                    $order['price'] = $order['price'] * $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
                     $noDuplicatesOrders->push($order);
                 }
 
