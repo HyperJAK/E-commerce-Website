@@ -26,7 +26,7 @@ class StoreReviewSeeder extends Seeder
 
         foreach (range(1, 50) as $index) {
             $review = new StoreReviews();
-            $review->content = $faker->paragraph();
+            $review->content = $faker->paragraph(2);
             $review->rating = $faker->numberBetween(1, 5);
             $review->user_id = $faker->randomElement($userIds);
             $review->store_id = $faker->randomElement($storeIds);
