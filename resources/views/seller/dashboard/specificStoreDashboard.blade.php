@@ -16,7 +16,7 @@
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Money</p>
                                 @isset($dailyIncome)
-                                    <h4 class="mb-0">${{number_format($dailyIncome)}}</h4>
+                                    <h4 class="mb-0">{{Auth::user()->currency_symbol}}{{number_format($dailyIncome)}}</h4>
                                 @endisset
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Sales</p>
                                 @isset($totalSales)
-                                    <h4 class="mb-0">${{number_format($totalSales)}}</h4>
+                                    <h4 class="mb-0">{{Auth::user()->currency_symbol}}{{number_format($totalSales)}}</h4>
                                 @endisset
                             </div>
                         </div>
@@ -262,7 +262,7 @@
                                                 <h6 class="text-dark text-sm font-weight-bold mb-0">{{$product->name}}
                                                 </h6>
                                                 <div class="d-flex flex-row gap-2"></div>
-                                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${{number_format($product->price)}}
+                                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{Auth::user()->currency_symbol}}{{number_format($product->price)}}
                                                 </p>
                                                 <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">Quantity: {{number_format($product->quantity)}}
                                                 </p>

@@ -7,7 +7,7 @@
     @isset($totalPrice)
         <div class="d-flex flex-column gap-2 align-items-center">
             <h1 class="fashion_title bg-transparent text-white">Total price</h1>
-            <p class="btn btn-outline-dark btn-dark text-danger">${{number_format($totalPrice)}}</p>
+            <p class="btn btn-outline-dark btn-dark text-danger">{{Auth::user()->currency_symbol}}{{number_format($totalPrice)}}</p>
         </div>
     @endisset
 
@@ -87,7 +87,7 @@
                                 <div class="col"> <!-- Details -->
                                     <h4 class="shirt_text">{{ $cartItem->product->name }}</h4>
                                     <p class="price_text">Quantity: {{ $cartItem->product->quantity }}</p>
-                                    <p class="price_text">Price: ${{ number_format($cartItem->quantity *  $cartItem->price) }}</p>
+                                    <p class="price_text">Price: {{Auth::user()->currency_symbol}}{{ number_format($cartItem->quantity *  $cartItem->price) }}</p>
                                 </div>
                                 <div class="col-lg-2 col-sm-2"> <!-- Button -->
                                     <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem->cartItem_id]) }}" method="POST">

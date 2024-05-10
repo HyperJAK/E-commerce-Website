@@ -283,7 +283,7 @@
                                             <h3 class="fashion_title_Small">{{$obj->category_id[0]}}</h3>
                                             @isset($currency_symbol)
                                                 <p class="price_text">Price <span
-                                                        style="color: #262626;">{{$currency_symbol}}{{$obj->price}}</span>
+                                                        style="color: #262626;">{{Auth::user()->currency_symbol}}{{$obj->price}}</span>
                                                 </p>
                                             @else
                                                 <p class="price_text">Price <span

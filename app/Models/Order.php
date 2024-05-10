@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Http\Controllers\CurrencyConverterController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -73,6 +74,10 @@ class Order extends Model
 
         }
 
+        $currencyRate = new CurrencyConverterController();
+
+        $totalTodayProfit = $totalTodayProfit* $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
+
         return $totalTodayProfit;
 
     }
@@ -106,6 +111,10 @@ class Order extends Model
                     }
                 }
             }
+
+            $currencyRate = new CurrencyConverterController();
+
+            $totalTodayProfit = $totalTodayProfit* $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
 
             return $totalTodayProfit;
         }
@@ -732,6 +741,10 @@ class Order extends Model
                 }
             }
 
+        $currencyRate = new CurrencyConverterController();
+
+        $totalProfit = $totalProfit * $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
+
             return $totalProfit;
 
 
@@ -763,6 +776,10 @@ class Order extends Model
                     }
                 }
             }
+
+            $currencyRate = new CurrencyConverterController();
+
+            $totalProfit = $totalProfit * $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
 
             return $totalProfit;
         }
@@ -811,6 +828,9 @@ class Order extends Model
         $sortedBestSelling = $bestSelling->sortByDesc('quantity');
         $top10Items = $sortedBestSelling->take(10);
 
+        $currencyRate = new CurrencyConverterController();
+        $rate = $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
+
         //this is made to get the actual data of the products instead of cartItem
         $finalProducts = new collection();
         foreach ($top10Items as $item){
@@ -818,6 +838,7 @@ class Order extends Model
             $product = Product::where('product_id', $item->product_id)->first();
 
             if(!$finalProducts->contains($product)){
+                $product['price'] = $product['price'] * $rate;
                 $finalProducts[] = $product;
             }
         }
@@ -869,6 +890,9 @@ class Order extends Model
             $sortedBestSelling = $bestSelling->sortByDesc('quantity');
             $top10Items = $sortedBestSelling->take(10);
 
+            $currencyRate = new CurrencyConverterController();
+            $rate = $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
+
             //this is made to get the actual data of the products instead of cartItem
             $finalProducts = new collection();
             foreach ($top10Items as $item){
@@ -876,6 +900,7 @@ class Order extends Model
                 $product = Product::where('product_id', $item->product_id)->first();
 
                 if(!$finalProducts->contains($product)){
+                    $product['price'] = $product['price'] * $rate;
                     $finalProducts[] = $product;
                 }
             }
