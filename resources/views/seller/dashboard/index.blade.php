@@ -22,8 +22,8 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
-                                lask week</p>
+                            {{--<p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
+                                lask week</p>--}}
                         </div>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
-                                lask month</p>
+                            {{--<p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
+                                lask month</p>--}}
                         </div>
                     </div>
                 </div>
@@ -66,8 +66,8 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than
-                                yesterday</p>
+                            {{--<p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than
+                                yesterday</p>--}}
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than
-                                yesterday</p>
+                            {{--<p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than
+                                yesterday</p>--}}
                         </div>
                     </div>
                 </div>
@@ -105,12 +105,12 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 ">Daily Sales</h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today's
-                                sales. </p>
+                            {{--<p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today's
+                                sales. </p>--}}
                             <hr class="dark horizontal">
                             <div class="d-flex ">
                                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                                {{--<p class="mb-0 text-sm"> campaign sent 2 days ago </p>--}}
                             </div>
                         </div>
                     </div>
@@ -126,17 +126,17 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 "> Monthly Sales </h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in this month's
-                                sales. </p>
+                            {{--<p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in this month's
+                                sales. </p>--}}
                             <hr class="dark horizontal">
                             <div class="d-flex ">
                                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> updated 4 min ago </p>
+                                {{--<p class="mb-0 text-sm"> updated 4 min ago </p>--}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mt-4 mb-3">
+                {{--<div class="col-lg-4 mt-4 mb-3">
                     <div class="card z-index-2 ">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                             <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
@@ -155,10 +155,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
             <div class="row mb-4">
-                <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+                {{--<div class="col-lg-8 col-md-6 mb-md-0 mb-4">
                     <div class="card">
                         <div class="card-header pb-0">
                             <div class="row">
@@ -166,7 +166,7 @@
                                     <h6>Events</h6>
                                     <p class="text-sm mb-0">
                                         <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                        <span class="font-weight-bold ms-1">30 done</span> this month
+                                        --}}{{--<span class="font-weight-bold ms-1">30 done</span> this month--}}{{--
                                     </p>
                                 </div>
                                 <div class="col-lg-6 col-5 my-auto text-end">
@@ -492,14 +492,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
                             <h6>Best Selling Products</h6>
                             <p class="text-sm">
-                                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                                <span class="font-weight-bold">24%</span> this month
+                                {{--<i class="fa fa-arrow-up text-success" aria-hidden="true"></i>--}}
+                                {{--<span class="font-weight-bold">24%</span> this month--}}
                             </p>
                         </div>
                         <div class="card-body p-3">

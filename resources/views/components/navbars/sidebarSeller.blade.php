@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">User management</h6>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'seller-user-profile' ? 'active bg-gradient-primary' : '' }} "
@@ -26,7 +26,7 @@
                     <span class="nav-link-text ms-1">User Profile</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'seller-user-management' ? ' active bg-gradient-primary' : '' }} "
                    href="{{ route('seller-user-management', ['seller_id' => Auth::id()]) }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -34,7 +34,7 @@
                     </div>
                     <span class="nav-link-text ms-1">User Management</span>
                 </a>
-            </li>
+            </li>--}}
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
             </li>
@@ -53,12 +53,12 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
-                    <span class="nav-link-text ms-1">Tables</span>
+                    <span class="nav-link-text ms-1">Stores</span>
                 </a>
             </li>
 
 
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'seller-billing' ? ' active bg-gradient-primary' : '' }}  "
                    href="{{ route('seller-billing') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -87,23 +87,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white " href="{{ route('seller-static-sign-in') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">login</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Sign In</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white " href="{{ route('seller-static-sign-up') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">assignment</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Sign Up</span>
-                </a>
-            </li>
+            </li>--}}
         </ul>
     </div>
 </aside>

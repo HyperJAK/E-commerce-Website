@@ -302,7 +302,7 @@ Route::middleware('is_admin')->group(function() {
 //event routes
 
 
-Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('indexevent');
+Route::get('store/addEvent',[EventController::class,'index'])->name('indexevent');
 
 Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
 
