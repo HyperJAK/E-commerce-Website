@@ -154,7 +154,7 @@ class SellerController extends Controller
     public function userProfile(Request $request)
     {
 
-        $user = User::where('user_id', $request->seller_id)->first();
+        $user = User::where('user_id', Auth::id())->first();
 
         return view('/seller/pages/laravel-examples/user-profile')->with('user', $user);
     }

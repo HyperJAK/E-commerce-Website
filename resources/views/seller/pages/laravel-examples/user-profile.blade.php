@@ -66,8 +66,9 @@
                     </div>
                     <div class="card-body p-3">
 
-                        <form method='POST' action='{{ route('seller-user-profile') }}'>
+                        <form method='POST' action='{{ route('profile.update') }}'>
                             @csrf
+                            <input type="hidden" name="redirect_route" id="redirect_route" class="form-control" value="seller-user-profile">
 
                             <div class="row">
 
@@ -80,9 +81,9 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control border border-2 p-2" value='{{ $user?$user->username: 'Name' }}'>
-                                    @error('name')
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control border border-2 p-2" value='{{ $user?$user->username: 'Username' }}'>
+                                    @error('username')
                                 <p class='text-danger inputerror'>{{ $message }} </p>
                                 @enderror
                                 </div>
@@ -96,9 +97,23 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Location</label>
-                                    <input type="text" name="location" class="form-control border border-2 p-2" value='{{ $user ? $user->country . '-' . $user->city : 'Country-City' }}'>
-                                    @error('location')
+                                    <label class="form-label">Country</label>
+                                    <input type="text" name="country" class="form-control border border-2 p-2" value='{{ $user ? $user->country: 'Country'}}'>
+                                    @error('country')
+                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">City</label>
+                                    <input type="text" name="city" class="form-control border border-2 p-2" value='{{ $user ? $user->city : 'City' }}'>
+                                    @error('city')
+                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" name="address" class="form-control border border-2 p-2" value='{{ $user ? $user->address : 'Address' }}'>
+                                    @error('address')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
