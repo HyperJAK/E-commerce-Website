@@ -139,6 +139,28 @@
     </ul>
             @else
              <p>No reviews yet, Be the first to add one,<strong> Add Yours now!</strong></p>
+             <form action="{{ route('createProductReview') }}" id="AddReview" method="POST">
+                        @csrf
+                        <h2>Add your review:</h2>
+                        <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
+                        @if(Auth::check() && !is_null(Auth::id()))
+                        @php 
+                        $route = request();
+                        @endphp
+                        <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
+                        <input type="hidden" value="{{isset($obj)?$obj->product_id:0}}" name="product_id"/>
+                        @endif
+                        <br>
+                        <br>
+                        <label for="rating">Rating:</label>
+                        <select name="rating" id="rating">
+                            @foreach (range(1, 5) as $rating)
+                                <option value="{{ $rating }}">{{ $rating }} ★</option>
+                            @endforeach
+                        </select>
+                        <br>
+                        <button type="submit" class="btn purple" >Submit Review</button>
+                    </form>
             @endif
 </div>   
 </div>   

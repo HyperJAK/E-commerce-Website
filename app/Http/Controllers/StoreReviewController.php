@@ -19,19 +19,21 @@ class StoreReviewController extends Controller
         ]);
 
         $newStoreRev = new StoreReviews();
-        $newStoreRev->content = $request->reviewContent;
+        $newStoreRev->content = $request->content;
         $newStoreRev->rating = $request->rating;
         $newStoreRev->user_id = $request->user_id;
         $newStoreRev->store_id = $request->store_id;
 
         $newStoreRev->save();
 
-        return response()->json(['store_reviews' => $newStoreRev]);
+        // return response()->json(['store_reviews' => $newStoreRev]);
+        return redirect()->back();
     }
 
-    public function getStoreReviews(Request $request)
+    public function getStoreReviews($storeId)
     {
-        $storeReviews = StoreReviews::with('user')->where('store_id', $request->storeId)->get();
-        return response()->json(['store_reviews' => $storeReviews]);
+        $storeReviews = StoreReviews::with('user')->where('store_id', $storeId)->get();
+        // return response()->json(['store_reviews' => $storeReviews]);
+        return $storeReviews;
     }
 }
