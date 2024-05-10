@@ -17,12 +17,21 @@
                             @csrf
                             @method('POST')
                             <p><strong>UserName:</strong> <input type="text" name="username" value="{{ Auth::user()->username }}"></p>
-<p><strong>Email:</strong> <input type="email" name="email" value="{{ Auth::user()->email }}"></p>
+<p><strong>Email:</strong> <input type="email" name="email" value="{{ Auth::user()->email }}" readonly></p>
 <p><strong>Address:</strong> <input type="text" name="address" value="{{ Auth::user()->address }}"></p>
 <p><strong>Country:</strong> <input type="text" name="country" value="{{ Auth::user()->country }}"></p>
 <p><strong>City:</strong> <input type="text" name="city" value="{{ Auth::user()->city }}"></p>
 <p><strong>Phone:</strong> <input type="text" name="phone" value="{{ Auth::user()->phone }}"></p>
+<div class="form-group">
+    <label for="preferred_currency">Preferred Currency:</label>
+    <select name="preferred_currency" id="preferred_currency" class="form-control">
+        @foreach($currencies as $currency)
+            <option value="{{ $currency }}" {{ Auth::user()->preferred_currency === $currency ? 'selected' : '' }}>{{ $currency }}</option>
+        @endforeach
+    </select>
+</div>
 <p><strong>Are you a seller:</strong> <input type="checkbox" name="is_seller" value="1" {{ Auth::user()->is_seller ? 'checked' : '' }}> Yes</p>
+
 <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>
                     </div>
