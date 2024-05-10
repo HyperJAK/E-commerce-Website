@@ -96,6 +96,31 @@
         </div>
     </div>
 </div>
+<div class="container" id="revDiv">
+    <div class="row">
+        <div class="col-md-12">
+            @if(isset($reviews)&& count($reviews)>0)
+            <h2>Product Reviews:</h2>
+    <ul class="Revgrid">
+        @foreach ($reviews as $review)
+            <li class="rev2">
+                <strong>User Name:</strong> {{ucwords($review->user_name)}}<br>
+                <strong>Rating:</strong> <strong style="font-size:1.2rem;color:#ffb703">{{ $review->rating }} ★</strong><br>
+                <strong>Review:</strong> {{ $review->content }}<br>
+                <strong>Date:</strong> 
+                @php
+    $formattedDate = \Carbon\Carbon::parse($review->created_at)->format('F j, Y \a\t g:i A');
+@endphp
+{{$formattedDate}}<br>
+            </li>
+        @endforeach
+    </ul>
+            @else
+             <p>No reviews yet, Be the first to add one,<strong> Add Yours now!</strong></p>
+            @endif
+</div>   
+</div>   
+</div>   
 @else
 <div class="container" id="productDiv">
     <div class="row">

@@ -31,9 +31,10 @@ class ProductReviewController extends Controller
         return response()->json(['product_reviews' => $newProductRev]);
 
     }
-    public function getProductReviews(Request $request)
+    public function getProductReviews($productId)
     {
-        $productReviews = DB::table('product_reviews')->join('users', 'product_reviews.user_id', '=', 'users.user_id')->select('product_reviews.*', 'users.username as user_name', 'users.email as user_email')->where('product_reviews.product_id', $request->productId)->get();
-        return response()->json(['product_reviews' => $productReviews]);
+        $productReviews = DB::table('product_reviews')->join('users', 'product_reviews.user_id', '=', 'users.user_id')->select('product_reviews.*', 'users.username as user_name', 'users.email as user_email')->where('product_reviews.product_id', $productId)->get();
+        // return response()->json(['product_reviews' => $productReviews]);
+        return $productReviews;
     }
 }
