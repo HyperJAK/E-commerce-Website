@@ -307,6 +307,15 @@ Route::get('storeevents/{storeid}',[EventController::class,'index'])->name('inde
 Route::post('addevent',[EventController::class,'addevent'])->name('addevent');
 
 
+
+
+Route::middleware(['auth','regular_user'])->group(function() {
 //Routes to get reviews of a specific store / product
 Route::get('store/getReviews',[StoreReviewController::class,'getStoreReviews'])->name('getStoreReviews');
 Route::get('product/getReviews',[ProductReviewController::class,'getProductReviews'])->name('getProductReviews');
+
+//routes to create a store and product review
+Route::post('store/createStoreReview',[StoreReviewController::class,'createStoreReview'])->name('createStoreReview');
+Route::post('product/createProductReview',[ProductReviewController::class,'createProductReview'])->name('createProductReview');
+
+});
