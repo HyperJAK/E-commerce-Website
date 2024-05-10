@@ -309,7 +309,7 @@
     <div class="row">
         <div class="col-md-12">
             @if(isset($reviews)&& count($reviews)>0)
-            <h2>Product Reviews:</h2>
+            <h2>Store Reviews:</h2>
     <ul class="Revgrid">
         @foreach ($reviews as $review)
             <li class="rev2">
@@ -323,7 +323,7 @@
 {{$formattedDate}}<br>
             </li>
         @endforeach
-        <form action="{{ route('createProductReview') }}" id="AddReview" method="POST">
+        <form action="{{ route('createStoreReview') }}" id="AddReview" method="POST">
                         @csrf
                         <h2>Add your review:</h2>
                         <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
@@ -332,7 +332,7 @@
                         $route = request();
                         @endphp
                         <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
-                        <input type="hidden" value="{{isset($obj)?$obj->product_id:0}}" name="product_id"/>
+                        <input type="hidden" value="{{$route->query('store_id')}}" name="store_id"/>
                         @endif
                         <br>
                         <br>
@@ -348,7 +348,7 @@
     </ul>
             @else
              <p>No reviews yet, Be the first to add one,<strong> Add Yours now!</strong></p>
-             <form action="{{ route('createProductReview') }}" id="AddReview" method="POST">
+             <form action="{{ route('createStoreReview') }}" id="AddReview" method="POST">
                         @csrf
                         <h2>Add your review:</h2>
                         <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
@@ -357,7 +357,7 @@
                         $route = request();
                         @endphp
                         <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
-                        <input type="hidden" value="{{isset($obj)?$obj->product_id:0}}" name="product_id"/>
+                        <input type="text" value="{{$route->query('store_id')}}" name="store_id"/>
                         @endif
                         <br>
                         <br>
