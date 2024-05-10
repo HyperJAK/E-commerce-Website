@@ -24,7 +24,8 @@
     /* --maincolor:#f26522; */
     --maincolor:#7f69ce;
     /* --maincolor2:#ae9afa; */
-    --maincolor2:#d5c9ff;
+    --maincolor3:#d5c9ff;
+    --maincolor2:#d5c9ff7e;
 }
 html {
     scroll-behavior: smooth;
@@ -634,6 +635,63 @@ a:hover {
 #productDiv #ProdBtns form{
     margin: 0;
     display: inline-block;
+}
+#revDiv{
+     border-color: #6e5caf;
+     border-style: solid;
+     border-radius: 20px;
+     border-width: 2px;
+     padding-left: 5px;
+     margin-bottom: 2%;
+}
+#revDiv #AddReview{
+     border-color: #6e5caf;
+     border-style: solid;
+     border-radius: 20px;
+     border-width: 2px;
+     width:70vw;
+     padding-left: 2%;
+     padding-bottom: 3%;
+     margin-top:1%;
+     margin-bottom:1%;
+}
+#revDiv #AddReview h2{
+    margin-top:1%;
+}
+#revDiv #AddReview input[type="text"]{
+    width:90%;
+    padding-bottom:5%;
+}
+#revDiv #AddReview select{
+    padding-right: 5%;
+    color:var(--maincolor);
+}
+
+#revDiv strong{
+     color: #6e5caf;
+     font-size:1rem;
+}
+#revDiv h2{
+     color: #6e5caf;
+     font-weight: 700;
+     margin-left: 2%;
+     margin-top: 3%;
+}
+.Revgrid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    list-style: none;
+    padding: 0;
+    justify-content:center;
+}
+.rev2{
+    flex: 0 0 calc(48% - 20px);
+    background-color: var(--maincolor2);
+    margin: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 .purple{
     background-color: var(--maincolor);

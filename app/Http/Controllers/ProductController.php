@@ -52,6 +52,10 @@ class ProductController extends Controller
         }else{
             $wished=false;
         }
+        $rev=new ProductReviewController();
+        $getrev=$rev->getProductReviews($id);
+        // $getrev = json_decode($getrev1, true);
+        // return $getrev;
         $cur = new CurrencyConverterController();
         $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
 
@@ -64,7 +68,7 @@ class ProductController extends Controller
                     $userPreferedCurrency!='USD'&&$obj->price=number_format($obj->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
                     $obj->cur=$userPreferedCurrency->currency_symbol;
                     // return $obj;
-                    return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity);
+                    return view('viewProd')->with('obj',$obj)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('cats',$cats)->with('wished',$wished)->with('quantity', $itemAddedToCart[0]->quantity)->with('reviews',$getrev);
                 } else {
                     //    return response()->json(['message'=>'Product not found']);
                     return view('viewProd')->with('cats',$cats)->with('cartItem_id', $itemAddedToCart[0]->cartItem_id)->with('quantity', $itemAddedToCart[0]->quantity)->withErrors(["Product not found"]);
@@ -80,7 +84,7 @@ class ProductController extends Controller
                 $userPreferedCurrency!='USD'&&$obj->price=number_format($obj->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
                 $obj->cur=$userPreferedCurrency->currency_symbol;
                 // return $obj;
-                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished)->with('quantity', 0);
+                return view('viewProd')->with('obj',$obj)->with('cats',$cats)->with('wished',$wished)->with('quantity', 0)->with('reviews',$getrev);
             } else {
                 //    return response()->json(['message'=>'Product not found']);
                 return view('viewProd')->with('cats',$cats)->withErrors(["your_custom_error"=>"Product not found"])->with('quantity', 0);
