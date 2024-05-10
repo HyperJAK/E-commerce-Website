@@ -19,6 +19,22 @@
 
                                 <div class="d-flex flex-row justify-content-center gap-2">
                                     <a class="nav-link text-white bg-gradient-dark rounded-2"
+                                       href="{{ route('specificStoreDashboard', ['store_id'=>$store->store_id]) }}">
+                                        <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
+                                            <i class="material-icons opacity-10">receipt_long</i>
+                                        </div>
+                                        <span class="nav-link-text ms-1">Open Dashboard</span>
+                                    </a>
+
+                                    <a class="nav-link text-white bg-gradient-dark rounded-2"
+                                       href="{{ route('indexevent', ['store_id'=>$store->store_id]) }}">
+                                        <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
+                                            <i class="material-icons opacity-10">receipt_long</i>
+                                        </div>
+                                        <span class="nav-link-text ms-1">Add Event</span>
+                                    </a>
+
+                                    <a class="nav-link text-white bg-gradient-dark rounded-2"
                                        href="{{ route('redirect-view-store-orders', ['store_id'=>$store->store_id]) }}">
                                         <div class="text-white text-center d-flex align-items-center justify-content-center" style="margin: 0 auto">
                                             <i class="material-icons opacity-10">receipt_long</i>
