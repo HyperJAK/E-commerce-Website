@@ -21,15 +21,15 @@ class ProductReviewController extends Controller
         ]);
 
         $newProductRev = new ProductReviews();
-        $newProductRev->content = $request->reviewContent;
+        $newProductRev->content = $request->content;
         $newProductRev->rating = $request->rating;
         $newProductRev->user_id = $request->user_id;
         $newProductRev->product_id = $request->product_id;
 
         $newProductRev->save();
 
-        return response()->json(['product_reviews' => $newProductRev]);
-
+        // return response()->json(['product_reviews' => $newProductRev]);
+        return redirect()->back();
     }
     public function getProductReviews($productId)
     {
