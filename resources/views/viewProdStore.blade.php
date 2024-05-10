@@ -316,7 +316,7 @@
                 <strong>User Name:</strong> {{ucwords($review->user_name)}}<br>
                 <strong>Rating:</strong> <strong style="font-size:1.2rem;color:#ffb703">{{ $review->rating }} ★</strong><br>
                 <strong>Review:</strong> {{ $review->content }}<br>
-                <strong>Date:</strong> 
+                <strong>Date:</strong>
                 @php
     $formattedDate = \Carbon\Carbon::parse($review->created_at)->format('F j, Y \a\t g:i A');
 @endphp
@@ -328,7 +328,7 @@
                         <h2>Add your review:</h2>
                         <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
                         @if(Auth::check() && !is_null(Auth::id()))
-                        @php 
+                        @php
                         $route = request();
                         @endphp
                         <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
@@ -353,11 +353,11 @@
                         <h2>Add your review:</h2>
                         <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
                         @if(Auth::check() && !is_null(Auth::id()))
-                        @php 
+                        @php
                         $route = request();
                         @endphp
                         <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
-                        <input type="text" value="{{$route->query('store_id')}}" name="store_id"/>
+                        <input type="hidden" value="{{$route->query('store_id')}}" name="store_id"/>
                         @endif
                         <br>
                         <br>
@@ -371,9 +371,9 @@
                         <button type="submit" class="btn purple" >Submit Review</button>
                     </form>
             @endif
-</div>   
-</div>   
-</div> 
+</div>
+</div>
+</div>
                             @else
                                 <div class="box_main">
                                     <h4 class="shirt_text">Error</h4>
@@ -382,7 +382,7 @@
                                 </div>
                         </div>
                     </div>
-                    @endisset         
+                    @endisset
                 </div>
             </div>
         </div>
