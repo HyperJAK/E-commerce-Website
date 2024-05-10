@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -65,9 +66,15 @@ public function getCarts($buyer_id) {
 
     public function getActiveCart($buyer_id) {
         $cart = Cart::where('buyer_id',$buyer_id)->where('status', 0)->get();
+        $currencyRate = new CurrencyConverterController();
+
         if(count($cart) > 0 && $cart[0]->status == 0){
             $allCartItems = CartItem::with('product')->where('cart_id', $cart[0]->cart_id)->get();
             if ($allCartItems->isNotEmpty()) {
+                foreach ($allCartItems as $item){
+                    //here we are converting the currency if needed
+                    $item->product->price = ($item->product->price * $item->quantity) * $currencyRate->getCurrencyRate(Auth::user()->preferred_currency);
+                }
                 //saving the info in the session (potentially session storage) to access them in OrderController createOrder function
                 Session::put('userCart', $allCartItems);
                 return view('userCart',['userCartItems'=>$allCartItems]);
