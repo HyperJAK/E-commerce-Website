@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\CategoryForStores;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Product;
@@ -29,7 +30,12 @@ class SellerController extends Controller
     {
         $dailyOrders = new Order();
 
-        return view('/seller/dashboard/specificStoreDashboard')->with('dailyOrders', $dailyOrders->getOrdersSpecificStoreSortedByDay($request->store_id))->with('monthlyOrders', $dailyOrders->getOrdersSpecificStoreSortedByMonth($request->store_id))->with('dailyIncome', $dailyOrders->getTodayIncomeSpecificStore($request->store_id))->with('todayClients', $dailyOrders->getTodaySpecificStoreClients($request->store_id))->with('todayNewClients', $dailyOrders->getTodaySpecificStoreNewClients($request->store_id))->with('totalSales', $dailyOrders->getTotalSalesSpecificStore($request->store_id))->with('bestSelling', $dailyOrders->getSpecificStoreBestSellingProductsThisMonth($request->store_id));
+        $event = new EventController();
+
+        $allStoreEvents = $event->getEvents($request->store_id);
+
+
+        return view('/seller/dashboard/specificStoreDashboard')->with('dailyOrders', $dailyOrders->getOrdersSpecificStoreSortedByDay($request->store_id))->with('monthlyOrders', $dailyOrders->getOrdersSpecificStoreSortedByMonth($request->store_id))->with('dailyIncome', $dailyOrders->getTodayIncomeSpecificStore($request->store_id))->with('todayClients', $dailyOrders->getTodaySpecificStoreClients($request->store_id))->with('todayNewClients', $dailyOrders->getTodaySpecificStoreNewClients($request->store_id))->with('totalSales', $dailyOrders->getTotalSalesSpecificStore($request->store_id))->with('bestSelling', $dailyOrders->getSpecificStoreBestSellingProductsThisMonth($request->store_id))->with('allStoreEvents', $allStoreEvents);
     }
 
     //This function takes us to the page where we add a store to our seller
@@ -154,7 +160,7 @@ class SellerController extends Controller
     public function userProfile(Request $request)
     {
 
-        $user = User::where('user_id', $request->seller_id)->first();
+        $user = User::where('user_id', Auth::id())->first();
 
         return view('/seller/pages/laravel-examples/user-profile')->with('user', $user);
     }

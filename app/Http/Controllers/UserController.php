@@ -280,6 +280,8 @@ public function updateProfile(Request $request)
         'country' => 'required|string|max:255',
         'city' => 'required|string|max:255',
         'address' => 'nullable|string|max:1000',
+        'about' => 'nullable|string|max:1000',
+        'phone' => 'nullable|numeric',
     ]);
 
 
@@ -290,10 +292,12 @@ public function updateProfile(Request $request)
     $user->country = $request->input('country');
     $user->city = $request->input('city');
     $user->address = $request->input('address', '');
+    $user->about = $request->input('about', $user->about);
+    $user->phone = $request->input('phone', $user->phone);
 
     $user->save();
 
-    return redirect()->route('profile.edit')->with('status', 'Profile updated successfully.');
+    return redirect()->route($request->redirect_route?$request->redirect_route:'profile.edit')->with('status', 'Profile updated successfully.');
 }
 
 

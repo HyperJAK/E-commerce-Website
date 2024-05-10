@@ -18,7 +18,7 @@ class Event extends Model
         return $this->hasMany(User::class, 'user_id', 'participant_id');
     }
 
-    public function getStore(){
+    public function store(){
         return $this->belongsTo(Store::class, 'store_id', 'store_id');
     }
     public function getProduct(){

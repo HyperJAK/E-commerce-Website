@@ -118,14 +118,17 @@ class ProductController extends Controller
         }
         $cur = new CurrencyConverterController();
         $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
-
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
             $key->store_name = $key->getStoreName()[0];
-            $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+            if($userPreferedCurrency){
+            $userPreferedCurrency->preferred_currency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
             $key->cur=$userPreferedCurrency->currency_symbol;
+        }else{
+             $key->cur='$';
+        }
                 $fullAnswers[] = $key;
             }
             return $request->order? view('products')->with('objs',$obj)->with('cats',$cats)->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats);
@@ -159,8 +162,12 @@ class ProductController extends Controller
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            if($userPreferedCurrency){
             $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
             $key->cur=$userPreferedCurrency->currency_symbol;
+        }else{
+            $key->cur='$';
+       }
                 $fullAnswers[] = $key;
             }
          return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0])->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title',$obj->first()->category_id[0]);
@@ -190,8 +197,12 @@ class ProductController extends Controller
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            if($userPreferedCurrency){
             $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
             $key->cur=$userPreferedCurrency->currency_symbol;
+        }else{
+            $key->cur='$';
+       }
                 $fullAnswers[] = $key;
             }
             return $request->order?view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result')->with('order',$request->order):view('products')->with('objs',$obj)->with('cats',$cats)->with('title','Search Result');
@@ -229,8 +240,12 @@ class ProductController extends Controller
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            if($userPreferedCurrency){
             $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
             $key->cur=$userPreferedCurrency->currency_symbol;
+        }else{
+            $key->cur='$';
+       }
                 $fullAnswers[] = $key;
             }
           return $request->order?view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title',$storeCheck->first()->name)->with('order',$request->order):view('viewProdStore')->with('objs',$obj)->with('cats',$categories)->with('title','Search Result');
@@ -273,8 +288,12 @@ class ProductController extends Controller
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            if($userPreferedCurrency){
             $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
             $key->cur=$userPreferedCurrency->currency_symbol;
+        }else{
+            $key->cur='$';
+       }
     // $storeCheck->first()->name;
                 $fullAnswers[] = $key;
             }
@@ -305,11 +324,19 @@ class ProductController extends Controller
     } else{
         $obj= Product::select('product_id','name', 'description','price','category_id','path1')->where('store_id', $request->store_id)->where('category_id',$request->category_id)->paginate(6);
     }
+    $cur = new CurrencyConverterController();
+    $userPreferedCurrency = User::select('preferred_currency','currency_symbol')->where('user_id', Auth::id())->first();
 
         if (count($obj)>0) {$fullAnswers = [];
             foreach ($obj as $key) {
             $key->category_id = $key->getCatName();
             $key->description=Str::limit($key->description, 69);
+            if($userPreferedCurrency){
+                $userPreferedCurrency!='USD'&&$key->price=number_format($key->price *$cur->getCurrencyRate($userPreferedCurrency->preferred_currency));
+                $key->cur=$userPreferedCurrency->currency_symbol;
+            }else{
+                $key->cur='$';
+           }
     // $storeCheck->first()->name;
                 $fullAnswers[] = $key;
             }
