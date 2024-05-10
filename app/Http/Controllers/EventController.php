@@ -7,10 +7,10 @@ use App\Models\Product;
 use App\Models\Event;
 class EventController extends Controller
 {
-    public function index($storeid){
-        $products = Product::where('store_id', $storeid)->get();
-        $events=Event::where('store_id',$storeid)->get();
-        return view('storeevent', ['storeid' => $storeid, 'products' => $products,'events'=>$events]);
+    public function index(Request $request){
+        $products = Product::where('store_id', $request->store_id)->get();
+        $events=Event::where('store_id',$request->store_id)->get();
+        return view('storeevent', ['storeid' => $request->store_id, 'products' => $products,'events'=>$events]);
 	}
     public function addevent(Request $request){
         $event=new Event();
@@ -23,7 +23,13 @@ class EventController extends Controller
         $event->starting_price=$request->starting_price;
         $event->current_price=$request->starting_price;
         $event->save();
-        return redirect()->route('indexevent', ['storeid' => $request->store_id]);
+        return redirect()->route('view-edit-store', ['store_id'=>$request->store_id]);
 
+    }
+
+    public function getEvents($storeId){
+        $events=Event::with('store')->where('store_id',$storeId)->get();
+
+        return $events;
     }
 }
