@@ -13,6 +13,18 @@ class EventController extends Controller
         return view('storeevent', ['storeid' => $request->store_id, 'products' => $products,'events'=>$events]);
 	}
     public function addevent(Request $request){
+
+        $request->validate([
+            'store_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'product_id' => 'required|integer',
+            'starting_price' => 'required|numeric|min:0'
+        ]);
+
+
         $event=new Event();
         $event->store_id=$request->store_id;
         $event->name=$request->name;

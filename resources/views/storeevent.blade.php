@@ -95,7 +95,6 @@
         @foreach ($events as $event)
             <div class="event">
                 <p>Event {{ $event->event_id }}: {{ $event->name }}</p>
-                <p>///////</p>
             </div>
         @endforeach
     </div>

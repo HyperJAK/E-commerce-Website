@@ -24,7 +24,7 @@
                                 <div class="col"> <!-- Details -->
                                     <h4 class="shirt_text">{{ $cartItem->product->name }}</h4> <!-- Adjusting to access product details -->
                                     <p class="price_text">Quantity: {{ $cartItem->quantity }}</p> <!-- Adjusting to access cart details -->
-                                    <p class="price_text">Price: {{Auth::user()->currency_symbol}}{{ number_format($cartItem->quantity *  $cartItem->price)}}</p> <!-- Adjusting to access cart details -->
+                                    <p class="price_text">Price: {{Auth::user()->currency_symbol}}{{number_format($cartItem->product->price)}}</p> <!-- Adjusting to access cart details -->
                                 </div>
                                 <div class="col-lg-2 col-sm-2"> <!-- Button -->
                                     <form action="{{ route('DeleteCartItem', ['cartItem_id' => $cartItem->cartItem_id]) }}" method="POST">

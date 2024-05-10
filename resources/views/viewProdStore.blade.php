@@ -305,6 +305,75 @@
                                     </div>
 
                                 @endforeach
+                                <div class="container" id="revDiv">
+    <div class="row">
+        <div class="col-md-12">
+            @if(isset($reviews)&& count($reviews)>0)
+            <h2>Store Reviews:</h2>
+    <ul class="Revgrid">
+        @foreach ($reviews as $review)
+            <li class="rev2">
+                <strong>User Name:</strong> {{ucwords($review->user_name)}}<br>
+                <strong>Rating:</strong> <strong style="font-size:1.2rem;color:#ffb703">{{ $review->rating }} ★</strong><br>
+                <strong>Review:</strong> {{ $review->content }}<br>
+                <strong>Date:</strong>
+                @php
+    $formattedDate = \Carbon\Carbon::parse($review->created_at)->format('F j, Y \a\t g:i A');
+@endphp
+{{$formattedDate}}<br>
+            </li>
+        @endforeach
+        <form action="{{ route('createStoreReview') }}" id="AddReview" method="POST">
+                        @csrf
+                        <h2>Add your review:</h2>
+                        <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
+                        @if(Auth::check() && !is_null(Auth::id()))
+                        @php
+                        $route = request();
+                        @endphp
+                        <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
+                        <input type="hidden" value="{{$route->query('store_id')}}" name="store_id"/>
+                        @endif
+                        <br>
+                        <br>
+                        <label for="rating">Rating:</label>
+                        <select name="rating" id="rating">
+                            @foreach (range(1, 5) as $rating)
+                                <option value="{{ $rating }}">{{ $rating }} ★</option>
+                            @endforeach
+                        </select>
+                        <br>
+                        <button type="submit" class="btn purple" >Submit Review</button>
+                    </form>
+    </ul>
+            @else
+             <p>No reviews yet, Be the first to add one,<strong> Add Yours now!</strong></p>
+             <form action="{{ route('createStoreReview') }}" id="AddReview" method="POST">
+                        @csrf
+                        <h2>Add your review:</h2>
+                        <input type="text" placeholder="write your honest review here" name="content" maxlength=253 value=""/>
+                        @if(Auth::check() && !is_null(Auth::id()))
+                        @php
+                        $route = request();
+                        @endphp
+                        <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
+                        <input type="hidden" value="{{$route->query('store_id')}}" name="store_id"/>
+                        @endif
+                        <br>
+                        <br>
+                        <label for="rating">Rating:</label>
+                        <select name="rating" id="rating">
+                            @foreach (range(1, 5) as $rating)
+                                <option value="{{ $rating }}">{{ $rating }} ★</option>
+                            @endforeach
+                        </select>
+                        <br>
+                        <button type="submit" class="btn purple" >Submit Review</button>
+                    </form>
+            @endif
+</div>
+</div>
+</div>
                             @else
                                 <div class="box_main">
                                     <h4 class="shirt_text">Error</h4>
@@ -314,7 +383,6 @@
                         </div>
                     </div>
                     @endisset
-
                 </div>
             </div>
         </div>

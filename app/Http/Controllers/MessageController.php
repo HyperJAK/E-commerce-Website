@@ -76,12 +76,12 @@ class MessageController extends Controller
         })
         ->orderBy('created_at', 'asc')
         ->get();
-        foreach ($messages as $message) {
+        /*foreach ($messages as $message) {
             if ($message->receiverid == $msg->senderid) {
                 $message->is_read = true;
                 $message->save();
             }
-        }
+        }*/
 		return redirect()->route('chat',["sellerid"=>$msg->senderid,"buyerid"=>$msg->receiverid]);
 
     }
